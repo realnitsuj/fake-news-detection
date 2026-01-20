@@ -1,0 +1,24 @@
+documentclass: report
+subtitle: |
+  8INF970 - Atelier pratique en cybersécurité II
+
+  Fehmi Jaafar\hspace{2em}Samuel Desbiens
+author:
+- Justin Bossard
+- Mattéo Gouhier
+- Paul Mathé
+- Samuel Plet
+- Léo Raclet
+date: \today
+toc: true
+lof: false
+numbersections: true
+fontsize: 11pt
+papersize: a4
+geometry: margin=2cm
+lang: fr-FR
+colorlinks: true
+header-includes:
+- \usepackage{fvextra}
+- \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
+- \addto\captionsfrench{\renewcommand{\chaptername}{Partie}}
