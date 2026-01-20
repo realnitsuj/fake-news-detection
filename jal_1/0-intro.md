@@ -1,10 +1,17 @@
+---
+title: |
+  ![](/data/logo-uqac.pdf){height=1in}
+
+  Jalon 1
+---
+
 # Projet 3 - Jalon 1
 
 ## Nom et logo
 
 Notre projet portera le nom **VerifAI** et aura le logo suivant :
 
-![logo](./figures/logo-verifai-atelier-cyber.jpg)
+![logo](logo-verifai-atelier-cyber.jpg){height=300px}
 
 ## Outils
 
