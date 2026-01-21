@@ -30,3 +30,7 @@ Notre projet portera le nom **VerifAI** et aura le logo suivant :
 
 * **[Automatic Deception Detection: Methods for Finding Fake News]()** -
 * **[Countering fake information as a guarantee of state information security]()** -
+- @perez-rosasAutomaticDetectionFake2018
+- **Fake News Detection on Social Media: A Data Mining Perspective** [@shuFakeNewsDetection2017]
+
+# Références

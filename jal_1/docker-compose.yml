@@ -9,6 +9,7 @@ services:
         pandoc --pdf-engine=lualatex \
         --syntax-highlighting=tango \
         --metadata-file=/data/metadata.yaml \
-        --resource-path=/data/jal_1/figures \
+        --resource-path=/data/jal_1/ressources \
+        --citeproc --bibliography=sources.bib \
         /data/jal_1/*.md \
         -o /data/output/Jalon1.pdf
