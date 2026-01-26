@@ -6,7 +6,7 @@ Dans cette section, nous présentons un aperçu général de notre projet, ainsi
 
 Notre projet s’intitulera **VerifAI** et sera représenté par le logo ci-dessous :
 
-![logo](ressources/logo-verifai-atelier-cyber.jpg){height=300px}
+![logo](logo-verifai-atelier-cyber.jpg){height=300px}
 
 ## Outils et Technologies de développement
 
