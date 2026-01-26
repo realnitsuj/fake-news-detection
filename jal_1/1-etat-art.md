@@ -4,6 +4,8 @@
 
 Logé, C., & Ghori, R. (2025). Truth Sleuth & Trend Bender: AI Agents to fact-check YouTube videos & influence opinions. arXiv. [https://doi.org/10.48550/arXiv.2507.10577](https://doi.org/10.48550/arXiv.2507.10577)
 
+Cette recherche se concentre sur l'automatisation du fact-checking pour les contenus multimédias (YouTube), avec deux agents spécialisés.
+
 ## Truth Sleuth - L'Agent de Vérification des Faits
 
 Truth Sleuth est conçu pour vérifier automatiquement le contenu de vidéos Youtube. D’abord il extrait les affirmations clés de la vidéo analysée. Ensuite, Truth Sleuth utilise la technologie **Retrieval-Augmented Generation (RAG)** pour vérifier les faits. C’est à dire qu’il va chercher des données de confiances (souvent classées en 3 catégories de confiances : Gold, silver et bronze) en rapport avec les informations à vérifier. Cette méthode utilise les moteurs de recherche et d'autres sources fiables.
