@@ -7,33 +7,9 @@ title: |
 
 # Introduction
 
-TODO
+La désinformation, ou fake news, est une menace croissante pour la démocratie, notamment lors des élections. Au Québec, un tiers des électeurs y ont été exposés en 2022, et les journalistes en font une priorité d’inquiétude (Gouvernement du Québec, 2019 ; Sauvé, 2019). Face à ce défi, notre projet propose une solution innovante en deux volets :
 
-<!-- # Projet 3 - Jalon 1 -->
-<!---->
-<!-- ## Nom et logo -->
-<!---->
-<!-- Notre projet portera le nom **VerifAI** et aura le logo suivant : -->
-<!---->
-<!-- ![logo](logo-verifai-atelier-cyber.jpg){height=300px} -->
-<!---->
-<!-- ## Outils -->
-<!---->
-<!-- * **Python** - Pour le développement et entraînement de l'IA -->
-<!-- * **JavaScript** - Pour l'interface (Site / Extension web) -->
-<!-- * **[HuggingFace](https://huggingface.co/)** - Pour les modèles et les données -->
-<!---->
-<!-- ## Données -->
-<!---->
-<!-- * **[OpenAlex](https://openalex.org/)** - Base de données de litérature scientifique. -->
-<!-- * **[Webz.IO](https://webz.io/products/news-api/)** - Base de données de nouvelles du monde entier chaque jour. -->
-<!---->
-<!-- ## État de l'art -->
-<!---->
-<!-- ### Articles scientifique -->
-<!---->
-<!-- * **[Automatic Deception Detection: Methods for Finding Fake News]()** - -->
-<!-- * **[Countering fake information as a guarantee of state information security]()** - -->
-<!-- - @perez-rosasAutomaticDetectionFake2018 -->
-<!-- - **Fake News Detection on Social Media: A Data Mining Perspective** [@shuFakeNewsDetection2017] -->
+1. **Détection** automatisée par IA, combinant des algorithmes récents et des données temporelles pour une identification plus rapide et précise.
+2. **Explication** transparente des résultats via des modèles de langage (LLM), afin d’éduquer le public et de renforcer sa capacité à distinguer le vrai du faux.
 
+L’objectif de ce projet est de proposer une solution technologique et innovante pour lutter efficacement contre la désinformation tout en responsabilisant les citoyens.
