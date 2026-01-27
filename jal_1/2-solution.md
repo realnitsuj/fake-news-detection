@@ -2,11 +2,23 @@
 
 Dans cette section, nous présentons un aperçu général de notre projet, ainsi que des outils et technologies que nous utiliserons pour le réaliser.
 
-## Nom et logo
+## Identité Visuelle et Marque
 
-Notre projet s’intitulera **VerifAI** et sera représenté par le logo ci-dessous :
+### Nom : VerifAI
+
+Le nom **VerifAI** est un mot-valise fusionnant « Vérification » et « AI » (Intelligence Artificielle). Il évoque instantanément notre mission centrale : utiliser la puissance de l'automatisation pour rétablir la vérité. Ce choix d'un nom court et explicite a été fait pour assurer une mémorisation facile et une portée internationale.
+
+### Symbolique du Logo
+
+Notre identité visuelle a été conçue pour refléter nos valeurs technologiques et éthiques :
+
+- **Le V et la Loupe** : La structure en "V" combinée à la loupe centrale symbolise l'investigation minutieuse et la validation de l'information (le "Fact-Checking").
+- **Les Circuits Imprimés** : Intégrés dans la typographie, ils représentent le cœur technologique de notre solution et l'usage d'algorithmes avancés.
+- **Le Cerveau (au centre)** : Symbolise l'intelligence (artificielle et cognitive) au service de la cybersécurité.
+- **La Palette de Couleurs** : L'utilisation dominante du bleu et du blanc n'est pas anodine ; en cybersécurité et en communication, le bleu inspire la confiance, la stabilité et la sécurité technologique.
 
 ![logo](logo-verifai-atelier-cyber.jpg){height=300px}
+
 
 ## Outils et Technologies de développement
 
