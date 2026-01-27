@@ -1,3 +1,18 @@
+@inproceedings{10.24963/ijcai.2024/37,
+author = {Bao, Han and Zhang, Xuhong and Wang, Qinying and Liang, Kangming and Wang, Zonghui and Ji, Shouling and Chen, Wenzhi},
+title = {Pluggable watermarking of deepfake models for deepfake detection},
+year = {2024},
+isbn = {978-1-956792-04-1},
+url = {https://doi.org/10.24963/ijcai.2024/37},
+doi = {10.24963/ijcai.2024/37},
+abstract = {Deepfake model misuse poses major security concerns. Existing passive and active Deepfake detection methods both suffer from a lack of generalizability and robustness. In this study, we propose a pluggable and efficient active model watermarking framework for Deepfake detection. This approach facilitates the embedding of identification watermarks across a variety of Deepfake generation models, enabling authorities to extract them easily for detection purposes. Specifically, our method leverages the universal convolutional structure in generative model decoders. It employs convolutional kernel sparsification for adaptive watermark embedding positioning and introduces convolutional kernel normalization to seamlessly integrate watermark parameters with those of the generative model. For watermark extraction, we jointly train a watermark extractor based on a Deepfake detection model and use BCH encoding to identify watermark images effectively. Finally, we apply our approach to eight major types of Deepfake generation models. Experiments show our method successfully detects Deepfakes with an average accuracy exceeding 94\% even in heavy lossy channels. This approach operates independently of the generation model's training without affecting the original model's performance. Furthermore, our model requires training a very limited number of parameters and is resilient against three major adaptive attacks. The source code can be found at https://github.com/GuaiZao/Pluggable-Watermarking},
+booktitle = {Proceedings of the Thirty-Third International Joint Conference on Artificial Intelligence},
+articleno = {37},
+numpages = {9},
+location = {Jeju, Korea},
+series = {IJCAI '24}
+}
+
 @article{capuanoContentBasedFakeNews2023,
   title = {Content-{{Based Fake News Detection With Machine}} and {{Deep Learning}}: A {{Systematic Review}}},
   shorttitle = {Content-{{Based Fake News Detection With Machine}} and {{Deep Learning}}},
@@ -165,6 +180,33 @@
   abstract = {The emergence of various social networks has generated vast volumes of data. Efficient methods for capturing, distinguishing, and filtering real and fake news are becoming increasingly important, especially after the outbreak of the COVID-19 pandemic. This study conducts a multiaspect and systematic review of the current state and challenges of graph neural networks (GNNs) for fake news detection systems and outlines a comprehensive approach to implementing fake news detection systems using GNNs. Furthermore, advanced GNN-based techniques for implementing pragmatic fake news detection systems are discussed from multiple perspectives. First, we introduce the background and overview related to fake news, fake news detection, and GNNs. Second, we provide a GNN taxonomy-based fake news detection taxonomy and review and highlight models in categories. Subsequently, we compare critical ideas, advantages, and disadvantages of the methods in categories. Next, we discuss the possible challenges of fake news detection and GNNs. Finally, we present several open issues in this area and discuss potential directions for future research. We believe that this review can be utilized by systems practitioners and newcomers in surmounting current impediments and navigating future situations by deploying a fake news detection system using GNNs.},
   keywords = {Fake news,Fake news characteristics,Fake news detection,Fake news features,Graph neural network},
   file = {/home/justin/Zotero/storage/KNYLEDLE/Phan et al. - 2023 - Fake news detection A survey of graph neural network methods.pdf}
+}
+
+@online{PluggableWatermarkingDeepfake,
+  title = {Pluggable Watermarking of Deepfake Models for Deepfake Detection | {{Proceedings}} of the {{Thirty-Third International Joint Conference}} on {{Artificial Intelligence}}},
+  doi = {10.24963/ijcai.2024/37},
+  url = {https://dl.acm.org/doi/10.24963/ijcai.2024/37},
+  urldate = {2026-01-27},
+  langid = {english},
+  organization = {Guide Proceedings},
+  file = {/home/justin/Zotero/storage/TUM43XQX/37.html}
+}
+
+@inproceedings{promaPersonalizingLLMResponses2025,
+  title = {Personalizing {{LLM Responses}} to {{Combat Political Misinformation}}},
+  booktitle = {Proceedings of the 33rd {{ACM Conference}} on {{User Modeling}}, {{Adaptation}} and {{Personalization}}},
+  author = {Proma, Adiba and Pate, Neeley and Druckman, James and Ghoshal, Gourab and Hoque, Ehsan},
+  date = {2025-06-13},
+  series = {{{UMAP}} '25},
+  pages = {134--143},
+  publisher = {Association for Computing Machinery},
+  location = {New York, NY, USA},
+  doi = {10.1145/3699682.3728349},
+  url = {https://dl.acm.org/doi/10.1145/3699682.3728349},
+  urldate = {2026-01-27},
+  abstract = {Despite various efforts to tackle online misinformation, people inevitably encounter and engage with it, especially on social media platforms. Recent advances in LLMs present an opportunity to develop personalized interventions to address misinformed beliefs, and potentially offer more effective approaches than existing non-tailored methods. In this paper, we design and evaluate personalized LLM agent that can consider users’ demographics and personalities to tailor responses to mitigate misinformed beliefs. Our pipeline is grounded in facts through an external Retrieval Augmented Generation (RAG) knowledge base and is able to generate diverse output as a result of the personalization, with an average cosine similarity of 0.538. Our pipeline scores an average rating of 3.99 out of 5 when evaluated by a GPT-4o-mini LLM judge for response persuasiveness. Our methods can be adapted to design similar personalized agents in other domains.},
+  isbn = {979-8-4007-1313-2},
+  file = {/home/justin/Zotero/storage/L4HJUL24/Proma et al. - 2025 - Personalizing LLM Responses to Combat Political Misinformation.pdf}
 }
 
 @article{reisSupervisedLearningFake2019,
