@@ -155,6 +155,7 @@ Cette étude récente, présentée à la conférence ACM UMAP 2025, aborde la lu
 ### L'approche User-Centric et la Persuasion
 
 Les chercheurs proposent une pipeline utilisant des modèles de langage (LLM) pour générer des réponses correctives **personnalisées**. Contrairement aux approches génériques où le même message est diffusé à tous, ce système repose sur deux piliers :
+
 1.  **Grounding (Ancrage) :** L'utilisation de techniques RAG (Retrieval Augmented Generation) pour récupérer des preuves factuelles incontestables.
 2.  **Rhetorical Styling (Adaptation Rhétorique) :** L'analyse du profil linguistique et des traits de personnalité de l'utilisateur pour adapter la formulation de la réponse. L'IA n'impose pas la vérité brutalement, mais adopte un ton (empathique, analytique ou assertif) qui résonne avec les valeurs de l'utilisateur pour contourner ses mécanismes de défense.
 
