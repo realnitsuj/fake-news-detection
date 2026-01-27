@@ -10,6 +10,8 @@ Le nom **VerifAI** est un mot-valise fusionnant « Vérification » et « AI » 
 
 ### Symbolique du Logo
 
+![logo](logo-verifai-atelier-cyber.jpg){height=250px}
+
 Notre identité visuelle a été conçue pour refléter nos valeurs technologiques et éthiques :
 
 - **Le V et la Loupe** : La structure en "V" combinée à la loupe centrale symbolise l'investigation minutieuse et la validation de l'information (le "Fact-Checking").
@@ -17,7 +19,6 @@ Notre identité visuelle a été conçue pour refléter nos valeurs technologiqu
 - **Le Cerveau (au centre)** : Symbolise l'intelligence (artificielle et cognitive) au service de la cybersécurité.
 - **La Palette de Couleurs** : L'utilisation dominante du bleu et du blanc n'est pas anodine ; en cybersécurité et en communication, le bleu inspire la confiance, la stabilité et la sécurité technologique.
 
-![logo](logo-verifai-atelier-cyber.jpg){height=300px}
 
 
 ## Outils et Technologies de développement
