@@ -74,11 +74,11 @@ Contrairement à l'approche avec deux agents de Logé & Ghori, cette solution pr
 
 ### Les cinq agents spécialisés
 
-- **La Classification** : trie et catégorise le type de désinformation détecté.  
-- **L’Indexation** : gère et actualise l'infrastructure de vérification en tenant une archive des données vérifiées et fiables.  
-- **L'Extraction** : se concentre sur la collecte et la traçabilité des preuves, récupère les preuves vérifiées et remonte à l’origine de la désinformation.  
-- **La Correction** : corrige les informations et effectue des modifications basées sur les preuves identifiées.  
-- **La Vérification** : vérifie la qualité finale des corrections apportées et suit la crédibilité des sources.  
+- **La Classification** : trie et catégorise le type de désinformation détecté.
+- **L’Indexation** : gère et actualise l'infrastructure de vérification en tenant une archive des données vérifiées et fiables.
+- **L'Extraction** : se concentre sur la collecte et la traçabilité des preuves, récupère les preuves vérifiées et remonte à l’origine de la désinformation.
+- **La Correction** : corrige les informations et effectue des modifications basées sur les preuves identifiées.
+- **La Vérification** : vérifie la qualité finale des corrections apportées et suit la crédibilité des sources.
 
 > *« In contrast to single-agent or monolithic architectures, our approach employs five specialized agents: an Indexer agent […], a Classifier agent […], an Extractor agent […], a Corrector agent […] and a Verification agent for validating outputs and tracking source credibility. »* (Gautam, 2025)
 
@@ -93,3 +93,26 @@ Il est ainsi plus facile de déterminer d’où provient une erreur ou quel modu
 ### Défis et limitations
 
 Malgré ses avantages, le coût d’utilisation est élevé, puisque la mise en œuvre de cinq agents autonomes implique des coûts de calcul et d'infrastructure importants. La latence est également problématique, car la multiplication des interactions entre agents augmente la durée totale du traitement. Dans un environnement où la vitesse de détection est un enjeu majeur (par exemple sur les réseaux sociaux durant une campagne électorale), cette latence peut devenir un frein à l’adoption.
+
+## Automatic deception detection: : Methods for finding fake news (Nadia K. Conroy, Victoria L. Rubin, Yimin Chen, 2016)
+
+Cette recherche passe en revue les technologies actuelles qui jouent un rôle clé dans l’adoption et le développement de la détection des fake news.
+
+### Typologie des méthodes de détection
+
+L’article @AutomaticDeceptionDetection2015 propose une classification claire des approches existantes en deux grandes catégories :
+
+- **Approches linguistiques** : Analyse du contenu textuel pour identifier des "fuites linguistiques" (mots, syntaxe, sémantique, discours) associées à la tromperie, comme par example l’usage excessif de pronoms, de négations, ou d’émotions extrêmes pouvant trahir un texte mensonger.
+- **Approches par réseaux** : Exploitation des métadonnées, des comportements sur les réseaux sociaux, ou des bases de connaissances structurées (comme DBpedia) pour évaluer la crédibilité d’une information, notament par la vérification de faits via des graphes de connaissances ou l’analyse des profils d’utilisateurs suspects.
+
+### Hybridation des méthodes pour une détection robuste
+
+Les auteurs plaident pour un système hybride intégrant :
+
+1. **Linguistique** (analyse de surface, syntaxe profonde, sémantique, rhétorique) pour capter les indices textuels de tromperie.
+2. **Réseaux** (comportements en ligne, liens entre sources, vérification par bases de données) pour ajouter une dimension contextuelle et sociale.
+3. **Machine Learning** (SVM, Naïve Bayes) pour entraîner des classifieurs à partir de données annotées.
+
+Les auteurs pointent d'ailleurs que la combinaison de l’analyse syntaxique, pour détecter des incohérences, et des graphes de connaissances, pour vérifier des faits, a montré des taux de précision allant jusqu’à 91% dans certains cas.
+
+### Avantages et limites
