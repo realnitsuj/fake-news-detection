@@ -114,5 +114,3 @@ Les auteurs plaident pour un système hybride intégrant :
 3. **Machine Learning** (SVM, Naïve Bayes) pour entraîner des classifieurs à partir de données annotées.
 
 Les auteurs pointent d'ailleurs que la combinaison de l’analyse syntaxique, pour détecter des incohérences, et des graphes de connaissances, pour vérifier des faits, a montré des taux de précision allant jusqu’à 91% dans certains cas.
-
-### Avantages et limites

@@ -19,15 +19,14 @@ Notre identité visuelle a été conçue pour refléter nos valeurs technologiqu
 - **Le Cerveau (au centre)** : Symbolise l'intelligence (artificielle et cognitive) au service de la cybersécurité.
 - **La Palette de Couleurs** : L'utilisation dominante du bleu et du blanc n'est pas anodine ; en cybersécurité et en communication, le bleu inspire la confiance, la stabilité et la sécurité technologique.
 
-
-
 ## Outils et Technologies de développement
 
 Pour les outils de développement, nous utiliserons :
 
-- **Python** : Langage principal de programmation, choisi pour son adéquation avec les fonctionnalités IA, sa flexibilité et sa maîtrise par l’ensemble de l’équipe.
-- **PyTorch** : Une bibliothèque Python spécialisée pour la conception, l'entraînement et l'utilisation de modèles d'IA.
-- **FastAPI** : Une bibliothèque Python pour implémenter le serveur web, spécialement conçue pour gérer les requêtes asynchrones, ce qui est idéal pour l'inférence de modèles d'IA.
+- **[Python](https://www.python.org/)** : Langage principal de programmation, choisi pour son adéquation avec les fonctionnalités IA, sa flexibilité et sa maîtrise par l’ensemble de l’équipe.
+- **[PyTorch](https://pytorch.org/)** : Une bibliothèque Python spécialisée pour la conception, l'entraînement et l'utilisation de modèles d'IA.
+- **[FastAPI](https://fastapi.tiangolo.com/)** : Une bibliothèque Python pour implémenter le serveur web, spécialement conçue pour gérer les requêtes asynchrones, ce qui est idéal pour l'inférence de modèles d'IA.
+- **[HuggingFace](https://huggingface.co/)** - Une plateformes permettant l'accès à de nombreux modèles IA, ainsi que leur entraînement et utilisation.
 
 ## Outils de gestion
 
