@@ -2,21 +2,43 @@
 
 ## Survey of fake news detection using machine intelligence approach (Pal et al., 2023)
 
-Pal, A., Pranav, & Pradhan, M. (2023). Survey of fake news detection using machine intelligence approach. *Data & Knowledge Engineering*. [hhttps://doi.org/10.1016/j.datak.2022.102118](https://doi.org/10.1016/j.datak.2022.102118)
+Pal, A., Pranav, & Pradhan, M. (2023). Survey of fake news detection using machine intelligence approach. *Data & Knowledge Engineering*. [https://doi.org/10.1016/j.datak.2022.102118](https://doi.org/10.1016/j.datak.2022.102118)
 
-Cet article propose une vue d’ensemble des approches de détection automatique de fake news basées sur l’intelligence artificielle. Les auteurs distinguent principalement trois grandes familles de méthodes : celles fondées sur le contenu textuel de la nouvelle (caractéristiques lexicales, stylistiques, représentations vectorielles), celles qui exploitent le contexte social (profils utilisateurs, structure des interactions, graphes de diffusion), et les approches hybrides qui combinent plusieurs sources de signaux.
+Cet article propose une vue d’ensemble complète des approches de détection automatique de fake news basées sur l’intelligence artificielle, en mettant l'accent sur la diversité des signaux exploités.
 
-Le survey passe en revue les principaux jeux de données publics (Kaggle et ISOT) ainsi que les métriques d’évaluation classiques telles que l’accuracy, la précision, le rappel et le F1-score. Il compare les performances de modèles d’apprentissage automatique “classiques” (SVM, régressions, arbres de décision) avec des architectures d’apprentissage profond plus récentes (CNN, RNN, Transformers). Les auteurs soulignent plusieurs défis récurrents : difficulté de généraliser un modèle entraîné sur un domaine ou une plateforme vers un autre, sensibilité à la qualité de l’annotation et manque d’explicabilité des décisions, ce qui limite la confiance que peuvent accorder les utilisateurs aux systèmes de détection.
+### Les trois familles de méthodes
+Les auteurs classifient les approches en trois catégories distinctes :
+
+- **Contenu textuel** : Analyse des caractéristiques lexicales, stylistiques et des représentations vectorielles du texte.
+- **Contexte social** : Exploitation des profils utilisateurs, de la structure des interactions et des graphes de diffusion.
+- **Approches hybrides** : Combinaison de plusieurs sources de signaux pour une robustesse accrue.
+
+### Performance et Comparaison
+Le survey passe en revue les principaux jeux de données publics (Kaggle et ISOT) et compare les performances des modèles. Il met en opposition les modèles d’apprentissage automatique “classiques” (SVM, régressions, arbres de décision) aux architectures d’apprentissage profond plus récentes (CNN, RNN, Transformers), démontrant la supériorité de ces dernières sur les tâches complexes.
+
+### Défis identifiés
+Les auteurs soulignent plusieurs obstacles majeurs : la difficulté de généraliser un modèle entraîné sur un domaine spécifique (domaine shift), la sensibilité à la qualité de l’annotation des données, et surtout le **manque d’explicabilité**. Ce dernier point est crucial car l'effet "boîte noire" limite la confiance que les utilisateurs finaux peuvent accorder aux systèmes de détection.
 
 ---
 
 ## A systematic review of multimodal fake news detection on social media using deep learning models (Nasser et al., 2025)
 
-Nasser, M., Arshad, N. I., & Sugathan, S. K. (2025). A systematic review of multimodal fake news detection on social media using deep learning models. *Results in Engineering*. [https://doi.org/10.1016/j.rineng.2025.104752](https://doi.org/10.1016/j.rineng.2025.104752)  
+Nasser, M., Arshad, N. I., & Sugathan, S. K. (2025). A systematic review of multimodal fake news detection on social media using deep learning models. *Results in Engineering*. [https://doi.org/10.1016/j.rineng.2025.104752](https://doi.org/10.1016/j.rineng.2025.104752)
 
-Cette revue systématique s’intéresse spécifiquement aux approches multimodales appliquées aux réseaux sociaux, où les fake news combinent souvent texte, images et parfois vidéos. Les auteurs analysent les architectures de deep learning qui fusionnent plusieurs modalités : réseaux convolutionnels ou Vision Transformers pour les images, RNN/Transformers pour le texte, et parfois des modules supplémentaires pour intégrer des métadonnées ou des signaux comportementaux issus des plateformes sociales.  
+Cette revue systématique s’intéresse spécifiquement aux approches **multimodales** sur les réseaux sociaux, partant du constat que la désinformation moderne combine intrinsèquement texte et image.
 
-Les résultats présentés montrent que les modèles multimodaux atteignent en général de meilleures performances que les approches uniquement textuelles, notamment sur des plateformes comme Twitter, Facebook ou Weibo, où les contenus visuels jouent un rôle important dans la diffusion de la désinformation. Cependant, la revue met en évidence plusieurs limites : complexité et coût de calcul élevés, besoin de grandes quantités de données annotées de manière cohérente, difficulté à expliquer quelles parties du texte ou de l’image ont conduit à la décision du modèle. Ces contraintes sont importantes pour notre projet, qui vise une solution utilisable en pratique, avec un accent sur l’explicabilité et l’éducation des utilisateurs plutôt que sur la seule performance brute.
+### Architectures de fusion multimodale
+Les auteurs analysent comment les architectures de deep learning fusionnent les modalités :
+
+- **Images** : Utilisation de réseaux convolutionnels (CNN) ou de Vision Transformers.
+- **Texte** : Utilisation de RNN ou de Transformers (BERT, etc.).
+- **Métadonnées** : Intégration de modules supplémentaires pour les signaux comportementaux.
+
+### Résultats et efficacité
+Les résultats montrent que les modèles multimodaux surpassent systématiquement les approches uniquement textuelles, en particulier sur des plateformes riches en visuels comme Twitter, Facebook ou Weibo. L'image joue souvent un rôle de catalyseur dans la diffusion de la fausse information.
+
+### Limites et contraintes techniques
+La revue met en évidence des freins importants à l'adoption pratique : la complexité et le coût de calcul élevés, le besoin de jeux de données annotés massifs et cohérents, et la difficulté d'aligner l'explicabilité entre le texte et l'image (savoir quelle partie de l'image a déclenché la décision). Ces contraintes valident notre choix de privilégier une solution explicable et éducative plutôt qu'une performance brute opaque.
 
 ---
 
