@@ -147,3 +147,40 @@ Les auteurs classifient les méthodes de détection via GNN en quatre catégorie
 ### Défis pour la détection précoce
 
 L'article soulève un point critique pour notre projet : la détection précoce (Early Detection). Les méthodes basées sur la propagation sont très performantes mais nécessitent que la news ait déjà été partagée massivement. Pour une détection rapide (avant la viralité), les auteurs suggèrent de privilégier les approches basées sur le contexte (analyser la source dès la publication) ou d'utiliser des GNN hétérogènes capables de traiter simultanément le texte, l'image et le profil utilisateur dès les premiers instants.
+
+## 2.8 Personalizing LLM Responses to Combat Political Misinformation (Proma et al. 2025)
+
+Cette étude récente, présentée à la conférence ACM UMAP 2025, aborde la lutte contre la désinformation sous un angle psychologique et cognitif. Les auteurs partent du constat que le simple "Fact-Checking" (vérification des faits) échoue souvent car il se heurte aux croyances préétablies des utilisateurs, provoquant un phénomène de dissonance cognitive.
+
+### 2.8.1 L'approche User-Centric et la Persuasion
+
+Les chercheurs proposent une pipeline utilisant des modèles de langage (LLM) pour générer des réponses correctives **personnalisées**. Contrairement aux approches génériques où le même message est diffusé à tous, ce système repose sur deux piliers :
+1.  **Grounding (Ancrage) :** L'utilisation de techniques RAG (Retrieval Augmented Generation) pour récupérer des preuves factuelles incontestables.
+2.  **Rhetorical Styling (Adaptation Rhétorique) :** L'analyse du profil linguistique et des traits de personnalité de l'utilisateur pour adapter la formulation de la réponse. L'IA n'impose pas la vérité brutalement, mais adopte un ton (empathique, analytique ou assertif) qui résonne avec les valeurs de l'utilisateur pour contourner ses mécanismes de défense.
+
+### 2.8.2 Résultats et efficacité pédagogique
+
+L'étude démontre que les réponses personnalisées sont significativement plus efficaces pour réduire les fausses croyances que les corrections standards. Elle valide l'efficacité du "micro-ciblage" éthique : l'IA agit comme un pédagogue capable d'expliquer l'erreur en suivant le cheminement de pensée de l'utilisateur, transformant la confrontation en dialogue.
+
+### 2.8.3 Pertinence pour VerifAI
+
+Cet article est fondamental pour le **volet éducatif** de notre projet. Il confirme que le module d'explication de VerifAI ne doit pas se contenter de résumer les faits, mais doit adopter une approche "centrée utilisateur". Pour maximiser l'impact pédagogique, VerifAI devra potentiellement adapter le ton de ses explications générées par LLM, assurant ainsi que l'utilisateur comprenne et accepte le verdict de détection sans se sentir jugé.
+
+## 2.9 Pluggable Watermarking of Deepfake Models for Deepfake Detection (Bao et al. 2024)
+
+[span_0](start_span)[span_1](start_span)Publié lors de la conférence IJCAI 2024, cet article marque un tournant technologique en passant de la détection "passive" (analyser les pixels) à une défense "active" via le marquage des modèles génératifs[span_0](end_span)[span_1](end_span). [span_2](start_span)[span_3](start_span)Face à des Deepfakes de plus en plus réalistes où la détection passive atteint ses limites et manque de robustesse[span_2](end_span)[span_3](end_span), cette méthode propose d'intervenir à la source.
+
+### 2.9.1 La Défense Active et le concept "Pluggable"
+
+[span_4](start_span)Les auteurs présentent une méthode de tatouage numérique (watermarking) qualifiée de "pluggable" (enfichable) et efficace[span_4](end_span). [span_5](start_span)[span_6](start_span)L'innovation majeure réside dans le fait qu'elle s'intègre à des modèles de Deepfake déjà entraînés sans nécessiter un réentraînement complet, fonctionnant indépendamment de la méthode d'entraînement originale du modèle génératif[span_5](end_span)[span_6](end_span).
+
+[span_7](start_span)Techniquement, l'outil utilise la "sparsification" des noyaux de convolution dans le décodeur du modèle génératif[span_7](end_span). [span_8](start_span)[span_9](start_span)Il identifie les positions des paramètres redondants via une stratégie d'élagage (pruning) pour y injecter une signature invisible[span_8](end_span)[span_9](end_span). [span_10](start_span)[span_11](start_span)Ainsi, chaque image générée contient intrinsèquement une preuve mathématique de son origine artificielle sans altérer la qualité visuelle[span_10](end_span)[span_11](end_span).
+
+### 2.9.2 Robustesse et Architecture Hybride
+
+[span_12](start_span)[span_13](start_span)Pour garantir la détection, le système utilise un encodage BCH (Bose-Chaudhuri-Hocquenghem), un code correcteur d'erreur qui permet d'identifier le watermark même après des altérations ou des transformations avec perte[span_12](end_span)[span_13](end_span). [span_14](start_span)Les expérimentations, menées sur huit types majeurs de modèles de Deepfake (dont StyleGAN et SimSwap), montrent un taux de précision moyen supérieur à 94%[span_14](end_span). [span_15](start_span)[span_16](start_span)Cette approche dissocie la détection de la qualité visuelle de l'image, offrant une fiabilité que les méthodes passives ne peuvent garantir seules[span_15](end_span)[span_16](end_span).
+
+### 2.9.3 Pertinence pour VerifAI
+
+Cette recherche justifie l'adoption d'une **architecture hybride** pour VerifAI. Elle suggère d'intégrer, en plus de nos algorithmes de détection visuelle (probabilistes), un module capable de lire ces signatures numériques (déterministes). Cela positionne VerifAI comme une solution "future-proof", prête pour un écosystème où la régulation imposera le marquage des contenus générés par IA. [span_17](start_span)[span_18](start_span)Notre outil ne se contentera pas de "deviner" le faux via l'analyse d'artefacts, mais pourra "certifier" l'origine synthétique d'une image grâce à l'extraction de watermarks[span_17](end_span)[span_18](end_span).
+
