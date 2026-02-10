@@ -22,3 +22,5 @@ header-includes:
 - \usepackage{fvextra}
 - \DefineVerbatimEnvironment{Highlighting}{Verbatim}{breaklines,commandchars=\\\{\}}
 - \addto\captionsfrench{\renewcommand{\chaptername}{Partie}}
+- \usepackage{multicol}
+- \usepackage{graphicx}
