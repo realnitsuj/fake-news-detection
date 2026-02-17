@@ -1,11 +1,8 @@
 from fastapi import FastAPI
 
+from app.api import files, ping
+
 app = FastAPI()
 
-
-@app.get("/")
-async def root():
-    return {"message": "Hello World"}
-
-# Run
-# uv run fastapi dev
+app.include_router(ping.router, tags=["ping"])
+app.include_router(files.router, prefix="/files", tags=["files"])
