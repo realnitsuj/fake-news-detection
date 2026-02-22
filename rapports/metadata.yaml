@@ -24,3 +24,7 @@ header-includes:
 - \addto\captionsfrench{\renewcommand{\chaptername}{Partie}}
 - \usepackage{multicol}
 - \usepackage{graphicx}
+- \usepackage{float}
+- \let\origfigure\figure
+- \let\endorigfigure\endfigure
+- \renewenvironment{figure}[1][2]{\expandafter\origfigure\expandafter[H]}{\endorigfigure}

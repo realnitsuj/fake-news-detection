@@ -1,0 +1,15 @@
+services:
+  pandoc:
+    image: pandoc/extra:latest
+    volumes:
+      - ../:/data:z
+    entrypoint: ["/bin/sh", "-c"]
+    command:
+      - |
+        pandoc --pdf-engine=lualatex \
+        --syntax-highlighting=tango \
+        --metadata-file=/data/metadata.yaml \
+        --resource-path=/data/jal_2/ressources \
+        --citeproc --bibliography=sources.bib \
+        /data/jal_2/*.md \
+        -o /data/output/Jalon2.pdf
