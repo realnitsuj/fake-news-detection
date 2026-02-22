@@ -2,12 +2,18 @@
 
 This is the backend web server powered by Python and FastAPI.
 
-## Run
+## Run development server
 
 You can run the development server using the following command :
 
 ```sh
 uv run fastapi dev
+```
+
+## Export dependencies
+
+```sh
+uv export > requirements.txt
 ```
 
 ## Resources
