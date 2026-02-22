@@ -12,6 +12,8 @@ services:
       - 8002:8000
     environment:
       - DATABASE_URL=postgresql://hello_fastapi:hello_fastapi@db/hello_fastapi_dev
+    env_file:
+      - ./backend/.env
   db:
     image: postgres:12.1-alpine
     container_name: db
