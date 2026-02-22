@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
-from app.api import files, ping
+from app.api import ai, files, ping
 
 app = FastAPI()
 
@@ -20,4 +20,4 @@ app.add_middleware(
 
 app.include_router(ping.router, tags=["ping"])
 app.include_router(files.router, prefix="/files", tags=["files"])
-app.include_router(files.router, prefix="/ai", tags=["ai"])
+app.include_router(ai.router, prefix="/ai", tags=["ai"])
