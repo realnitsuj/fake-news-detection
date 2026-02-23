@@ -24,9 +24,7 @@ Elle se structure autour de **deux catégories d’endpoints** :
 
 Parmi les tâches assurées par le serveur figure l’inférence du modèle d’IA sur les données utilisateur. Ce processus repose sur un script Python qui effectue une requête vers l’API de Hugging Face, analyse la réponse obtenue, puis transmet les résultats au serveur, lequel les renvoie finalement à l'utilisateur.
 
-# Architecture Backend : Le Moteur d'Analyse
-
-Le backend de cette application sert de **passerelle** entre les interfaces utilisateurs et les modèles de Deep Learning. Son rôle est de gérer la validation, la communication sécurisée et l'interprétation des données.
+# Architecture Backend API FIRST
 
 ---
 
