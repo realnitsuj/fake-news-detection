@@ -111,4 +111,4 @@ Pour garantir la sécurité on stock les informations importante dans des variab
 
 ## Perspectives d'Évolution
 
-Par la suite, nous pouvons penser changer le modèle pour prendre un modèle de type LLM, permettant de justifier le verdict. Cela permettrait d’afficher ces détails aux utilisateurs pour mieux comprendre les raisons derrière un résultat. On pourra le faire assez facilement, grâce à l’architecture expliqué au-dessus. 
+Nous allons par la suite connecter le front et le back afin de pouvoir envoyer le texte à analyser directement depuis l'interface. Ensuite, nous pouvons penser changer le modèle pour prendre un modèle de type LLM, permettant de justifier le verdict. Cela permettrait d’afficher ces détails aux utilisateurs pour mieux comprendre les raisons derrière un résultat. On pourra le faire assez facilement, grâce à l’architecture expliqué au-dessus. Et sur les bases de ce modèle, nous allons essayer de faire du fine tunning avec d'autres bases de données.
