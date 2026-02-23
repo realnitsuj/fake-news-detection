@@ -84,7 +84,7 @@ Ce flux garantit que l'interface finale reçoit une donnée **fiable, lisible et
 
 ---
 
-##  Format de Sortie
+##  Format de Sortie du Modèle
 
 Le backend ne renvoie pas de texte brut, mais un **objet JSON standardisé**. Cette structure permet de connecter n'importe quel Frontend sans modifier le code serveur.
 
@@ -99,6 +99,9 @@ Le backend ne renvoie pas de texte brut, mais un **objet JSON standardisé**. Ce
 ```
 
 ---
+
+##  Format de Sortie du Module
+En sortie, on renvoie pour le moment dans la CLI le texte à analyser que l'on redonne à l'utilisateur pour qu'il puisse relire si besoin, le résultat sous forme de phrase (FAKE NEWS détectée ! ou Information fiable.), le score de confiance et le label, donc Fake ou Vrai (cela peut sembler redondant mais permet de vérifier que lors de la conversion depuis le json aucune erreur ne se produit).
 
 ##  Sécurité &  Performance
 
