@@ -32,8 +32,6 @@ Parmi les tâches assurées par le serveur figure l’inférence du modèle d’
 
 # Architecture Backend API FIRST
 
----
-
 ## Responsabilités du Module
 
 Le backend remplit trois fonctions principales :
@@ -42,17 +40,15 @@ Le backend remplit trois fonctions principales :
 2. **Normalisation** : Transformation du texte brut en format compatible pour l'IA.
 3. **Traduction des résultats** : Transformer le retour via l'API en texte compréhensible par l'utilisateur.
 
----
-
 ## Architecture Interne du Code
 
 Le backend est segmenté en **deux composants** pour garantir la maintenabilité et éviter le code spaghetti.
 
-### 1. Le Point d'Entrée — `main.py`
+### Le Point d'Entrée — `main.py`
 
 C'est lui qui contrôle l'application. Il reçoit les données entrantes, y applique les règles de validation (longueur minimale du texte), et construit la réponse finale suivant un schéma de réponse prédéfini.
 
-### 2. Le Service de Communication IA — `ai_service.py`
+### Le Service de Communication IA — `ai_service.py`
 
 Ce service est le point central de la connexion à l'IA :
 
@@ -60,15 +56,11 @@ Ce service est le point central de la connexion à l'IA :
 - **Routage Dynamique** : Connexion au Router Hugging Face pour optimiser la disponibilité.
 - **Gestion de la résilience** : Paramétrage du `wait_for_model` pour éviter les plantages lors du chargement des modèles IA sur le serveur distant.
 
----
-
 ## Choix du Modèle
 
 Nous avons choisi un modèle réputé basé sur l'architecture **RoBERTa**, enrichi sur des articles comportant ou non des fake news. Ce choix n'est pas définitif, mais permet d'avoir une vision claire du fonctionnement de notre code.
 
 > **Modèle utilisé** : [`hamzab/roberta-fake-news-classification`](https://huggingface.co/hamzab/roberta-fake-news-classification)
-
----
 
 ##  Flux de Traitement des Données
 
@@ -86,8 +78,6 @@ Texte brut → Validation → Authentification → Analyse IA → Parsing → Po
 5. Post-traitement : Il traduit ces statistiques en information humaine. Le score est converti en pourcentage et le label technique devient un verdict clair et lisible.
 Ce flux garantit que l'interface finale reçoit une donnée **fiable, lisible et prête à être affichée**.
 
----
-
 ##  Format de Sortie du Modèle
 
 Le backend ne renvoie pas de texte brut, mais un **objet JSON standardisé**. Cette structure permet de connecter n'importe quel Frontend sans modifier le code serveur.
@@ -102,12 +92,10 @@ Le backend ne renvoie pas de texte brut, mais un **objet JSON standardisé**. Ce
 }
 ```
 
----
-
-##  Format de Sortie du Module
+## Format de Sortie du Module
 En sortie, on renvoie pour le moment dans la CLI le texte à analyser que l'on redonne à l'utilisateur pour qu'il puisse relire si besoin, le résultat sous forme de phrase (FAKE NEWS détectée ! ou Information fiable.), le score de confiance et le label, donc Fake ou Vrai (cela peut sembler redondant mais permet de vérifier que lors de la conversion depuis le json aucune erreur ne se produit).
 
-##  Sécurité &  Performance
+## Sécurité & Performance
 
 Pour garantir la sécurité on stock les informations importante dans des variables d’environnement (dans .env) pour empêcher la fuite des clés API sur les dépôts de code publics. Et pour permettre d’améliorer la performance, nous avons construit l’application afin de pouvoir facilement changer le modèle (ici une instance de Roberta), à la seule condition de changer le format que l’on récupère sans le JSON.
 
