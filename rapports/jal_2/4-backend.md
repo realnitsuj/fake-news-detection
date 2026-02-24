@@ -1,4 +1,4 @@
-# Backend
+# Serveur et API
 
 Le backend met en œuvre une **API personnalisée** permettant notamment au frontend d'effectuer des actions telles que la vérification de texte ou le téléversement de fichiers.
 
@@ -7,6 +7,12 @@ Le backend met en œuvre une **API personnalisée** permettant notamment au fron
 L’image suivante présente l’architecture actuelle de notre solution. Elle montre comment s’articule le rôle de notre serveur au sein du système, ainsi que la manière dont s’organisent les interactions entre l’IA et l’utilisateur à travers celui-ci.
 
 ![Schema Technique du Projet](schema-backend.png){height=290px}
+
+Le serveur, qui implémente une REST API, agit comme intermédiaire entre le Frontend, le traitement des données utilisateurs et les tâches de prédiction de l'IA sur ces données.
+
+Son rôle est de centraliser les secrets, tels que les clés API, requis pour les requêtes de prédiction. Il permettrait également d’effectuer des traitements avancés sur les diverses sources de données de l’utilisateur, comme l’extraction de texte à partir de fichiers PDF ou d’images grâce à des scripts et à l’OCR.
+
+Pour l’interaction avec le frontend, le serveur expose une API REST à laquelle le frontend se connecte pour exécuter des actions et récupérer ou envoyer des données.
 
 ## API
 
