@@ -2,28 +2,26 @@
 
 ## Maquette conceptuelle du produit
 
-Pour notre produit, nous avons cherché à avoir une interface simple et épuré, qui va à l'essentiel. Voilà la maquette conceptuelle de notre interface, en deux pages principales, accueil et résultats :
+Pour notre produit, nous avons cherché à avoir une interface simple et épurée, qui va à l'essentiel. Voici la maquette conceptuelle de notre interface, en deux pages principales, accueil et résultats :
 
-![Maquette conceptuelle de l'accueil de VerifAI](maquette-accueil.png)
+![Maquette conceptuelle de l'accueil de VerifAI](maquette-accueil.png){height=250px}
 
-![Maquette conceptuelle des résultats](maquette-resultats.png)
+![Maquette conceptuelle des résultats](maquette-resultats.png){height=250px}
 
-## A. Stack Frontend
+## Stack Frontend
 
-Le frontend a été développé avec **React 19** et **TypeScript**, bundlé via **Vite 7** configuré sur le port `8080`. L'interface utilise **Tailwind CSS v4** pour le style et **shadcn/ui** (style new-york) pour les composants de base comme les boutons, les inputs et les textareas. Les icônes proviennent de **Lucide React**.
+Le frontend a été développé avec **React 19** et **TypeScript**, bundlé via **Vite 7** configuré sur le port `8080`. L'interface utilise **Tailwind CSS v4** pour le style et **shadcn/ui** (style New York) pour les composants de base comme les boutons, les inputs et les textareas. Les icônes proviennent de **Lucide React**.
 
----
-
-## B. Structure
+## Structure
 
 Par souci de simplicité, l'ensemble du code frontend est centralisé dans un seul fichier `src/App.tsx`, sans pages ou composants séparés. Cela facilite la lecture et la maintenance pour un projet de cette taille.
 
 ```
 src/
-├── App.tsx        ← tout : types, logique, composants, pages
-├── index.css      ← thème dark + animations
-└── assets/
-    └── logo.jpg
+|- App.tsx        <- global : types, logique, composants, pages
+|- index.css      <- thème + animations
+|- assets/
+   |- logo.jpg
 ```
 
 Le fichier `App.tsx` est organisé dans l'ordre suivant :
@@ -36,31 +34,25 @@ Le fichier `App.tsx` est organisé dans l'ordre suivant :
 7. Fonction `ResultPage` — page de résultat
 8. Export `App` — gestion du routing et de l'état global
 
----
-
-## C. Page d'accueil
+## Page d'accueil
 
 La page d'accueil est épurée et centrée. Elle affiche le logo VerifAI avec un effet de glow bleu, un sous-titre, puis une carte principale contenant les éléments de saisie. L'utilisateur peut basculer entre deux modes via des tabs : **URL** pour coller un lien et **Texte** pour coller directement le contenu d'un article. En dessous de la carte, trois statistiques (précision, délai, nombre de sources) donnent de la crédibilité à l'outil. Un lien vers les conditions d'utilisation est placé en pied de page.
 
 ![Page d'accueil](accueil.png){height=290px}
----
 
-## D. Page de résultat
+## Page de résultat
 
 La page de résultat s'organise en trois zones distinctes. En haut, une **carte verdict pleine largeur** affiche le résultat principal avec une couleur adaptée au verdict (rouge pour FAKE, vert pour REAL, ambre pour UNCERTAIN), le score de confiance en grand et une barre de progression animée.
 
 En dessous, un **layout en deux colonnes** permet de lire les informations en parallèle. La colonne gauche (plus étroite) contient un cercle de score et quatre barres de métriques détaillées. La colonne droite (plus large) affiche l'explication textuelle du résultat ainsi que les sources consultées par le modèle. En bas de page, deux boutons permettent de **sauvegarder** le rapport au format `.txt` ou de **revenir** à l'accueil.
 
 ![Page de réponse](reponse.png){height=290px}
----
 
-## E. Design
+## Design
 
 Le design suit l'identité visuelle du logo VerifAI — fond très sombre (`oklch(0.09 0 0)`) et bleu électrique comme couleur primaire (`oklch(0.62 0.19 235)`). Chaque page possède un glow radial en fond dont la couleur change selon le verdict affiché, renforçant visuellement le résultat. Une grille subtile en arrière-plan ajoute de la profondeur sans surcharger l'interface. La police **Inter** est chargée depuis Google Fonts pour une typographie propre et lisible.
 
----
-
-## F. Transitions et chargement
+## Transitions et chargement
 
 Un soin particulier a été apporté à la fluidité des transitions entre les pages. Au lieu d'attendre la réponse du backend avant de changer de vue — ce qui provoquerait un écran noir ou un blocage visible — le frontend **bascule immédiatement** vers la page de résultat dès que l'utilisateur clique sur Analyser, et affiche un skeleton en attendant la réponse.
 
@@ -75,9 +67,7 @@ const handleAnalyze = async (input: string) => {
 
 Le skeleton comprend un **spinner SVG circulaire animé** à la place du cercle de score, des **barres grises pulsantes** pour les métriques et des **lignes grises de largeurs variées** pour simuler le texte des explications. Dès que la réponse arrive, les données remplacent le skeleton sans transition brusque.
 
----
-
-## G. Liaison Frontend ↔ Backend
+## Liaison Frontend/Backend
 
 ### Configuration du port — `vite.config.ts`
 
@@ -146,9 +136,7 @@ async function runAnalysis(input: string): Promise<AnalysisResult> {
 }
 ```
 
----
-
-## H. Limitations
+## Limitations
 
 Plusieurs limitations ont été identifiées au cours du développement.
 
@@ -159,7 +147,3 @@ Les **métriques détaillées** sont en partie statiques. Le backend ne retourna
 La contrainte **`min_length=50`** côté backend peut surprendre l'utilisateur si son texte est trop court — une validation côté frontend avant l'envoi éviterait une erreur 422 silencieuse.
 
 Enfin, le modèle HuggingFace peut mettre **10 à 30 secondes** à répondre lors de la première requête après une période d'inactivité (cold start), ce qui peut donner l'impression que l'application est bloquée.
-
----
-
-
