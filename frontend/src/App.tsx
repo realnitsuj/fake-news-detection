@@ -35,34 +35,29 @@ interface AnalysisResult {
 // ─────────────────────────────────────────────────────────────────────────────
 
 async function runAnalysis(input: string): Promise<AnalysisResult> {
-  await new Promise(r => setTimeout(r, 2200 + Math.random() * 900))
-  const r = Math.random()
-  const verdict: Verdict = r < 0.34 ? "FAKE" : r < 0.68 ? "REAL" : "UNCERTAIN"
-  const base = verdict === "FAKE" ? 76 : verdict === "REAL" ? 83 : 50
-  const confidence = Math.min(98, base + Math.floor(Math.random() * 14))
+  const res = await fetch("http://localhost:8000/ai/check-text", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify({ text: input }),
+  })
+  const { result } = await res.json()
+  const confidence = Math.round(parseFloat(result.score.replace("%", "")))  
+  const verdict: Verdict = result.prediction === "FAKE" ? "FAKE" : "REAL"
   return {
     verdict,
     confidence,
     inputPreview: input.length > 100 ? input.slice(0, 100) + "…" : input,
     isUrl: input.startsWith("http"),
     metrics: {
-      sourceCredibility: verdict === "FAKE" ? 21 : verdict === "REAL" ? 87 : 54,
-      factualAccuracy:   verdict === "FAKE" ? 17 : verdict === "REAL" ? 90 : 48,
-      linguisticBias:    verdict === "FAKE" ? 14 : verdict === "REAL" ? 83 : 57,
-      crossVerification: verdict === "FAKE" ? 11 : verdict === "REAL" ? 78 : 43,
+      sourceCredibility: verdict === "FAKE" ? 21 : 87,
+      factualAccuracy: confidence,
+      linguisticBias: verdict === "FAKE" ? 14 : 83,
+      crossVerification: verdict === "FAKE" ? 11 : 78,
     },
-    explanation:
-      verdict === "FAKE"
-        ? "Notre modèle a détecté plusieurs signaux caractéristiques de désinformation : le registre est émotionnel et alarmiste, la source n'est pas indexée par les agrégateurs de référence, et aucune des affirmations principales n'est corroborée par des médias fiables indépendants."
-        : verdict === "REAL"
-        ? "L'analyse indique une forte probabilité d'authenticité. La source est reconnue et vérifiable, le ton est factuel et mesuré, et les informations clés sont confirmées par plusieurs médias indépendants de référence."
-        : "Les signaux sont ambigus. Certains éléments sont vérifiables mais d'autres ne peuvent être confirmés faute de sources primaires disponibles. Nous recommandons de consulter directement les sources originales.",
-    sources:
-      verdict === "FAKE"
-        ? ["Reuters Fact-Check", "AFP Factuel", "Snopes"]
-        : verdict === "REAL"
-        ? ["Le Monde", "BBC News", "Associated Press"]
-        : ["Wikipedia", "Archive.org", "Google Scholar"],
+    explanation: verdict === "FAKE"
+      ? "Le modèle a détecté des signaux de désinformation."
+      : "Aucun signal de désinformation détecté.",
+    sources: ["hamzab/roberta-fake-news-classification"],
   }
 }
 
