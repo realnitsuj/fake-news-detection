@@ -42,6 +42,7 @@ Le fichier `App.tsx` est organisé dans l'ordre suivant :
 
 La page d'accueil est épurée et centrée. Elle affiche le logo VerifAI avec un effet de glow bleu, un sous-titre, puis une carte principale contenant les éléments de saisie. L'utilisateur peut basculer entre deux modes via des tabs : **URL** pour coller un lien et **Texte** pour coller directement le contenu d'un article. En dessous de la carte, trois statistiques (précision, délai, nombre de sources) donnent de la crédibilité à l'outil. Un lien vers les conditions d'utilisation est placé en pied de page.
 
+![Page d'accueil](accueil.png){height=290px}
 ---
 
 ## D. Page de résultat
@@ -50,6 +51,7 @@ La page de résultat s'organise en trois zones distinctes. En haut, une **carte 
 
 En dessous, un **layout en deux colonnes** permet de lire les informations en parallèle. La colonne gauche (plus étroite) contient un cercle de score et quatre barres de métriques détaillées. La colonne droite (plus large) affiche l'explication textuelle du résultat ainsi que les sources consultées par le modèle. En bas de page, deux boutons permettent de **sauvegarder** le rapport au format `.txt` ou de **revenir** à l'accueil.
 
+![Page de réponse](reponse.png){height=290px}
 ---
 
 ## E. Design
