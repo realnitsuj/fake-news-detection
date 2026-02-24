@@ -1,7 +1,20 @@
+import logging
+
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
 from app.api import ai, files, ping
+
+# Configure basic logging
+# https://betterstack.com/community/guides/logging/logging-with-fastapi/
+logging.basicConfig(
+    level=logging.INFO,
+    format="%(asctime)s - %(name)s - %(levelname)s - %(message)s",
+    datefmt="%Y-%m-%d %H:%M:%S",
+)
+
+# Create a logger instance
+logger = logging.getLogger(__name__)
 
 app = FastAPI()
 

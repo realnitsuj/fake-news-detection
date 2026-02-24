@@ -36,4 +36,9 @@ async def check_text(payload: TextSchema):
 
 @router.post("/check-file")
 async def check_file(payload: TextSchema):
-    return {"result": "Not implemented yet"}
+    return {"result": "/check-file: Not implemented yet"}
+
+
+@router.post("/check-url")
+async def check_url(payload: TextSchema):
+    return {"result": "/check-url: Not implemented yet"}
