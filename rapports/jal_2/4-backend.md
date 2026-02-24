@@ -93,14 +93,15 @@ Le backend ne renvoie pas de texte brut, mais un **objet JSON standardisé**. Ce
 ```
 
 ## Format de Sortie du Module
-En sortie, on renvoie pour le moment dans la CLI le texte à analyser que l'on redonne à l'utilisateur pour qu'il puisse relire si besoin, le résultat sous forme de phrase (FAKE NEWS détectée ! ou Information fiable.), le score de confiance et le label, donc Fake ou Vrai (cela peut sembler redondant mais permet de vérifier que lors de la conversion depuis le json aucune erreur ne se produit).
+
+En sortie, on renvoie pour le moment dans la CLI le texte à analyser que l'on redonne à l'utilisateur pour qu'il puisse relire si besoin, le résultat sous forme de phrase (`FAKE NEWS détectée !` ou `Information fiable`), le score de confiance et le label, donc Fake ou Vrai (cela peut sembler redondant mais permet de vérifier que lors de la conversion depuis le json aucune erreur ne se produit).
 
 ## Sécurité & Performance
 
-Pour garantir la sécurité on stock les informations importante dans des variables d’environnement (dans .env) pour empêcher la fuite des clés API sur les dépôts de code publics. Et pour permettre d’améliorer la performance, nous avons construit l’application afin de pouvoir facilement changer le modèle (ici une instance de Roberta), à la seule condition de changer le format que l’on récupère sans le JSON.
+Pour garantir la sécurité nous stockons les informations importante dans des variables d’environnement (dans `.env`) pour empêcher la fuite des clés API sur les dépôts de code publics. Et pour permettre d’améliorer la performance, nous avons construit l’application afin de pouvoir facilement changer le modèle (ici une instance de Roberta), à la seule condition de changer le format que l’on récupère sans le JSON.
 
 ---
 
 ## Perspectives d'Évolution
 
-Nous allons par la suite, essayer de changer le modèle pour prendre un modèle de type LLM, permettant de justifier le verdict. Cela permettrait d’afficher ces détails aux utilisateurs pour mieux comprendre les raisons derrière un résultat. On pourra le faire assez facilement, grâce à l’architecture expliqué au-dessus. Et sur les bases de ce modèle, nous allons essayer de faire du fine tunning avec d'autres bases de données.
+Nous allons par la suite, essayer de changer le modèle pour prendre un modèle de type LLM, permettant de justifier le verdict. Cela permettrait d’afficher ces détails aux utilisateurs pour mieux comprendre les raisons derrière un résultat. On pourra le faire assez facilement, grâce à l’architecture expliqué ci-dessus. Et sur les bases de ce modèle, nous allons essayer de faire du fine-tuning avec d'autres bases de données.
