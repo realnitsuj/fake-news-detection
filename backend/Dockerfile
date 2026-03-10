@@ -1,30 +1,29 @@
 # pull official base image
-FROM python:3.12-alpine
+FROM python:3.14-slim
 
 # set work directory
-WORKDIR /usr/src/app
+WORKDIR /backend
 
 # set environment variables
 ENV PYTHONDONTWRITEBYTECODE 1
 ENV PYTHONUNBUFFERED 1
 
 # copy requirements file
-COPY ./requirements.txt /usr/src/app/requirements.txt
+COPY ./requirements.txt /backend/requirements.txt
 
-# install dependencies
-RUN set -eux \
-    && apk add --no-cache --virtual .build-deps build-base \
-    libressl-dev libffi-dev gcc musl-dev python3-dev \
-    postgresql-dev \
-    && pip install --upgrade pip setuptools wheel \
-    && pip install -r /usr/src/app/requirements.txt \
-    && rm -rf /root/.cache/pip
+# install dependencies in mulitple steps to use cache as much as possibl
+RUN apt-get update
+RUN apt-get install -y python-dev-is-python3 libxml2-dev libxslt1-dev antiword unrtf poppler-utils tesseract-ocr \
+    flac ffmpeg lame libmad0 libsox-fmt-mp3 sox libjpeg-dev swig
+RUN pip install --no-cache-dir -r /backend/requirements.txt
+RUN pip install textract==1.6.3
+RUN rm -rf /root/.cache/pip
 
 # copy project
-COPY . /usr/src/app/
+COPY . /backend/
 
 # Expose the port the app runs on
-EXPOSE 8080
+EXPOSE 80
 
 # Command to run the application
-CMD ["fastapi", "dev"]
+CMD ["fastapi", "dev", "--port", "80", "--host", "0.0.0.0"]

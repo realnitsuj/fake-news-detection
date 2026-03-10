@@ -2,7 +2,19 @@
 
 This is the backend web server powered by Python and FastAPI.
 
-## Run development server
+## Usage with docker
+
+```sh
+sudo docker build -t myimage .
+sudo docker run -d --name mycontainer -p 80:80 myimage
+
+# or, as a oneliner
+sudo docker build -t myimage . && sudo docker rm mycontainer && sudo docker run -d --name mycontainer -p 80:80 myimage
+```
+
+## Usage without docker
+
+### Run development server
 
 You can run the development server using the following command :
 
@@ -10,7 +22,7 @@ You can run the development server using the following command :
 uv run fastapi dev
 ```
 
-## Export dependencies
+### Export dependencies
 
 ```sh
 uv export > requirements.txt

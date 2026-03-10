@@ -1,0 +1,6 @@
+.venv/
+.python-version
+REAME.md
+uv.lock
+.env
+db.sqlite3
