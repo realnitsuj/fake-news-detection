@@ -22,3 +22,9 @@ RUN set -eux \
 
 # copy project
 COPY . /usr/src/app/
+
+# Expose the port the app runs on
+EXPOSE 8080
+
+# Command to run the application
+CMD ["fastapi", "dev"]

@@ -1,7 +1,7 @@
 # Use an official node image as the base image
 FROM node:18-alpine
 
-
+# Change app working directory
 WORKDIR /app
 
 # Copy package.json and package-lock.json
