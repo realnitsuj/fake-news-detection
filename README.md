@@ -13,3 +13,7 @@ Liste des composants : <https://ui.shadcn.com/docs/components>
 Avec [FastAPI](https://fastapi.tiangolo.com/).
 
 Pour démarrer le serveur, depuis `backend/` : `uv run fastapi dev`.
+
+## Documentation
+
+Voir la documentation technique dans [docs/README.md](docs/README.md).
