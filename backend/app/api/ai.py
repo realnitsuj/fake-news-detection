@@ -2,7 +2,7 @@ from fastapi import APIRouter
 
 from app.api.models import TextSchema
 
-from ..dependencies import get_ai_prediction
+from ..dependencies import get_ai_prediction, get_plaintext_from_url
 
 router = APIRouter()
 
@@ -41,4 +41,5 @@ async def check_file(payload: TextSchema):
 
 @router.post("/check-url")
 async def check_url(payload: TextSchema):
-    return {"result": "/check-url: Not implemented yet"}
+    url_text = get_plaintext_from_url(payload.text)
+    return {"result": ai_check_text(url_text)}
