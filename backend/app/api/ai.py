@@ -1,6 +1,7 @@
+import textract
 from fastapi import APIRouter
 
-from app.api.models import TextSchema
+from app.api.models import FileSchema, TextSchema
 
 from ..dependencies import get_ai_prediction, get_plaintext_from_url
 
@@ -35,8 +36,10 @@ async def check_text(payload: TextSchema):
 
 
 @router.post("/check-file")
-async def check_file(payload: TextSchema):
-    return {"result": "/check-file: Not implemented yet"}
+async def check_file(payload: FileSchema):
+    # TODO: Implement fiel save to filesystem
+    file_text = textract.process(payload.name, encoding="ascii")
+    return {"result": ai_check_text(file_text)}
 
 
 @router.post("/check-url")
