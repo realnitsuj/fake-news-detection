@@ -1,3 +1,4 @@
+import textract
 from fastapi import APIRouter
 from app.api.models import FileSchema, TextSchema
 from ..dependencies import get_ai_prediction
