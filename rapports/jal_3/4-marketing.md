@@ -119,3 +119,25 @@ En synthèse, VerifAI se positionne comme une solution intermédiaire entre les 
 - Face aux extensions techniques: VerifAI privilégie une expérience claire, directe et pédagogique.
 
 Ce positionnement permet de défendre une promesse concrète et différenciante: **une vérification explicable, simple et rapide, adaptée aux usages réels de partage d'information**.
+
+## Page web de l'application
+
+La page web de VerifAI constitue le principal point de contact avec l'utilisateur. Dans notre stratégie marketing, elle joue un double rôle: convertir la curiosité en usage réel et installer la confiance dès les premières secondes d'interaction.
+
+Nous avons fait évoluer l'interface entre une première maquette fonctionnelle et une version plus aboutie orientée produit. La version initiale validait les fonctionnalités de base (champ de saisie, analyse, affichage du résultat), mais présentait une hiérarchie visuelle limitée et une expérience utilisateur encore peu différenciante.
+
+La version actuelle introduit une identité visuelle plus forte (branding VerifAI), une meilleure lisibilité des informations et un parcours simplifié. L'utilisateur peut saisir un texte ou une URL, lancer l'analyse rapidement et comprendre le verdict sans ambiguïté grâce à une restitution structurée (score de confiance, métriques, explication synthétique).
+
+Cette évolution soutient directement nos deux cibles marketing. Côté B2C, la simplicité réduit la friction et favorise l'usage spontané. Côté B2B, la clarté de la restitution facilite la prise de décision et améliore la crédibilité perçue de l'outil dans un contexte de publication.
+
+### Évolution visuelle: avant / après {.unnumbered .unlisted}
+
+![Version initiale - page d'accueil](chemin/vers/capture-avant-accueil.png)
+
+![Version actuelle - page d'accueil](chemin/vers/capture-apres-accueil.png)
+
+![Version initiale - page de résultat](chemin/vers/capture-avant-resultat.png)
+
+![Version actuelle - page de résultat](chemin/vers/capture-apres-resultat.png)
+
+En résumé, la page web actuelle transforme VerifAI d'un prototype technique en produit crédible, compréhensible et aligné avec notre promesse marketing: vérifier avant de partager, de façon simple, rapide et explicable.
