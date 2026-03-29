@@ -141,3 +141,47 @@ Cette évolution soutient directement nos deux cibles marketing. Côté B2C, la 
 ![Version actuelle - page de résultat](chemin/vers/capture-apres-resultat.png)
 
 En résumé, la page web actuelle transforme VerifAI d'un prototype technique en produit crédible, compréhensible et aligné avec notre promesse marketing: vérifier avant de partager, de façon simple, rapide et explicable.
+
+## Présence sur les plateformes sociales
+
+La présence sociale de VerifAI a pour objectif de transformer un besoin diffus ("je veux éviter de partager de la désinformation") en réflexe concret d'utilisation. La ligne éditoriale retenue repose sur deux leviers complémentaires: des formats de **démonstration produit** pour montrer la valeur immédiate, et des formats de **vulgarisation** pour éduquer sans complexifier.
+
+### Positionnement éditorial {.unnumbered .unlisted}
+
+La communication adopte un ton clair, pédagogique et orienté usage. Le message central reste constant: **vérifier avant de partager**. Chaque publication doit répondre à une question simple de l'utilisateur: "Qu'est-ce que VerifAI m'apporte maintenant, en pratique?"
+
+Cette cohérence permet de renforcer la mémorisation de la marque et de créer une continuité entre le contenu social, la page web et l'expérience produit.
+
+### Formats démo {.unnumbered .unlisted}
+
+Les contenus de démonstration montrent l'application en situation réelle, avec un parcours court de bout en bout: saisie d'un texte ou d'une URL, lancement de l'analyse, lecture du verdict.
+
+- vidéos courtes avant/après analyse;
+- captures commentées de l'interface et du score;
+- mini-cas d'usage "vu sur les réseaux" traités en moins d'une minute;
+- démonstrations comparant une information fiable et une information douteuse.
+
+Ces formats servent principalement l'acquisition B2C, car ils rendent la proposition de valeur immédiatement visible.
+
+### Formats de vulgarisation {.unnumbered .unlisted}
+
+La vulgarisation complète la démonstration en expliquant les bons réflexes informationnels et la lecture des résultats. L'objectif n'est pas de former à l'IA en profondeur, mais de rendre l'utilisateur autonome dans ses décisions quotidiennes.
+
+- carrousels "comment repérer un signal de désinformation";
+- posts "mythe vs réalité" sur la fiabilité des sources;
+- capsules "comment interpréter un score de confiance";
+- publications pédagogiques liées à l'actualité numérique.
+
+Ces formats favorisent la crédibilité de VerifAI et soutiennent aussi la cible B2B, sensible à la qualité du cadre explicatif.
+
+### Plateformes prioritaires {.unnumbered .unlisted}
+
+Le déploiement social est adapté aux deux segments de ciblage. Pour le B2C, les plateformes visuelles et rapides (Instagram, TikTok, X) sont privilégiées, avec des contenus courts et démonstratifs. Pour le B2B, LinkedIn et les communautés professionnelles/campus sont plus pertinents, avec des contenus orientés méthode, fiabilité et cas d'usage.
+
+L'enjeu n'est pas d'être présent partout, mais d'être régulier là où les personas consomment déjà de l'information.
+
+### Effet attendu {.unnumbered .unlisted}
+
+Une présence sociale cohérente autour de la démo et de la vulgarisation doit produire trois effets marketing: augmenter la notoriété de VerifAI, améliorer la confiance envers l'outil et générer des visites qualifiées vers la page web de l'application.
+
+En résumé, les réseaux sociaux deviennent un prolongement direct du produit: ils montrent, expliquent et donnent envie d'utiliser VerifAI dans des situations réelles.
