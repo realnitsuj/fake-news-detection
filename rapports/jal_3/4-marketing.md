@@ -185,3 +185,39 @@ L'enjeu n'est pas d'être présent partout, mais d'être régulier là où les p
 Une présence sociale cohérente autour de la démo et de la vulgarisation doit produire trois effets marketing: augmenter la notoriété de VerifAI, améliorer la confiance envers l'outil et générer des visites qualifiées vers la page web de l'application.
 
 En résumé, les réseaux sociaux deviennent un prolongement direct du produit: ils montrent, expliquent et donnent envie d'utiliser VerifAI dans des situations réelles.
+
+## Stratégie de collaborations et de publicités
+
+Pour accélérer l'adoption de VerifAI, la stratégie de croissance combine des collaborations ciblées et des actions publicitaires légères. L'objectif n'est pas de maximiser le volume à court terme, mais d'obtenir une acquisition qualifiée, cohérente avec la promesse du produit: vérifier rapidement et comprendre clairement un résultat.
+
+### Collaborations prioritaires {.unnumbered .unlisted}
+
+Les collaborations sont pensées comme des relais de confiance. En phase initiale, VerifAI peut s'appuyer sur des partenaires proches des personas identifiés: associations étudiantes, médias campus, clubs de journalisme, enseignants impliqués en éducation aux médias, ainsi que structures de communication locale.
+
+Le principe est simple: proposer des démonstrations concrètes, des ateliers courts et des formats co-brandés. Ce type de partenariat favorise un bouche-à-oreille crédible et permet de tester le produit dans des contextes réels d'usage.
+
+### Logique B2C et logique B2B {.unnumbered .unlisted}
+
+En B2C, les collaborations doivent créer de la proximité et de la preuve d'utilité immédiate. Les actions les plus pertinentes sont les démonstrations en milieu étudiant, les contenus co-créés avec des créateurs orientés vulgarisation et les challenges communautaires autour du réflexe "vérifier avant de partager".
+
+En B2B, la priorité est la crédibilité opérationnelle. Les partenariats visent des médias étudiants, des organismes de sensibilisation et des équipes communication qui peuvent intégrer VerifAI comme outil de pré-vérification dans leur flux de publication.
+
+### Publicité digitale à faible budget {.unnumbered .unlisted}
+
+La publicité payante intervient en complément des collaborations, avec un ciblage précis et des budgets maîtrisés. Les campagnes sont principalement orientées vers des contenus démo (vidéos courtes, captures commentées, cas concrets) afin de montrer la valeur en quelques secondes.
+
+- sur Instagram/TikTok/X pour l'acquisition B2C;
+- sur LinkedIn pour la notoriété et la génération de contacts B2B;
+- avec redirection vers la page web pour tester l'outil immédiatement.
+
+Le message publicitaire reste constant: "vérifier avant de partager", avec un accent sur la simplicité d'usage et l'explicabilité du résultat.
+
+### Indicateurs de performance {.unnumbered .unlisted}
+
+L'évaluation des collaborations et publicités repose sur des indicateurs concrets: taux de clic, coût d'acquisition, taux d'essai de l'outil, part d'utilisateurs récurrents et retours qualitatifs des partenaires.
+
+Cette mesure continue permet d'identifier les canaux les plus efficaces et d'ajuster rapidement les actions marketing sans perdre la cohérence stratégique.
+
+### Synthèse {.unnumbered .unlisted}
+
+La stratégie collaborations/publicités de VerifAI privilégie la confiance, la preuve d'usage et la régularité. Les collaborations apportent la crédibilité et l'ancrage terrain; la publicité apporte l'amplification ciblée. Ensemble, ces deux leviers soutiennent une croissance progressive et réaliste, alignée avec les segments B2C et B2B.
