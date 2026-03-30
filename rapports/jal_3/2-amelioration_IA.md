@@ -29,22 +29,9 @@ Pour que l'IA puisse "chercher" dans ces milliers d'articles, nous utilisons :
   - **Sentence-Transformers (`all-MiniLM-L6-v2`)** : Ce modèle transforme chaque article de presse en un vecteur mathématique de 384 dimensions représentant son sens sémantique.
   - **ChromaDB** : Une base de données vectorielle haute performance qui stocke ces vecteurs. Elle permet de trouver rapidement les articles les plus proches sémantiquement de la requête de l'utilisateur.
 
-## Flux de Traitement Optimisé
-
 ### 3\. Prompt Enrichi 
 
 Maintenant, avant chaque requête, on récupère l'article de notre base le plus proche sémentiquement du texte à analyser, ainsi qu'un score de similitude, qu'on envoie à notre LLM pour qu'il rende son verdict avec les informations actuelles.
-
-Le pipeline de traitement a été enrichi pour intégrer la vérification factuelle :
-
-```
-Saisie utilisateur → Vectorisation → Recherche ChromaDB (Top K) → Injection Contexte → Prompt Mistral → Parsing JSON
-```
-
-1.  **Recherche de Preuves** : Le texte soumis par l'utilisateur est converti en vecteur. Le système interroge **ChromaDB** pour extraire les articles de presse les plus pertinents par rapport au sujet.
-2.  **Construction du Prompt** : Nous créons un "Prompt enrichi" qui contient : les consignes de l'expert, les preuves factuelles trouvées dans la base, et le texte à analyser.
-3.  **Inférence Générative** : Mistral-7B analyse la cohérence entre le texte utilisateur et les preuves fournies.
-4.  **Extraction Structurée** : Le backend utilise un moteur de parsing pour garantir que la réponse de l'IA est un objet JSON pur, prêt pour le frontend.
 
 ## Nouveau Format de Sortie (Standard JSON v2)
 
