@@ -30,9 +30,7 @@ interface AnalysisResult {
   sources: string[]
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Mock IA — remplacer par le vrai endpoint
-// ─────────────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────────────────────
 
 async function runAnalysis(input: string): Promise<AnalysisResult> {
   const res = await fetch("http://localhost:8000/ai/check-text", {
@@ -40,24 +38,36 @@ async function runAnalysis(input: string): Promise<AnalysisResult> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ text: input }),
   })
-  const { result } = await res.json()
-  const confidence = Math.round(parseFloat(result.score.replace("%", "")))  
-  const verdict: Verdict = result.prediction === "FAKE" ? "FAKE" : "REAL"
+  const data = await res.json()
+  const result = (data.result ?? data) as any
+
+  if (!result || !result.score) {
+    throw new Error("Réponse API invalide : score manquant")
+  }
+
+  const rawScore = typeof result.score === "number" ? result.score : String(result.score)
+  const confidence = Math.round(parseFloat(rawScore.replace("%", "")))
+
+  const rawVerdict = (result.prediction ?? result.verdict ?? "UNCERTAIN").toUpperCase()
+  const verdict: Verdict = rawVerdict === "FAKE" ? "FAKE" : rawVerdict === "REAL" ? "REAL" : "UNCERTAIN"
+
   return {
     verdict,
     confidence,
     inputPreview: input.length > 100 ? input.slice(0, 100) + "…" : input,
     isUrl: input.startsWith("http"),
     metrics: {
-      sourceCredibility: verdict === "FAKE" ? 21 : 87,
+      sourceCredibility: verdict === "REAL" ? confidence : Math.max(0, 100 - confidence),
       factualAccuracy: confidence,
-      linguisticBias: verdict === "FAKE" ? 14 : 83,
-      crossVerification: verdict === "FAKE" ? 11 : 78,
+      linguisticBias: verdict === "REAL" ? confidence : Math.max(0, 100 - confidence),
+      crossVerification: verdict === "REAL" ? confidence : Math.max(0, 100 - confidence),
     },
-    explanation: verdict === "FAKE"
-      ? "Le modèle a détecté des signaux de désinformation."
-      : "Aucun signal de désinformation détecté.",
-    sources: ["hamzab/roberta-fake-news-classification"],
+    explanation: result.justification
+      ? `${result.justification}${result.categorie ? ` (Catégorie: ${result.categorie})` : ''}`
+      : (verdict === "FAKE"
+        ? "Le modèle a détecté des signaux de désinformation."
+        : "Aucun signal de désinformation détecté."),
+    sources: result.sources ?? ["hamzab/roberta-fake-news-classification"],
   }
 }
 
