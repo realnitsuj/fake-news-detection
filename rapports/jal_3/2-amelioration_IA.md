@@ -12,46 +12,21 @@ Initialement basé sur RoBERTa pour la classification, le système utilise déso
 
 ## Abandon du Fine-Tuning au profit du Prompt Engineering
 
-La stratégie initiale envisageait un fine-tuning supervisé (SFT) sur un jeu de données spécifique (comme FakeNewsNet). Cette approche a été écartée au profit du *Prompt Engineering* couplée à l'architecture RAG, en raison de plusieurs contraintes techniques et méthodologiques.
+La stratégie initiale envisageait un fine-tuning supervisé (SFT) sur un jeu de données spécifique. Cette approche a été écartée au profit du *Prompt Engineering* couplé à l'architecture RAG, en raison de plusieurs contraintes techniques et méthodologiques.
 
-### Les atouts théoriques du Fine-Tuning
+***
 
-Bien que non retenu pour l'itération actuelle, le fine-tuning supervisé (SFT) présente des avantages majeurs qui justifiaient son étude initiale :
+Bien que non retenu pour l'itération actuelle, le fine-tuning supervisé présente des avantages documentés. En termes de performance et de précision, comme le démontrent @shinPromptEngineeringFineTuning2025, les modèles fine-tunés peuvent surpasser significativement les approches de prompt engineering (jusqu'à 28 points sur certains benchmarks), offrant une stabilité supérieure pour des tâches hautement spécialisées. De plus, l'entraînement permet de contraindre le modèle à générer systématiquement une structure JSON exacte, limitant ainsi les erreurs de syntaxe. Cette méthode optimise également l'inférence en internalisant les règles de formatage, ce qui réduit le nombre de tokens nécessaires en entrée et diminue le temps d'apparition du premier mot (*Time To First Token*). Enfin, les méthodes PEFT (comme LoRA) permettent d'obtenir des performances élevées sur des modèles de taille modeste tout en réduisant les coûts de calcul, offrant un compromis optimal entre précision et ressources [@vangibhurathachhiAdaptingLargeLanguage2025].
 
-- **Standardisation stricte du format :** L'entraînement permet de contraindre le modèle à générer systématiquement une structure de données exacte (JSON strict), éliminant le besoin de validations syntaxiques côté serveur.
-- **Optimisation de la latence d'inférence :** Un modèle fine-tuné intégrant les directives de formatage dans ses poids nécessite un prompt utilisateur plus court (aucun exemple few-shot requis). La réduction du nombre de tokens en entrée diminue mécaniquement le temps d'apparition du premier mot généré (Time To First Token), et allège la consommation de mémoire VRAM lors de la phase d'inférence.
-- **Spécialisation sémantique :** Cette méthode permet d'inculquer profondément un style rédactionnel précis (ton journalistique, neutre, vocabulaire expert) qu'un prompt seul peine parfois à maintenir sur de longues générations.
-- **Efficacité matérielle :** Le fine-tuning permet à des modèles de petite taille (ici 8 milliards de paramètres) d'atteindre des performances comparables à des modèles massifs beaucoup plus complexes et coûteux à héberger en production.
+Cependant, la mise en œuvre de cette méthode s'est heurtée à la difficulté de constituer un ensemble de données adéquat. Trois sources principales avaient été identifiées initialement : Webz.io (un répertoire de contenus thématiques), ISOT (un jeu de données binaire d'articles réels et factices) et FakeNewsNet (un dépôt de données vérifiées de PolitiFact et GossipCop). Pour générer un dataset performant, il est impératif de coupler chaque article à son verdict et à une justification textuelle précise. Or, ces bases manquent de la justification native nécessaire. L'exploitation de Webz.io a été écartée en raison d'un volume brut excédant les ressources matérielles et de l'absence de verdicts validés par des experts. FakeNewsNet, malgré ses labels clairs, souffre quant à lui d'une absence totale de justifications textuelles.
 
-### Risques de biais par données synthétiques
+Puisque le fine-tuning exige des ressources importantes et des données volumineuses de haute qualité, l'absence de justifications natives aurait rendu nécessaire l'usage de données synthétiques. Cette alternative introduit des risques critiques de biais. D'une part, la généralisation abusive via des justifications stéréotypées peut limiter le modèle à reproduire des patrons de phrases au lieu d'analyser le texte. D'autre part, forcer la génération de justifications complexes sans lien direct avec les faits réels crée une incohérence sémantique qui augmente drastiquement le risque d'introduire des hallucinations dans le dataset. Par ailleurs, l'usage d'un dataset restreint forcerait une mémorisation d'exemples spécifiques (surapprentissage ou *overfitting*) au détriment de la logique de détection universelle.
 
-Trois sources de données principales ont été identifiées lors de la phase de recherche initiale :
+***
 
-- **Webz.io** : Un répertoire regroupant des contenus thématiques et des exemples de désinformation.
-- **ISOT** : Un jeu de données binaire distinguant des articles réels et factices.
-- **FakeNewsNet** : Un dépôt agrégeant des données vérifiées provenant de PolitiFact et GossipCop.
+Outre la problématique des données, le recours au fine-tuning s'est avéré être une démarche superflue face aux capacités des modèles récents. Le système repose désormais sur Llama 3 (version Instruct), un modèle nativement optimisé pour suivre des directives complexes et produire des formats de sortie stricts comme le JSON. Réentraîner les poids d'un modèle de plusieurs milliards de paramètres uniquement pour lui imposer une structure de réponse représente un effort disproportionné par rapport aux gains attendus.
 
-Pour générer un dataset permettant le fine-tuning du modèle, il est impératif de coupler chaque article (titre et texte) à son verdict (vrai/faux) et à une justification textuelle précise. Cependant, ces datasets manquent de la justification native nécessaire à notre architecture. Bien que Webz.io propose des contenus textuels plus denses, son exploitation a été écartée car le traitement de son volume brut excédait les ressources matérielles disponibles pour cette phase, et il ne fournit pas de verdicts de vérité validés par des experts. FakeNewsNet, bien qu'offrant une structure claire avec des labels de vérité, présente comme limite majeure l'absence totale de justifications textuelles expliquant ses verdicts.
-
-La constitution manuelle d'un jeu de données comprenant des milliers d'exemples de désinformation, accompagnés de justifications précises rédigées par des humains, nécessite des ressources hors de portée pour l'envergure de ce projet. Ce manque force l'usage de données synthétiques pour entraîner le modèle. Cependant, la génération de ces justifications de manière synthétique introduit des risques sévères de biais :
-
-* **Généralisation abusive :** Des justifications trop stéréotypées ou basiques entraînent le modèle à reproduire des patrons de phrases figés plutôt qu'à analyser réellement le texte soumis.
-* **Incohérence sémantique :** Tenter de forcer une trop grande variété dans les justifications sans lien direct avec les faits réels augmente drastiquement le risque d'hallucinations lors de la génération.
-* **Surapprentissage (Overfitting) :** L'usage d'un jeu de données de taille réduite ou répétitif forcerait le modèle à mémoriser des exemples spécifiques au lieu d'apprendre la structure logique universelle de la détection, dégradant ainsi ses performances globales.
-
-### Démarche superflue pour les LLM modernes
-
-Le système repose désormais sur Llama 3 (version *Instruct*). Ce modèle est nativement optimisé pour suivre des directives complexes, adopter un comportement spécifique (expert en vérification) et produire des formats de sortie stricts (ici JSON). Réentraîner les poids (même via PEFT/QLoRA) d'un modèle de plusieurs milliards de paramètres uniquement pour lui imposer une structure de réponse est disproportionné par rapport aux gains attendus.
-
-### Agilité et synergie avec le RAG
-
-Le *Few-Shot Prompting* (intégration de quelques exemples parfaits d'entrée/sortie directement dans la requête) s'avère plus efficace. 
-
-- **Flexibilité :** Le schéma JSON attendu et les critères d'analyse peuvent être modifiés instantanément dans le prompt, sans nécessiter de nouveaux cycles de calculs GPU coûteux.
-- **Séparation des préoccupations :** Dans l'architecture RAG, la vérité factuelle provient de la base vectorielle (ChromaDB), non des poids internes du modèle. Le prompt engineering permet d'injecter ce contexte externe proprement, laissant le modèle se concentrer sur l'analyse logique plutôt que sur la restitution de faits appris lors d'un éventuel fine-tuning.
-- **Cycle de développement accéléré :** L'ajustement d'un prompt s'effectue en temps réel. À l'inverse, modifier une instruction via fine-tuning exige un cycle complet et chronophage (préparation des données, entraînement, évaluation). De plus, la maintenance est simplifiée par le versionnage d'un simple code texte, évitant la gestion d'artefacts de modèles lourds (fichiers de plusieurs gigaoctets).
-- **Exploitation de la fenêtre de contexte :** Llama 3 dispose d'une large capacité d'ingestion (plus de 8000 tokens). Il est donc possible d'injecter simultanément des instructions complexes, des exemples d'entrée/sortie et les documents issus du RAG sans saturer le modèle, rendant la compression des règles de formatage dans les poids du réseau obsolète.
-
+Par conséquent, le passage au *Prompt Engineering* et au RAG a été privilégié pour la flexibilité accrue qu'il offre. Comme le soulignent @kermaniSystematicEvaluationLLM2025, le prompt engineering et le RAG permettent une adaptation rapide et un déploiement plus flexible, particulièrement adaptés aux scénarios nécessitant une généralisation. Cette approche facilite également la gestion des ressources ; @pornprasitFineTuningPromptEngineering2024 recommandent l'approche *few-shot* lorsque les données sont insuffisantes pour un fine-tuning complet, permettant une performance modérée avec une consommation de ressources réduite. De plus, elle assure une séparation claire des préoccupations en intégrant des informations externes actuelles via une base vectorielle (ChromaDB). Comme le confirment @ovadiaFineTuningRetrievalComparing2024, l'injection de connaissances par récupération (RAG) est plus adaptée que le fine-tuning pour gérer des données dynamiques, laissant ainsi le modèle se concentrer sur l'analyse logique. Enfin, la maintenance est grandement simplifiée, car l'ajustement des prompts en temps réel évite les cycles d'entraînement chronophages et la lourde gestion de fichiers de modèles.
 
 ## Le Système de Mémoire : Architecture RAG
 
