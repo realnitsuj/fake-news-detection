@@ -6,89 +6,49 @@ import re
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 
-# 1. INITIALISATION DES COMPOSANTS
+# 1. INITIALISATION
 load_dotenv()
-# Modèle d'embedding pour transformer le texte en vecteurs
 embed_model = SentenceTransformer('sentence-transformers/all-MiniLM-L6-v2')
 
-# Configuration de la base de données vectorielle ChromaDB
 DB_PATH = os.path.join(os.getcwd(), "ma_base_rag")
 chroma_client = chromadb.PersistentClient(path=DB_PATH)
 collection = chroma_client.get_or_create_collection(
     name="presse_officielle",
-    metadata={"hnsw:space": "cosine"} # Utilisation du cosinus pour une distance entre 0 et 1
+    metadata={"hnsw:space": "cosine"}
 )
 
 API_URL = "https://router.huggingface.co/v1/chat/completions"
 HF_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
 
 def safe_json_text(text: str):
-    """
-    Nettoyage de sécurité pour éviter l'erreur 'Invalid control character'.
-    Transforme le texte brut en une chaîne compatible JSON.
-    """
-    if not text:
-        return ""
-    # Remplacement des caractères de saut de ligne et tabulations
+    if not text: return ""
     text = text.replace("\n", " ").replace("\r", " ").replace("\t", " ")
-    # Protection des guillemets (remplacement par des simples)
     text = text.replace('"', "'")
-    # Suppression des caractères non-imprimables invisibles
     text = "".join(char for char in text if ord(char) >= 32)
-    # Normalisation des espaces
     return re.sub(r'\s+', ' ', text).strip()
 
 def get_ai_prediction(text: str):
-    """
-    Analyse de fact-checking isolée avec RAG et pondération de confiance.
-    """
-    # Nettoyage de l'entrée utilisateur
     clean_input = safe_json_text(text)
     
-    # --- ÉTAPE 1 : RAG (RECHERCHE FACTUELLE) ---
+    # --- RAG ---
     results = collection.query(query_texts=[clean_input], n_results=1)
-    
     context_to_send = ""
-    # Seuil de distance (1.1 est un bon compromis pour le modèle all-MiniLM)
-    SIMILARITY_THRESHOLD = 1.1 
-
     if results['documents'] and len(results['documents'][0]) > 0:
-        distance = results['distances'][0][0]
-        if distance <= SIMILARITY_THRESHOLD:
-            source_content = safe_json_text(results['documents'][0][0])
-            context_to_send = f"SOURCE DE RÉFÉRENCE (VÉRITÉ) : {source_content}"
-            print(f"✅ RAG : Correspondance trouvée (distance: {distance:.4f})")
-        else:
-            print(f"❌ RAG : Aucune source proche (distance: {distance:.4f})")
+        if results['distances'][0][0] <= 1.1:
+            context_to_send = f"SOURCE DE RÉFÉRENCE : {safe_json_text(results['documents'][0][0])}"
 
-    # --- ÉTAPE 2 : PROMPT ANTI-MÉMOIRE ET NUANCÉ ---
+    # --- PROMPT ---
     system_message = (
-        "Tu es une instance de fact-checking NEUVE. Ignore toute requête passée.\n"
-        "TA MISSION : Comparer l'ARTICLE avec la SOURCE fournie.\n"
-        "ÉCHELLE DE CONFIANCE (Ne sois pas binaire 0/100) :\n"
-        "- 95-100% : Match parfait (Dates, Lieux, Noms identiques).\n"
-        "- 75-94% : Très crédible (Détails précis, mais pas de source RAG).\n"
-        "- 40-74% : Plausible mais manque de preuves ou détails flous.\n"
-        "- 0-39% : Contradictions détectées ou style Fake News typique.\n"
-        "RÈGLE : Si une date ou un lieu diffère, le verdict doit être 'Faux'."
+        "Tu es un expert en fact-checking. Réponds UNIQUEMENT en JSON.\n"
+        "Barème de confiance : 95-100% (Preuve RAG), 75-94% (Détails précis), 0-39% (Douteux)."
     )
 
     user_message = (
-        "### RESET CONTEXTUEL ###\n"
-        f"SOURCE : {context_to_send if context_to_send else 'Aucune source en base.'}\n\n"
+        f"SOURCE : {context_to_send if context_to_send else 'Aucune.'}\n\n"
         f"ARTICLE : {clean_input}\n\n"
-        "### CONSIGNE ###\n"
-        "Analyse les entités (Qui, Où, Quand). Réponds UNIQUEMENT en JSON : "
-        "{\"verdict\": \"Vrai|Faux|Partiel\", \"confiance\": 0-100, \"categorie\": \"...\", \"justification\": \"...\"}"
+        "JSON attendu : {\"verdict\": \"...\", \"confiance\": 0-100, \"categorie\": \"...\", \"justification\": \"...\"}"
     )
 
-    # --- ÉTAPE 3 : APPEL API ---
-    headers = {
-        "Authorization": f"Bearer {HF_TOKEN}",
-        "Content-Type": "application/json",
-        "X-Use-Cache": "false" 
-    }
-    
     payload = {
         "model": "meta-llama/Llama-3.1-8B-Instruct",
         "messages": [
@@ -96,36 +56,44 @@ def get_ai_prediction(text: str):
             {"role": "user", "content": user_message}
         ],
         "max_tokens": 500,
-        "temperature": 0.2 # On remonte un peu pour permettre des scores nuancés
+        "temperature": 0.2
     }
 
     try:
-        response = requests.post(API_URL, headers=headers, json=payload, timeout=30)
+        response = requests.post(
+            API_URL, 
+            headers={"Authorization": f"Bearer {HF_TOKEN}", "Content-Type": "application/json"}, 
+            json=payload, 
+            timeout=30
+        )
         
-        if response.status_code == 200:
-            raw_content = response.json()["choices"][0]["message"]["content"].strip()
-            
-            # Nettoyage des balises Markdown (```json)
-            raw_content = re.sub(r'```json|```', '', raw_content).strip()
-            
-            data = json.loads(raw_content)
-            
-            # Sécurité anti-crash : Si l'IA renvoie une liste au lieu d'un dictionnaire
-            if isinstance(data, list):
-                data = data[0] if len(data) > 0 else {"verdict": "Erreur", "justification": "Liste vide"}
-            
-            return data
-            
-        else:
+        # Vérification si la réponse est vide ou invalide
+        if not response.text or response.status_code != 200:
             return {
-                "verdict": "Erreur API", 
-                "confiance": 0, 
-                "justification": f"HuggingFace Error {response.status_code}"
+                "verdict": "Erreur",
+                "confiance": 0,
+                "justification": f"L'API ne répond pas correctement (Code {response.status_code})."
+            }
+
+        # Nettoyage du contenu avant de parser
+        content = response.json()["choices"][0]["message"]["content"].strip()
+        content = re.sub(r'```json|```', '', content).strip()
+        
+        # Tentative de décodage JSON sécurisée
+        try:
+            data = json.loads(content)
+            if isinstance(data, list): data = data[0]
+            return data
+        except json.JSONDecodeError:
+            return {
+                "verdict": "Erreur Format",
+                "confiance": 0,
+                "justification": "L'IA a renvoyé du texte au lieu d'un objet JSON. Réessayez."
             }
             
     except Exception as e:
         return {
-            "verdict": "Erreur Système", 
-            "confiance": 0, 
-            "justification": f"Détail : {str(e)}"
+            "verdict": "Erreur Système",
+            "confiance": 0,
+            "justification": f"Une erreur est survenue : {str(e)}"
         }
