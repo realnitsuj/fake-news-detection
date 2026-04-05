@@ -17,7 +17,7 @@ API_URL = "https://router.huggingface.co/v1/chat/completions"
 HF_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
 
 def get_ai_prediction(text: str):
-    results = collection.query(query_texts=[text], n_results=1)
+    results = collection.query(query_texts=[text], n_results=3)
     
     context = ""
     if results['documents'] and len(results['documents'][0]) > 0:
