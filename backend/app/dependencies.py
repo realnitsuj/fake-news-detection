@@ -22,31 +22,35 @@ HF_TOKEN = os.getenv("HUGGINGFACE_TOKEN")
 
 def safe_json_text(text: str):
     if not text: return ""
-    text = text.replace("\n", " ").replace("\r", " ").replace("\t", " ")
-    text = text.replace('"', "'")
+    text = text.replace("\n", " ").replace("\r", " ").replace("\t", " ").replace('"', "'")
     text = "".join(char for char in text if ord(char) >= 32)
     return re.sub(r'\s+', ' ', text).strip()
 
 def get_ai_prediction(text: str):
     clean_input = safe_json_text(text)
     
-    # --- RAG ---
+    # --- RECHERCHE DE SOURCE ---
     results = collection.query(query_texts=[clean_input], n_results=1)
-    context_to_send = ""
+    source_found = ""
     if results['documents'] and len(results['documents'][0]) > 0:
         if results['distances'][0][0] <= 1.1:
-            context_to_send = f"SOURCE DE RÉFÉRENCE : {safe_json_text(results['documents'][0][0])}"
+            source_found = safe_json_text(results['documents'][0][0])
 
-    # --- PROMPT ---
+    # --- PROMPT CLIENT (SANS JARGON) ---
     system_message = (
-        "Tu es un expert en fact-checking. Réponds UNIQUEMENT en JSON.\n"
-        "Barème de confiance : 95-100% (Preuve RAG), 75-94% (Détails précis), 0-39% (Douteux)."
+        "Tu es un expert en vérification d'information pour une application grand public.\n\n"
+        "CONSIGNES DE RÉDACTION (DESTINATION CLIENT) :\n"
+        "1. INTERDICTION : Ne mentionne JAMAIS les termes techniques comme 'RAG', 'Base de données', 'Vecteur', 'IA' ou 'Modèle' dans tes justifications.\n"
+        "2. Vocabulaire autorisé : 'Source officielle', 'Presse spécialisée', 'Détails factuels', 'Cohérence de l'information'.\n"
+        "3. Si tu ne trouves pas de document correspondant, dis simplement : 'Aucune source officielle directe n'a été identifiée pour confirmer ce fait précis'.\n"
+        "4. Un verdict 'Vrai' est possible sans source si l'information est de notoriété publique ou très cohérente avec l'actualité réelle."
     )
 
     user_message = (
-        f"SOURCE : {context_to_send if context_to_send else 'Aucune.'}\n\n"
-        f"ARTICLE : {clean_input}\n\n"
-        "JSON attendu : {\"verdict\": \"...\", \"confiance\": 0-100, \"categorie\": \"...\", \"justification\": \"...\"}"
+        f"CONTEXTE DE RÉFÉRENCE : {source_found if source_found else 'Aucune source disponible.'}\n\n"
+        f"ARTICLE À ANALYSER : {clean_input}\n\n"
+        "Tâche : Analyse l'article pour un client. Sois sobre et professionnel.\n"
+        "Format JSON : {\"verdict\": \"Vrai|Faux|Partiel\", \"confiance\": 0-100, \"categorie\": \"...\", \"justification\": \"...\"}"
     )
 
     payload = {
@@ -56,7 +60,7 @@ def get_ai_prediction(text: str):
             {"role": "user", "content": user_message}
         ],
         "max_tokens": 500,
-        "temperature": 0.2
+        "temperature": 0.1
     }
 
     try:
@@ -67,33 +71,21 @@ def get_ai_prediction(text: str):
             timeout=30
         )
         
-        # Vérification si la réponse est vide ou invalide
-        if not response.text or response.status_code != 200:
-            return {
-                "verdict": "Erreur",
-                "confiance": 0,
-                "justification": f"L'API ne répond pas correctement (Code {response.status_code})."
-            }
+        if response.status_code != 200:
+            return {"verdict": "Indisponible", "confiance": 0, "justification": "Service momentanément indisponible."}
 
-        # Nettoyage du contenu avant de parser
         content = response.json()["choices"][0]["message"]["content"].strip()
         content = re.sub(r'```json|```', '', content).strip()
+        data = json.loads(content)
         
-        # Tentative de décodage JSON sécurisée
-        try:
-            data = json.loads(content)
-            if isinstance(data, list): data = data[0]
-            return data
-        except json.JSONDecodeError:
-            return {
-                "verdict": "Erreur Format",
-                "confiance": 0,
-                "justification": "L'IA a renvoyé du texte au lieu d'un objet JSON. Réessayez."
-            }
+        # Sécurité pour transformer une liste en dictionnaire
+        if isinstance(data, list): data = data[0]
+
+        # Nettoyage final de la justification pour supprimer le jargon "RAG" au cas où l'IA désobéit
+        if "justification" in data:
+            data["justification"] = data["justification"].replace("RAG", "source officielle").replace("rag", "source officielle")
+
+        return data
             
     except Exception as e:
-        return {
-            "verdict": "Erreur Système",
-            "confiance": 0,
-            "justification": f"Une erreur est survenue : {str(e)}"
-        }
+        return {"verdict": "Erreur", "confiance": 0, "justification": "Erreur lors du traitement de l'information."}
