@@ -41,15 +41,24 @@ async function runAnalysis(input: string): Promise<AnalysisResult> {
   const data = await res.json()
   const result = (data.result ?? data) as any
 
-  if (!result || !result.score) {
-    throw new Error("Réponse API invalide : score manquant")
+  // 1. Accepter "confiance" (venant du Python) ou "score"
+  const rawScoreValue = result.score ?? result.confiance
+  if (rawScoreValue === undefined) {
+    throw new Error("Réponse API invalide : score/confiance manquant")
   }
 
-  const rawScore = typeof result.score === "number" ? result.score : String(result.score)
-  const confidence = Math.round(parseFloat(rawScore.replace("%", "")))
+  const rawScore = typeof rawScoreValue === "number" ? rawScoreValue : String(rawScoreValue)
+  const confidence = Math.round(parseFloat(rawScore.toString().replace("%", "")))
 
+  // 2. Accepter les mots "FAUX" et "VRAI" venant du prompt Python
   const rawVerdict = (result.prediction ?? result.verdict ?? "UNCERTAIN").toUpperCase()
-  const verdict: Verdict = rawVerdict === "FAKE" ? "FAKE" : rawVerdict === "REAL" ? "REAL" : "UNCERTAIN"
+  
+  let verdict: Verdict = "UNCERTAIN"
+  if (rawVerdict === "FAKE" || rawVerdict === "FAUX") {
+    verdict = "FAKE"
+  } else if (rawVerdict === "REAL" || rawVerdict === "VRAI") {
+    verdict = "REAL"
+  }
 
   return {
     verdict,
