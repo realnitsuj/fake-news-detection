@@ -346,7 +346,7 @@ function ResultPage({ result, onClear, leaving }: { result: AnalysisResult | nul
               </div>
             ) : (
               <>
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start gap-4">
                   <div className="flex items-start gap-3">
                     <div className={`mt-0.5 rounded-full p-2 bg-card border ${cfg.border}`}>
                       <Icon className={`size-5 ${cfg.color}`} />
@@ -356,15 +356,6 @@ function ResultPage({ result, onClear, leaving }: { result: AnalysisResult | nul
                       <p className="text-xs text-muted-foreground mt-0.5">{cfg.sub}</p>
                     </div>
                   </div>
-                  <div className="text-right shrink-0">
-                    <p className={`text-4xl font-black tabular-nums leading-none ${cfg.color}`}>
-                      {result!.confidence}<span className="text-xl font-semibold">%</span>
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">de confiance</p>
-                  </div>
-                </div>
-                <div className="mt-5 h-1.5 w-full rounded-full bg-black/20 overflow-hidden">
-                  <div className={`h-full rounded-full ${cfg.bar} animate-bar-grow delay-200`} style={{ width: `${result!.confidence}%` }} />
                 </div>
               </>
             )}
@@ -392,13 +383,23 @@ function ResultPage({ result, onClear, leaving }: { result: AnalysisResult | nul
                     <Loader2 className="size-7 text-primary animate-spin" />
                   </div>
                 ) : (
-                  <div
-                    className={`relative flex items-center justify-center rounded-full w-28 h-28 border-4 ${cfg.border}`}
-                    style={{ boxShadow: `0 0 32px -4px ${cfg.glow}` }}
-                  >
+                  <div className="relative flex items-center justify-center w-28 h-28">
+                    <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+                      <circle cx="50" cy="50" r="44" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="6" />
+                      <circle 
+                        cx="50" 
+                        cy="50" 
+                        r="44" 
+                        fill="none" 
+                        stroke={cfg.color === "text-red-400" ? "rgb(248 113 113)" : cfg.color === "text-emerald-400" ? "rgb(52 211 153)" : "rgb(251 191 36)"}
+                        strokeWidth="6"
+                        strokeDasharray="276"
+                        strokeDashoffset={276 * (1 - result!.confidence / 100)}
+                        style={{ transition: "stroke-dashoffset 0.6s ease-in-out" }}
+                      />
+                    </svg>
                     <div className="text-center">
                       <p className={`text-3xl font-black tabular-nums leading-none ${cfg.color}`}>{result!.confidence}</p>
-                      <p className={`text-sm font-semibold ${cfg.color}`}>%</p>
                     </div>
                   </div>
                 )}
