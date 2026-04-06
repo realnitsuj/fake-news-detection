@@ -16,6 +16,7 @@ dependencies = [
     "uuid>=1.30",
     "chromadb",
     "sentence-transformers>=3.0.0",
+    "pypdf>=4.0.0",
 ]
 
 [dependency-groups]
