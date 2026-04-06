@@ -124,21 +124,11 @@ Ce positionnement permet de défendre une promesse concrète et différenciante:
 
 La page web de VerifAI constitue le principal point de contact avec l'utilisateur. Dans notre stratégie marketing, elle joue un double rôle: convertir la curiosité en usage réel et installer la confiance dès les premières secondes d'interaction.
 
-Nous avons fait évoluer l'interface entre une première maquette fonctionnelle et une version plus aboutie orientée produit. La version initiale validait les fonctionnalités de base (champ de saisie, analyse, affichage du résultat), mais présentait une hiérarchie visuelle limitée et une expérience utilisateur encore peu différenciante.
+L'interface est orientée produit et pensée pour un usage immédiat: parcours court, lisibilité élevée et restitution compréhensible du verdict.
 
-La version actuelle introduit une identité visuelle plus forte (branding VerifAI), une meilleure lisibilité des informations et un parcours simplifié. L'utilisateur peut saisir un texte ou une URL, lancer l'analyse rapidement et comprendre le verdict sans ambiguïté grâce à une restitution structurée (score de confiance, métriques, explication synthétique).
+La page introduit une identité visuelle claire (branding VerifAI), une hiérarchie d'information lisible et un parcours simplifié. L'utilisateur peut saisir un texte ou une URL, lancer l'analyse rapidement et comprendre le verdict sans ambiguïté grâce à une restitution structurée (score de confiance, métriques, explication synthétique).
 
-Cette évolution soutient directement nos deux cibles marketing. Côté B2C, la simplicité réduit la friction et favorise l'usage spontané. Côté B2B, la clarté de la restitution facilite la prise de décision et améliore la crédibilité perçue de l'outil dans un contexte de publication.
-
-### Évolution visuelle: avant / après {.unnumbered .unlisted}
-
-![Version initiale - page d'accueil](chemin/vers/capture-avant-accueil.png)
-
-![Version actuelle - page d'accueil](chemin/vers/capture-apres-accueil.png)
-
-![Version initiale - page de résultat](chemin/vers/capture-avant-resultat.png)
-
-![Version actuelle - page de résultat](chemin/vers/capture-apres-resultat.png)
+Cette page soutient directement nos deux cibles marketing. Côté B2C, la simplicité réduit la friction et favorise l'usage spontané. Côté B2B, la clarté de la restitution facilite la prise de décision et améliore la crédibilité perçue de l'outil dans un contexte de publication.
 
 En résumé, la page web actuelle transforme VerifAI d'un prototype technique en produit crédible, compréhensible et aligné avec notre promesse marketing: vérifier avant de partager, de façon simple, rapide et explicable.
 
@@ -157,6 +147,7 @@ Cette cohérence permet de renforcer la mémorisation de la marque et de créer 
 Les contenus de démonstration montrent l'application en situation réelle, avec un parcours court de bout en bout: saisie d'un texte ou d'une URL, lancement de l'analyse, lecture du verdict.
 
 - vidéos courtes avant/après analyse;
+- vidéos courtes de démonstration d'analyse;
 - captures commentées de l'interface et du score;
 - mini-cas d'usage "vu sur les réseaux" traités en moins d'une minute;
 - démonstrations comparant une information fiable et une information douteuse.
