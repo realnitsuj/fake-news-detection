@@ -45,7 +45,15 @@ Pour que l'IA puisse "chercher" dans ces milliers d'articles, nous utilisons :
 
 ### 3\. Prompt Enrichi 
 
-Maintenant, avant chaque requête, on récupère l'article de notre base le plus proche sémentiquement du texte à analyser, ainsi qu'un score de similitude, qu'on envoie à notre LLM pour qu'il rende son verdict avec les informations actuelles.
+Maintenant, avant chaque requête, on récupère l'article de notre base le plus proche sémentiquement du texte à analyser, ainsi qu'un score de similitude. Si ce score dépasse le seuil mis en place, l'article est envoyé comme source dans la requête à notre LLM, pour qu'il rende son verdict avec les informations actuelles. Dans le cas contraire, seulement l'information dont on demande une vérification est envoyé dans le prompt, pour éviter que le LLM se base sur un article qui n'a pas de rapport, et donc répondre que comme les articles sont sur des sujets différents, l'informations est fausse.
+
+## Explication du choix des données
+
+Le succès d'un système RAG repose sur la fiabilité des sources. En choisissant France 24 et Le Monde, on ne prendra pas seulement des flux de données d'informations, mais on s'assure de la qualité des vérifications. Ces deux rédactions sont reconnues pour avoir des informations sourcées et recoupées, ce qui est indispensable pour servir de base pour notre projet.
+
+L'intérêt majeur réside dans leur complémentarité. D'un côté, France 24 produit des articles en continu sur les sujets d'actualités, donc cela nous assure une réactivité immédiate sur les événements mondiaux. De l'autre, Le Monde apporte, avec des articles moins nombreux mais plus développés, nous donne une profondeur d'analyse et une rigueur plus grande. Ce binôme permet au modèle de disposer d'une base de connaissances équilibrée, capable de traiter aussi bien une une informations extrêmement récente, comme aller chercher les détails précis d'une autre information.
+
+Enfin, il y a un enjeu linguistique et technique. Ces sources produisent des textes très bien écrit, cela nous semble pouvoir aider à réduire des biais sensationnalistes. Pour notre modèle Llama 3, travailler sur une base d'une telle qualité facilite la vectorisation sémantique : les faits sont exposés clairement, sans ambiguïté. En basant notre détection sur ces deux rédactions, nous garantissons à l'utilisateur que le verdict rendu, lorsque le RAG est utilisé, n'est pas une simple intuition, mais le reflet d'une réalité documentée et sourcée.
 
 ## Nouveau Format de Sortie (Standard JSON v2)
 
