@@ -3,6 +3,7 @@ import json
 import requests
 import chromadb
 import re
+from bs4 import BeautifulSoup  # <-- Nouvel import pour le parsing HTML
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 
@@ -27,6 +28,33 @@ def safe_json_text(text: str):
     text = text.replace("\n", " ").replace("\r", " ").replace("\t", " ").replace('"', "'")
     text = "".join(char for char in text if ord(char) >= 32)
     return re.sub(r'\s+', ' ', text).strip()
+
+def get_plaintext_from_url(url: str):
+    """Extrait proprement le texte d'une page web."""
+    try:
+        # Faux User-Agent pour éviter de se faire bloquer par les sites d'actualité
+        headers = {'User-Agent': 'Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36'}
+        res = requests.get(url, headers=headers, timeout=10)
+        
+        if not 200 <= res.status_code <= 300:
+            return "Erreur"
+
+        # Parsing avec BeautifulSoup
+        soup = BeautifulSoup(res.text, "html.parser")
+
+        # Nettoyage : on retire le code Javascript et CSS qui polluerait l'IA
+        for script_or_style in soup(["script", "style", "nav", "footer"]):
+            script_or_style.extract()
+
+        # Extraction du texte en gardant des espaces entre les balises
+        text = soup.get_text(separator=" ")
+        
+        # On passe le résultat dans ton nettoyeur existant pour faire le ménage
+        return safe_json_text(text)
+
+    except Exception as e:
+        print(f"Erreur d'extraction URL: {e}")
+        return "Erreur"
 
 def get_ai_prediction(text: str):
     """

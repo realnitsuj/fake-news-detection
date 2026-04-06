@@ -1,11 +1,27 @@
-import textract
 from fastapi import APIRouter
-from app.api.models import FileSchema, TextSchema
-from ..dependencies import get_ai_prediction
+from app.api.models import TextSchema
+from ..dependencies import get_ai_prediction, get_plaintext_from_url
 
 router = APIRouter()
 
-def format_prediction_response(result: dict) -> dict:
+@router.post("/check-text")
+async def check_text(payload: TextSchema):
+    
+    input_text = payload.text
+
+    # 1. On vérifie si l'utilisateur a envoyé une URL
+    if input_text.startswith("http://") or input_text.startswith("https://"):
+        print(f"URL détectée : {input_text}")
+        input_text = get_plaintext_from_url(input_text)
+        
+        # Gestion d'erreur si le site bloque l'extraction
+        if input_text == "Erreur":
+            return {"status": "error", "message": "Impossible d'extraire le texte de cette URL. Le site la bloque peut-être."}
+
+    # 2. On passe le texte (ou le contenu extrait de l'URL) à l'IA
+    result = get_ai_prediction(input_text)
+
+    # 3. Retour classique
     if "error" in result:
         return {"status": "error", "message": result["error"]}
 
@@ -16,13 +32,3 @@ def format_prediction_response(result: dict) -> dict:
         "categorie": result.get("categorie"),
         "justification": result.get("justification")
     }
-
-@router.post("/check-text")
-async def check_text(payload: TextSchema):
-    result = get_ai_prediction(payload.text)
-    return format_prediction_response(result)
-
-@router.post("/check-file")
-async def check_file(payload: FileSchema):
-    # TODO: Implémenter l'extraction de texte avec une nouvelle librairie (ex: pypdf, python-docx)
-    return {"status": "error", "message": "L'extraction de texte à partir de fichiers est en cours de développement."}
