@@ -30,9 +30,7 @@ interface AnalysisResult {
   sources: string[]
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// Mock IA — remplacer par le vrai endpoint
-// ─────────────────────────────────────────────────────────────────────────────
+// ─────────────────────────────────────────────────────────────────────────────────────────────
 
 async function runAnalysis(input: string): Promise<AnalysisResult> {
   const res = await fetch("http://localhost:8000/ai/check-text", {
@@ -40,24 +38,45 @@ async function runAnalysis(input: string): Promise<AnalysisResult> {
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ text: input }),
   })
-  const { result } = await res.json()
-  const confidence = Math.round(parseFloat(result.score.replace("%", "")))  
-  const verdict: Verdict = result.prediction === "FAKE" ? "FAKE" : "REAL"
+  const data = await res.json()
+  const result = (data.result ?? data) as any
+
+  // 1. Accepter "confiance" (venant du Python) ou "score"
+  const rawScoreValue = result.score ?? result.confiance
+  if (rawScoreValue === undefined) {
+    throw new Error("Réponse API invalide : score/confiance manquant")
+  }
+
+  const rawScore = typeof rawScoreValue === "number" ? rawScoreValue : String(rawScoreValue)
+  const confidence = Math.round(parseFloat(rawScore.toString().replace("%", "")))
+
+  // 2. Accepter les mots "FAUX" et "VRAI" venant du prompt Python
+  const rawVerdict = (result.prediction ?? result.verdict ?? "UNCERTAIN").toUpperCase()
+  
+  let verdict: Verdict = "UNCERTAIN"
+  if (rawVerdict === "FAKE" || rawVerdict === "FAUX") {
+    verdict = "FAKE"
+  } else if (rawVerdict === "REAL" || rawVerdict === "VRAI") {
+    verdict = "REAL"
+  }
+
   return {
     verdict,
     confidence,
     inputPreview: input.length > 100 ? input.slice(0, 100) + "…" : input,
     isUrl: input.startsWith("http"),
     metrics: {
-      sourceCredibility: verdict === "FAKE" ? 21 : 87,
+      sourceCredibility: verdict === "REAL" ? confidence : Math.max(0, 100 - confidence),
       factualAccuracy: confidence,
-      linguisticBias: verdict === "FAKE" ? 14 : 83,
-      crossVerification: verdict === "FAKE" ? 11 : 78,
+      linguisticBias: verdict === "REAL" ? confidence : Math.max(0, 100 - confidence),
+      crossVerification: verdict === "REAL" ? confidence : Math.max(0, 100 - confidence),
     },
-    explanation: verdict === "FAKE"
-      ? "Le modèle a détecté des signaux de désinformation."
-      : "Aucun signal de désinformation détecté.",
-    sources: ["hamzab/roberta-fake-news-classification"],
+    explanation: result.justification
+      ? `${result.justification}${result.categorie ? ` (Catégorie: ${result.categorie})` : ''}`
+      : (verdict === "FAKE"
+        ? "Le modèle a détecté des signaux de désinformation."
+        : "Aucun signal de désinformation détecté."),
+    sources: result.sources ?? ["hamzab/roberta-fake-news-classification"],
   }
 }
 
@@ -327,7 +346,7 @@ function ResultPage({ result, onClear, leaving }: { result: AnalysisResult | nul
               </div>
             ) : (
               <>
-                <div className="flex items-start justify-between gap-4">
+                <div className="flex items-start gap-4">
                   <div className="flex items-start gap-3">
                     <div className={`mt-0.5 rounded-full p-2 bg-card border ${cfg.border}`}>
                       <Icon className={`size-5 ${cfg.color}`} />
@@ -337,15 +356,6 @@ function ResultPage({ result, onClear, leaving }: { result: AnalysisResult | nul
                       <p className="text-xs text-muted-foreground mt-0.5">{cfg.sub}</p>
                     </div>
                   </div>
-                  <div className="text-right shrink-0">
-                    <p className={`text-4xl font-black tabular-nums leading-none ${cfg.color}`}>
-                      {result!.confidence}<span className="text-xl font-semibold">%</span>
-                    </p>
-                    <p className="text-xs text-muted-foreground mt-1">de confiance</p>
-                  </div>
-                </div>
-                <div className="mt-5 h-1.5 w-full rounded-full bg-black/20 overflow-hidden">
-                  <div className={`h-full rounded-full ${cfg.bar} animate-bar-grow delay-200`} style={{ width: `${result!.confidence}%` }} />
                 </div>
               </>
             )}
@@ -373,13 +383,23 @@ function ResultPage({ result, onClear, leaving }: { result: AnalysisResult | nul
                     <Loader2 className="size-7 text-primary animate-spin" />
                   </div>
                 ) : (
-                  <div
-                    className={`relative flex items-center justify-center rounded-full w-28 h-28 border-4 ${cfg.border}`}
-                    style={{ boxShadow: `0 0 32px -4px ${cfg.glow}` }}
-                  >
+                  <div className="relative flex items-center justify-center w-28 h-28">
+                    <svg className="absolute inset-0 w-full h-full -rotate-90" viewBox="0 0 100 100">
+                      <circle cx="50" cy="50" r="44" fill="none" stroke="oklch(1 0 0 / 8%)" strokeWidth="6" />
+                      <circle 
+                        cx="50" 
+                        cy="50" 
+                        r="44" 
+                        fill="none" 
+                        stroke={cfg.color === "text-red-400" ? "rgb(248 113 113)" : cfg.color === "text-emerald-400" ? "rgb(52 211 153)" : "rgb(251 191 36)"}
+                        strokeWidth="6"
+                        strokeDasharray="276"
+                        strokeDashoffset={276 * (1 - result!.confidence / 100)}
+                        style={{ transition: "stroke-dashoffset 0.6s ease-in-out" }}
+                      />
+                    </svg>
                     <div className="text-center">
                       <p className={`text-3xl font-black tabular-nums leading-none ${cfg.color}`}>{result!.confidence}</p>
-                      <p className={`text-sm font-semibold ${cfg.color}`}>%</p>
                     </div>
                   </div>
                 )}

@@ -1,48 +1,34 @@
-import textract
 from fastapi import APIRouter
-
-from app.api.models import FileSchema, TextSchema
-
+from app.api.models import TextSchema
 from ..dependencies import get_ai_prediction, get_plaintext_from_url
 
 router = APIRouter()
 
-
-def ai_check_text(text_input: str):
-    # Get AI prediction
-    result = get_ai_prediction(text_input)
-    res = {}
-
-    # Check for errors
-    if "error" in result:
-        res = {"error", f"Erreur : {result['error']}"}
-    else:
-        label = result.get("label", "").upper()
-        score = result.get("score", 0) * 100
-
-        if label in ["LABEL_0", "FAKE", "fake"]:
-            res["prediction"] = "FAKE"
-        else:
-            res["prediction"] = "GOOD"
-
-        res["score"] = f"{score:.2f}%"
-
-    return res
-
-
 @router.post("/check-text")
 async def check_text(payload: TextSchema):
-    return {"result": ai_check_text(payload.text)}
+    
+    input_text = payload.text
 
+    # 1. On vérifie si l'utilisateur a envoyé une URL
+    if input_text.startswith("http://") or input_text.startswith("https://"):
+        print(f"URL détectée : {input_text}")
+        input_text = get_plaintext_from_url(input_text)
+        
+        # Gestion d'erreur si le site bloque l'extraction
+        if input_text == "Erreur":
+            return {"status": "error", "message": "Impossible d'extraire le texte de cette URL. Le site la bloque peut-être."}
 
-@router.post("/check-file")
-async def check_file(payload: FileSchema):
-    # TODO: Implement fiel save to filesystem
-    file_text = textract.process(payload.name, encoding="ascii")
-    return {"result": ai_check_text(file_text)}
+    # 2. On passe le texte (ou le contenu extrait de l'URL) à l'IA
+    result = get_ai_prediction(input_text)
 
+    # 3. Retour classique
+    if "error" in result:
+        return {"status": "error", "message": result["error"]}
 
-@router.post("/check-url")
-async def check_url(payload: TextSchema):
-    url_text = get_plaintext_from_url(payload.text)
-    return {"result": ai_check_text(url_text)}
+    return {
+        "status": "success",
+        "verdict": result.get("verdict"),
+        "score": f"{result.get('confiance')}%",
+        "categorie": result.get("categorie"),
+        "justification": result.get("justification")
+    }

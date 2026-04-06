@@ -7,4 +7,4 @@ class FileSchema(BaseModel):
 
 
 class TextSchema(BaseModel):
-    text: str = Field(..., min_length=50, max_length=500)
+    text: str = Field(..., min_length=50, max_length=5000)
