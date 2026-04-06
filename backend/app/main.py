@@ -19,8 +19,9 @@ logger = logging.getLogger(__name__)
 app = FastAPI()
 
 origins = [
-    "http://localhost",
-    "http://localhost:8080",
+    # "http://localhost",
+    # "http://localhost:8080",
+    "*",
 ]
 
 app.add_middleware(
