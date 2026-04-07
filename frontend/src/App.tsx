@@ -20,12 +20,6 @@ interface AnalysisResult {
   confidence: number
   inputPreview: string
   isUrl: boolean
-  metrics: {
-    sourceCredibility: number
-    factualAccuracy: number
-    linguisticBias: number
-    crossVerification: number
-  }
   explanation: string
   sources: string[]
 }
@@ -79,12 +73,6 @@ async function runAnalysis(input: string | File): Promise<AnalysisResult> {
     confidence,
     inputPreview: input instanceof File ? `Fichier : ${input.name}` : (input.length > 100 ? input.slice(0, 100) + "…" : input),
     isUrl: typeof input === "string" && input.startsWith("http"),
-    metrics: {
-      sourceCredibility: verdict === "REAL" ? confidence : Math.max(0, 100 - confidence),
-      factualAccuracy: confidence,
-      linguisticBias: verdict === "REAL" ? confidence : Math.max(0, 100 - confidence),
-      crossVerification: verdict === "REAL" ? confidence : Math.max(0, 100 - confidence),
-    },
     explanation: result.justification
       ? `${result.justification}${result.categorie ? ` (Catégorie: ${result.categorie})` : ''}`
       : (verdict === "FAKE"
@@ -134,12 +122,6 @@ const VERDICTS = {
   },
 } as const
 
-const METRIC_LABELS: Record<string, string> = {
-  sourceCredibility: "Crédibilité de la source",
-  factualAccuracy:   "Exactitude factuelle",
-  linguisticBias:    "Neutralité linguistique",
-  crossVerification: "Vérification croisée",
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // Shared background decorations
@@ -170,23 +152,6 @@ function BgDecorations({ glow }: { glow?: string }) {
   )
 }
 
-// ─────────────────────────────────────────────────────────────────────────────
-// MetricRow
-// ─────────────────────────────────────────────────────────────────────────────
-
-function MetricRow({ label, value, bar, delay }: { label: string; value: number; bar: string; delay: string }) {
-  return (
-    <div className={`space-y-1.5 animate-fade-up ${delay}`}>
-      <div className="flex justify-between text-xs">
-        <span className="text-muted-foreground">{label}</span>
-        <span className="font-semibold tabular-nums text-foreground">{value}%</span>
-      </div>
-      <div className="h-1 w-full rounded-full bg-secondary overflow-hidden">
-        <div className={`h-full rounded-full ${bar} animate-bar-grow ${delay}`} style={{ width: `${value}%` }} />
-      </div>
-    </div>
-  )
-}
 
 // ─────────────────────────────────────────────────────────────────────────────
 // HomePage
@@ -321,7 +286,6 @@ function ResultPage({ result, onClear, leaving, error }: { result: AnalysisResul
       "VerifAI — Rapport d'analyse", "═".repeat(36),
       `Verdict   : ${cfg.label}`, `Confiance : ${result.confidence}%`, "",
       `Entrée    : ${result.inputPreview}`, "",
-      "MÉTRIQUES", ...Object.entries(result.metrics).map(([k, v]) => `  ${METRIC_LABELS[k]}: ${v}%`), "",
       "EXPLICATION", result.explanation, "",
       "SOURCES", ...result.sources.map(s => `  · ${s}`),
     ]
@@ -457,33 +421,7 @@ function ResultPage({ result, onClear, leaving, error }: { result: AnalysisResul
                 <p className="text-xs text-muted-foreground">Score de confiance</p>
               </div>
 
-              <div className="h-px bg-border/60" />
-
-              {/* Métriques */}
-              <div className="space-y-3 flex-1">
-                <h2 className="text-xs font-semibold uppercase tracking-widest text-muted-foreground">Métriques</h2>
-                {isLoading ? (
-                  <div className="space-y-4">
-                    {[80, 60, 70, 50].map((w, i) => (
-                      <div key={i} className="space-y-1.5">
-                        <div className="flex justify-between">
-                          <div className="h-3 rounded bg-secondary animate-pulse" style={{ width: `${w}%` }} />
-                          <div className="h-3 w-8 rounded bg-secondary animate-pulse" />
-                        </div>
-                        <div className="h-1 w-full rounded-full bg-secondary overflow-hidden">
-                          <div className="h-full rounded-full bg-secondary/80 animate-pulse" style={{ width: "60%" }} />
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                ) : (
-                  <div className="space-y-3">
-                    {Object.entries(result!.metrics).map(([key, val], i) => (
-                      <MetricRow key={key} label={METRIC_LABELS[key]} value={val} bar={cfg.bar} delay={`delay-${250 + i * 50}`} />
-                    ))}
-                  </div>
-                )}
-              </div>
+              
             </div>
 
             {/* RIGHT — Explications */}
