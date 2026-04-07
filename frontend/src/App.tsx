@@ -157,7 +157,7 @@ function BgDecorations({ glow }: { glow?: string }) {
 // HomePage
 // ─────────────────────────────────────────────────────────────────────────────
 
-function HomePage({ onAnalyze }: { onAnalyze: (v: string | File) => void }) {
+function HomePage({ onAnalyze, onOpenTerms }: { onAnalyze: (v: string | File) => void; onOpenTerms: () => void}) {
   const [mode, setMode] = useState<"url" | "texte" | "fichier">("url")
   const [value, setValue] = useState("")
   const [file, setFile] = useState<File | null>(null)
@@ -255,18 +255,69 @@ function HomePage({ onAnalyze }: { onAnalyze: (v: string | File) => void }) {
       </main>
 
       <footer className="absolute bottom-5 text-xs text-muted-foreground/60">
-        <a href="#" className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline">Conditions d'utilisation</a>
-      </footer>
+        <button 
+            onClick={onOpenTerms} 
+            className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
+          >
+            Conditions d'utilisation
+          </button>
+        </footer>
 
     </div>
   )
+}
+
+// --------------------------------------------------------------------------------
+// Terms
+// --------------------------------------------------------------------------------
+function TermsModal({ isOpen, onClose }: { isOpen: boolean; onClose: () => void }) {
+  if (!isOpen) return null;
+
+  return (
+    <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-background/80 backdrop-blur-sm animate-in fade-in duration-200">
+      <div 
+        className="relative w-full max-w-lg max-h-[80vh] overflow-y-auto rounded-2xl border border-border bg-card p-8 shadow-2xl animate-in zoom-in-95 duration-200"
+      >
+        <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <AlertTriangle className="size-5 text-amber-400" />
+          Conditions d'utilisation
+        </h2>
+        
+        <div className="space-y-4 text-sm text-muted-foreground leading-relaxed">
+          <section>
+            <h3 className="font-semibold text-foreground">1. Objectif du service</h3>
+            <p>VerifAI est un outil expérimental développé dans le cadre du module Cybersécurité II. Il utilise une intelligence artificielle pour aider à identifier des signaux de désinformation potentiels.</p>
+          </section>
+
+          <section>
+            <h3 className="font-semibold text-foreground">2. Absence de garantie</h3>
+            <p>L'analyse fournie est purement indicative. L'IA peut produire des résultats erronés ("hallucinations"). Ce service ne remplace en aucun cas un jugement critique ou une vérification par des journalistes professionnels.</p>
+          </section>
+
+          <section>
+            <h3 className="font-semibold text-foreground">3. Protection des données</h3>
+            <p>Conformément au principe de confidentialité, aucun texte, URL ou fichier soumis n'est conservé de manière persistante sur nos serveurs après la fin de l'analyse en cours.</p>
+          </section>
+
+          <section>
+            <h3 className="font-semibold text-foreground">4. Responsabilité</h3>
+            <p>Les auteurs du projet déclinent toute responsabilité quant à l'utilisation des résultats fournis par l'application ou aux conséquences d'une mauvaise interprétation des verdicts rendus.</p>
+          </section>
+        </div>
+
+        <Button onClick={onClose} className="w-full mt-8 rounded-xl">
+          J'ai compris
+        </Button>
+      </div>
+    </div>
+  );
 }
 
 // ─────────────────────────────────────────────────────────────────────────────
 // ResultPage
 // ─────────────────────────────────────────────────────────────────────────────
 
-function ResultPage({ result, onClear, leaving, error }: { result: AnalysisResult | null; onClear: () => void; leaving: boolean; error?: string | null }) {
+function ResultPage({ result, onClear, leaving, error, onOpenTerms }: { result: AnalysisResult | null; onClear: () => void; leaving: boolean; error?: string | null; onOpenTerms: () => void}) {
   const isLoading = result === null && !error
   const cfg = isLoading || error ? VERDICTS.UNCERTAIN : VERDICTS[result!.verdict]
   const { Icon } = cfg
@@ -468,7 +519,12 @@ function ResultPage({ result, onClear, leaving, error }: { result: AnalysisResul
 
       <style>{`@keyframes dash-spin { 0% { stroke-dashoffset: 276; } 60% { stroke-dashoffset: 0; } 100% { stroke-dashoffset: -276; } }`}</style>
       <footer className="border-t border-border/40 py-4 text-center text-xs text-muted-foreground/50">
-        <a href="#" className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline">Conditions d'utilisation</a>
+        <button 
+            onClick={onOpenTerms} 
+            className="hover:text-muted-foreground transition-colors underline-offset-4 hover:underline"
+        >
+            Conditions d'utilisation
+        </button>
       </footer>
     </div>
   )
@@ -483,6 +539,7 @@ export default function App() {
   const [result, setResult]         = useState<AnalysisResult | null>(null)
   const [error, setError]           = useState<string | null>(null)
   const [leaving, setLeaving]       = useState(false)
+  const [isTermsOpen, setIsTermsOpen] = useState(false)
 
   const handleAnalyze = useCallback(async (input: string | File) => {
     setResult(null)
@@ -507,8 +564,25 @@ export default function App() {
     }, 280)
   }, [])
 
-  if (showResult) {
-    return <ResultPage result={result} error={error} onClear={handleClear} leaving={leaving} />
-  }
-  return <HomePage onAnalyze={handleAnalyze} />
+  
+  return (
+    <>
+      <TermsModal isOpen={isTermsOpen} onClose={() => setIsTermsOpen(false)} />
+      
+      {showResult ? (
+        <ResultPage 
+          result={result} 
+          error={error} 
+          onClear={handleClear} 
+          leaving={leaving} 
+          onOpenTerms={() => setIsTermsOpen(true)}
+        />
+      ) : (
+        <HomePage 
+          onAnalyze={handleAnalyze} 
+          onOpenTerms={() => setIsTermsOpen(true)}
+        />
+      )}
+    </>
+  )
 }
