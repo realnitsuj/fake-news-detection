@@ -1,7 +1,5 @@
 # Marketing
 
-## Introduction
-
 Dans le cadre du jalon 3, la stratégie marketing de VerifAI vise à préparer le passage d’un prototype fonctionnel à un produit réellement adopté par ses utilisateurs.  
 Notre application répond à un besoin croissant: vérifier rapidement la fiabilité d’un contenu (texte ou lien) dans un contexte où la désinformation circule massivement sur les plateformes numériques.
 
