@@ -1,7 +1,7 @@
 # Analyses des résultats et des performances
 ## 1. Contexte et objectifs
 
-VerifAI a été soumis à cinq sessions de test consécutives. Chaque session présente un ensemble d'énoncés variés — faits vérifiables, désinformations grossières, théories du complot et affirmations ambiguës — auxquels le modèle répond par une classification (`VRAI`, `FAUX` ou `PARTIEL`) accompagnée d'un score de confiance.
+VerifAI a été soumis à cinq sessions de test consécutives sous forme de validation croisée, à partir d'un dataset de 50 articles. Chaque session présente un ensemble d'énoncés variés — faits vérifiables, désinformations grossières, théories du complot et affirmations ambiguës — auxquels le modèle répond par une classification (`VRAI`, `FAUX` ou `PARTIEL`) accompagnée d'un score de confiance.
 
 Ce rapport évalue la performance globale du système, identifie ses forces et faiblesses, et propose des pistes d'amélioration ciblées.
 
