@@ -5,7 +5,7 @@ import { Textarea } from "@/components/ui/textarea"
 import {
   ArrowRight, Link2, FileText, Loader2,
   Download, RotateCcw, CheckCircle2, XCircle, AlertTriangle,
-  ExternalLink,
+  ExternalLink, UploadCloud
 } from "lucide-react"
 import logo from "@/assets/logo.jpg"
 
@@ -32,16 +32,31 @@ interface AnalysisResult {
 
 // ─────────────────────────────────────────────────────────────────────────────────────────────
 
-async function runAnalysis(input: string): Promise<AnalysisResult> {
-  const res = await fetch("http://localhost:8000/ai/check-text", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ text: input }),
-  })
+async function runAnalysis(input: string | File): Promise<AnalysisResult> {
+  let res;
+  
+  if (input instanceof File) {
+    const formData = new FormData()
+    formData.append("file", input)
+    res = await fetch("http://localhost:8000/ai/check-file", {
+      method: "POST",
+      body: formData,
+    })
+  } else {
+    res = await fetch("http://localhost:8000/ai/check-text", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ text: input }),
+    })
+  }
+
   const data = await res.json()
   const result = (data.result ?? data) as any
 
-  // 1. Accepter "confiance" (venant du Python) ou "score"
+  if (result.status === "error") {
+    throw new Error(result.message || "Erreur d'analyse API")
+  }
+
   const rawScoreValue = result.score ?? result.confiance
   if (rawScoreValue === undefined) {
     throw new Error("Réponse API invalide : score/confiance manquant")
@@ -50,7 +65,6 @@ async function runAnalysis(input: string): Promise<AnalysisResult> {
   const rawScore = typeof rawScoreValue === "number" ? rawScoreValue : String(rawScoreValue)
   const confidence = Math.round(parseFloat(rawScore.toString().replace("%", "")))
 
-  // 2. Accepter les mots "FAUX" et "VRAI" venant du prompt Python
   const rawVerdict = (result.prediction ?? result.verdict ?? "UNCERTAIN").toUpperCase()
   
   let verdict: Verdict = "UNCERTAIN"
@@ -63,8 +77,8 @@ async function runAnalysis(input: string): Promise<AnalysisResult> {
   return {
     verdict,
     confidence,
-    inputPreview: input.length > 100 ? input.slice(0, 100) + "…" : input,
-    isUrl: input.startsWith("http"),
+    inputPreview: input instanceof File ? `Fichier : ${input.name}` : (input.length > 100 ? input.slice(0, 100) + "…" : input),
+    isUrl: typeof input === "string" && input.startsWith("http"),
     metrics: {
       sourceCredibility: verdict === "REAL" ? confidence : Math.max(0, 100 - confidence),
       factualAccuracy: confidence,
@@ -178,13 +192,25 @@ function MetricRow({ label, value, bar, delay }: { label: string; value: number;
 // HomePage
 // ─────────────────────────────────────────────────────────────────────────────
 
-function HomePage({ onAnalyze }: { onAnalyze: (v: string) => void }) {
-  const [mode, setMode] = useState<"url" | "texte">("url")
+function HomePage({ onAnalyze }: { onAnalyze: (v: string | File) => void }) {
+  const [mode, setMode] = useState<"url" | "texte" | "fichier">("url")
   const [value, setValue] = useState("")
+  const [file, setFile] = useState<File | null>(null)
   const inputRef = useRef<HTMLInputElement>(null)
 
-  const handleSubmit = () => { if (value.trim()) onAnalyze(value.trim()) }
-  const handleKey = (e: React.KeyboardEvent) => { if (e.key === "Enter" && !e.shiftKey) { e.preventDefault(); handleSubmit() } }
+  const handleSubmit = () => {
+    if (mode === "fichier" && file) onAnalyze(file)
+    else if (value.trim()) onAnalyze(value.trim())
+  }
+  
+  const handleKey = (e: React.KeyboardEvent) => { 
+    if (e.key === "Enter" && !e.shiftKey) { 
+      e.preventDefault(); 
+      handleSubmit() 
+    } 
+  }
+
+  const isSubmitDisabled = mode === "fichier" ? !file : !value.trim()
 
   return (
     <div className="relative flex min-h-svh flex-col items-center justify-center p-6 overflow-hidden animate-page-in">
@@ -208,14 +234,14 @@ function HomePage({ onAnalyze }: { onAnalyze: (v: string) => void }) {
         >
           {/* Tabs */}
           <div className="flex w-full gap-2 rounded-xl bg-secondary/60 p-1">
-            {(["url", "texte"] as const).map(m => (
+            {(["url", "texte", "fichier"] as const).map(m => (
               <button
                 key={m}
-                onClick={() => { setMode(m); setValue("") }}
+                onClick={() => { setMode(m); setValue(""); setFile(null) }}
                 className={`flex flex-1 items-center justify-center gap-2 rounded-lg py-2 text-sm font-medium transition-all duration-200
                   ${mode === m ? "bg-primary text-primary-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
               >
-                {m === "url" ? <><Link2 className="size-3.5" />URL</> : <><FileText className="size-3.5" />Texte</>}
+                {m === "url" ? <><Link2 className="size-3.5" />URL</> : m === "texte" ? <><FileText className="size-3.5" />Texte</> : <><UploadCloud className="size-3.5" />Fichier</>}
               </button>
             ))}
           </div>
@@ -232,7 +258,7 @@ function HomePage({ onAnalyze }: { onAnalyze: (v: string) => void }) {
                 placeholder="https://exemple.com/article…"
                 className="h-11 rounded-xl border-border bg-input/40 text-sm placeholder:text-muted-foreground/60 focus-visible:ring-primary/40 focus-visible:border-primary/60 transition-all"
               />
-            ) : (
+            ) : mode === "texte" ? (
               <Textarea
                 value={value}
                 onChange={e => setValue(e.target.value)}
@@ -241,11 +267,18 @@ function HomePage({ onAnalyze }: { onAnalyze: (v: string) => void }) {
                 rows={5}
                 className="rounded-xl border-border bg-input/40 text-sm placeholder:text-muted-foreground/60 focus-visible:ring-primary/40 focus-visible:border-primary/60 resize-none transition-all"
               />
+            ) : (
+              <Input
+                type="file"
+                accept=".txt,.pdf"
+                onChange={e => setFile(e.target.files?.[0] || null)}
+                className="h-11 pt-2.5 rounded-xl border-border bg-input/40 text-sm file:mr-4 file:py-1 file:px-3 file:rounded-full file:border-0 file:text-xs file:font-semibold file:bg-primary/10 file:text-primary hover:file:bg-primary/20 cursor-pointer transition-all"
+              />
             )}
 
             <Button
               onClick={handleSubmit}
-              disabled={!value.trim()}
+              disabled={isSubmitDisabled}
               className="w-full h-11 rounded-xl bg-primary hover:bg-primary/90 text-primary-foreground font-semibold gap-2 transition-all duration-200 disabled:opacity-40 shadow-[0_0_20px_oklch(0.62_0.19_235_/_25%)] hover:shadow-[0_0_28px_oklch(0.62_0.19_235_/_40%)]"
             >
               <>Analyser<ArrowRight className="size-4" /></>
@@ -277,9 +310,9 @@ function HomePage({ onAnalyze }: { onAnalyze: (v: string) => void }) {
 // ResultPage
 // ─────────────────────────────────────────────────────────────────────────────
 
-function ResultPage({ result, onClear, leaving }: { result: AnalysisResult | null; onClear: () => void; leaving: boolean }) {
-  const isLoading = result === null
-  const cfg = isLoading ? VERDICTS.UNCERTAIN : VERDICTS[result.verdict]
+function ResultPage({ result, onClear, leaving, error }: { result: AnalysisResult | null; onClear: () => void; leaving: boolean; error?: string | null }) {
+  const isLoading = result === null && !error
+  const cfg = isLoading || error ? VERDICTS.UNCERTAIN : VERDICTS[result!.verdict]
   const { Icon } = cfg
 
   const handleSave = () => {
@@ -295,6 +328,24 @@ function ResultPage({ result, onClear, leaving }: { result: AnalysisResult | nul
     const a = document.createElement("a")
     a.href = URL.createObjectURL(new Blob([lines.join("\n")], { type: "text/plain" }))
     a.download = "verifai-rapport.txt"; a.click()
+  }
+
+  if (error) {
+    return (
+      <div className={`relative min-h-svh flex flex-col items-center justify-center p-6 overflow-hidden ${leaving ? "animate-page-out" : "animate-page-in"}`}>
+        <BgDecorations glow="oklch(0.65 0.22 25 / 20%)" />
+        <div className="w-full max-w-md rounded-2xl border border-red-500/20 bg-red-500/10 p-6 text-center space-y-4 shadow-[0_0_40px_-10px_oklch(0.65_0.22_25_/_20%)]">
+          <XCircle className="size-10 text-red-400 mx-auto" />
+          <div>
+            <h2 className="text-lg font-bold text-red-400">Analyse impossible</h2>
+            <p className="text-sm text-foreground/80 mt-1">{error}</p>
+          </div>
+          <Button onClick={onClear} className="w-full h-11 rounded-xl bg-card border border-border hover:bg-secondary transition-all">
+            Réessayer
+          </Button>
+        </div>
+      </div>
+    )
   }
 
   return (
@@ -501,22 +552,34 @@ function ResultPage({ result, onClear, leaving }: { result: AnalysisResult | nul
 export default function App() {
   const [showResult, setShowResult] = useState(false)
   const [result, setResult]         = useState<AnalysisResult | null>(null)
+  const [error, setError]           = useState<string | null>(null)
   const [leaving, setLeaving]       = useState(false)
 
-  const handleAnalyze = useCallback(async (input: string) => {
-    setResult(null)       // clear previous
-    setShowResult(true)   // navigate instantly — skeleton shown
-    const data = await runAnalysis(input)
-    setResult(data)       // fill in results
+  const handleAnalyze = useCallback(async (input: string | File) => {
+    setResult(null)
+    setError(null)
+    setShowResult(true)
+    
+    try {
+      const data = await runAnalysis(input)
+      setResult(data)
+    } catch (e: any) {
+      setError(e.message)
+    }
   }, [])
 
   const handleClear = useCallback(() => {
     setLeaving(true)
-    setTimeout(() => { setResult(null); setShowResult(false); setLeaving(false) }, 280)
+    setTimeout(() => { 
+      setResult(null)
+      setError(null)
+      setShowResult(false)
+      setLeaving(false) 
+    }, 280)
   }, [])
 
   if (showResult) {
-    return <ResultPage result={result} onClear={handleClear} leaving={leaving} />
+    return <ResultPage result={result} error={error} onClear={handleClear} leaving={leaving} />
   }
   return <HomePage onAnalyze={handleAnalyze} />
 }

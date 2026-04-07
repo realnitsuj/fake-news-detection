@@ -1,6 +1,6 @@
 .venv/
-.python-version
-REAME.md
-uv.lock
-.env
+__pycache__/
+*.pyc
+ma_base_rag/
 db.sqlite3
+.env
