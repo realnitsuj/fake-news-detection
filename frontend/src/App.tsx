@@ -252,15 +252,6 @@ function HomePage({ onAnalyze }: { onAnalyze: (v: string | File) => void }) {
 
         </div>
 
-        {/* Stats */}
-        <div className="animate-fade-up delay-200 flex items-center gap-6 text-xs text-muted-foreground">
-          {[{ val: "94%", label: "Précision" }, { val: "< 3s", label: "Délai" }, { val: "12k+", label: "Sources" }].map(s => (
-            <div key={s.label} className="flex flex-col items-center gap-0.5">
-              <span className="text-base font-bold text-foreground">{s.val}</span>
-              <span>{s.label}</span>
-            </div>
-          ))}
-        </div>
       </main>
 
       <footer className="absolute bottom-5 text-xs text-muted-foreground/60">
