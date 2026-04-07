@@ -32,18 +32,18 @@ Par conséquent, le passage au *Prompt Engineering* et au RAG a été privilégi
 
 L'innovation majeure réside dans l'ajout d'une "mémoire factuelle" qui permet à l'IA de consulter des sources de confiance avant de répondre.
 
-### 1\. Scraping RSS
+### Scraping RSS
 
 Le système n'est plus statique. Un module de collecte automatisé (`scripts/fetch_news.py`) s'execute tout les jours pour parcourir les flux **RSS** de sources de presse reconnues (Le Monde et France 24). Grâce aux bibliothèques **Feedparser** et **Newspaper3k**, le contenu textuel est extrait, nettoyé de ses balises HTML, et centralisé dans un dataset de référence.
 
-### 2\. Vectorisation et Stockage (ChromaDB)
+### Vectorisation et Stockage (ChromaDB)
 
 Pour que l'IA puisse "chercher" dans ces milliers d'articles, nous utilisons :
 
   - **Sentence-Transformers (`all-MiniLM-L6-v2`)** : Ce modèle transforme chaque article de presse en un vecteur mathématique de 384 dimensions représentant son sens sémantique.
   - **ChromaDB** : Une base de données vectorielle haute performance qui stocke ces vecteurs. Elle permet de trouver rapidement les articles les plus proches sémantiquement de la requête de l'utilisateur.
 
-### 3\. Prompt Enrichi 
+### Prompt Enrichi 
 
 Maintenant, avant chaque requête, on récupère l'article de notre base le plus proche sémentiquement du texte à analyser, ainsi qu'un score de similitude. Si ce score dépasse le seuil mis en place, l'article est envoyé comme source dans la requête à notre LLM, pour qu'il rende son verdict avec les informations actuelles. Dans le cas contraire, seulement l'information dont on demande une vérification est envoyé dans le prompt, pour éviter que le LLM se base sur un article qui n'a pas de rapport, et donc répondre que comme les articles sont sur des sujets différents, l'informations est fausse.
 
@@ -70,16 +70,16 @@ La réponse API est désormais beaucoup plus riche, offrant une transparence tot
 ```
 ## Flux final
 
-### 1\. Entrée 
+### Entrée 
 URL ou texte soumis par l'utilisateur.
 
-### 2\. Récupération 
+### Récupération 
 Le système extrat les preuves de la base de données factuelles (ChromaDB).
 
-### 3\. Travail du LLM 
+### Travail du LLM 
 Llama 3 analyse le texte utilisateur au regard de l'article de notre base avec lequel il a été fournis.
 
-### 4\. Sortie 
+### Sortie 
 Production du JSON structuré.
 
 ## Sécurité et Robustesse Technique
