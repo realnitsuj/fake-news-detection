@@ -132,6 +132,10 @@ Cette page soutient directement nos deux cibles marketing. Côté B2C, la simpli
 
 En résumé, la page web actuelle transforme VerifAI d'un prototype technique en produit crédible, compréhensible et aligné avec notre promesse marketing: vérifier avant de partager, de façon simple, rapide et explicable.
 
+![Page d'accueil de VerifAI](homepage.png){height=250px}
+
+![Page de résultats de VerifAI](result.png){height=250px}
+
 ## Présence sur les plateformes sociales
 
 La présence sociale de VerifAI a pour objectif de transformer un besoin diffus ("je veux éviter de partager de la désinformation") en réflexe concret d'utilisation. La ligne éditoriale retenue repose sur deux leviers complémentaires: des formats de **démonstration produit** pour montrer la valeur immédiate, et des formats de **vulgarisation** pour éduquer sans complexifier.
