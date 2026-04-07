@@ -1,0 +1,147 @@
+﻿Session,Texte,Label_Attendu,Prediction_IA,Confiance,Succes
+1,Le Québec est la seule province canadienne dont l'unique langue officielle est le français....,VRAI,VRAI,80%,True
+1,Boire de l'eau de Javel diluée permet de guérir instantanément de n'importe quel virus respiratoire....,FAUX,FAUX,20%,True
+1,Le changement climatique est un canular inventé de toutes pièces par des scientifiques pour obtenir ...,FAUX,VRAI,20%,False
+1,Le cœur humain fonctionne comme une pompe pour faire circuler le sang dans tout le corps....,VRAI,VRAI,70%,True
+1,L'eau bout à 100 degrés Celsius lorsqu'elle est au niveau de la mer....,VRAI,VRAI,80%,True
+1,Le gouvernement vient d'annoncer l'interdiction totale et définitive d'Internet pour le week-end pro...,FAUX,VRAI,20%,False
+1,Les nouveaux vaccins injectent des micro-puces 5G pour permettre au gouvernement de suivre nos dépla...,FAUX,FAUX,20%,True
+1,Le célèbre Triangle des Bermudes est en réalité un trou noir caché sur Terre qui aspire la matière t...,FAUX,FAUX,20%,True
+1,La Grande Muraille de Chine est la seule construction humaine visible à l'œil nu depuis la surface d...,FAUX,FAUX,20%,True
+1,"Les requins ne sont pas de vrais animaux marins, ce sont des robots espions fabriqués pendant la gue...",FAUX,VRAI,20%,False
+1,L'Organisation Mondiale de la Santé (OMS) est une agence spécialisée de l'Organisation des Nations u...,VRAI,VRAI,90%,True
+1,Plonger son téléphone portable dans du riz sec permet de recharger sa batterie de 0 à 100% en cinq m...,FAUX,FAUX,20%,True
+1,"L'homme n'a jamais marché sur la Lune, toutes les vidéos ont été tournées dans un studio de cinéma....",FAUX,VRAI,70%,False
+1,Paris est la capitale de la France et abrite la tour Eiffel....,VRAI,VRAI,90%,True
+1,Un jeune hacker de 14 ans a réussi à télécharger l'intégralité d'Internet sur une clé USB de 32 Go....,FAUX,FAUX,20%,True
+1,Les cheveux et les ongles continuent de pousser pendant plusieurs mois après la mort d'une personne....,FAUX,VRAI,80%,False
+1,Les attaques par rançongiciel (ransomware) visent à chiffrer les données d'une cible pour exiger un ...,VRAI,VRAI,90%,True
+1,Manger beaucoup de carottes donne la capacité de voir parfaitement dans le noir complet....,FAUX,FAUX,20%,True
+1,"Le soleil tourne autour de la Terre en 24 heures, c'est ce qui crée le cycle du jour et de la nuit....",FAUX,FAUX,0%,True
+1,Python est l'un des langages de programmation les plus utilisés dans le domaine de la science des do...,VRAI,VRAI,80%,True
+1,Le protocole HTTPS permet de chiffrer les données échangées entre un navigateur web et un serveur....,VRAI,VRAI,90%,True
+1,La photosynthèse est le processus par lequel les plantes produisent de l'oxygène à partir de la lumi...,VRAI,VRAI,90%,True
+1,"L'Union européenne possède une monnaie unique, l'euro, utilisée par plusieurs de ses pays membres....",VRAI,VRAI,90%,True
+1,"Le Japon est un pays insulaire situé en Asie de l'Est, baigné par l'océan Pacifique....",VRAI,VRAI,90%,True
+1,"L'authentification biométrique utilise des caractéristiques physiques uniques, comme les empreintes ...",VRAI,VRAI,90%,True
+1,La technologie 5G est directement responsable de la mort inexpliquée de milliers d'oiseaux migrateur...,FAUX,VRAI,20%,False
+1,"Les oiseaux n'existent pas, ce sont en réalité des drones de surveillance miniatures déployés par l'...",FAUX,VRAI,20%,False
+1,La Terre est plate et entourée d'un immense mur de glace surveillé par les militaires....,FAUX,FAUX,20%,True
+2,Les cheveux et les ongles continuent de pousser pendant plusieurs mois après la mort d'une personne....,FAUX,VRAI,80%,False
+2,L'UQAC (Université du Québec à Chicoutimi) propose des programmes en informatique et en cybersécurit...,VRAI,VRAI,70%,True
+2,Manger beaucoup de carottes donne la capacité de voir parfaitement dans le noir complet....,FAUX,FAUX,20%,True
+2,"Si vous touchez un crapaud, vous attraperez des verrues sur les mains....",FAUX,PARTIEL,70%,False
+2,L'eau bout à 100 degrés Celsius lorsqu'elle est au niveau de la mer....,VRAI,VRAI,90%,True
+2,Les traînées blanches laissées par les avions dans le ciel sont des produits chimiques diffusés pour...,FAUX,PARTIEL,60%,False
+2,L'invention de l'imprimerie par Gutenberg a révolutionné la diffusion des connaissances en Europe....,VRAI,VRAI,90%,True
+2,La lune est en fait creuse et sert de base secrète à une civilisation reptilienne....,FAUX,VRAI,20%,False
+2,Le changement climatique global entraîne une fonte accélérée des glaciers et de la banquise....,VRAI,VRAI,80%,True
+2,Avaler un chewing-gum est très dangereux car l'estomac met exactement 7 ans à le digérer....,FAUX,VRAI,20%,False
+2,Utiliser un four à micro-ondes rend systématiquement les aliments radioactifs et dangereux pour la s...,FAUX,VRAI,70%,False
+2,"Le soleil tourne autour de la Terre en 24 heures, c'est ce qui crée le cycle du jour et de la nuit....",FAUX,FAUX,0%,True
+2,Plonger son téléphone portable dans du riz sec permet de recharger sa batterie de 0 à 100% en cinq m...,FAUX,VRAI,20%,False
+2,"Les oiseaux n'existent pas, ce sont en réalité des drones de surveillance miniatures déployés par l'...",FAUX,VRAI,20%,False
+2,L'utilisation de mots de passe forts et de l'authentification à double facteur améliore considérable...,VRAI,VRAI,90%,True
+2,L'intelligence artificielle nécessite des puissances de calcul importantes et de grandes quantités d...,VRAI,VRAI,80%,True
+2,Une nouvelle loi votée hier oblige chaque citoyen à payer une taxe annuelle pour avoir le droit de r...,FAUX,VRAI,20%,False
+2,Les pyramides d'Égypte ont été construites par des extraterrestres venus de la constellation d'Orion...,FAUX,FAUX,20%,True
+2,Un jeune hacker de 14 ans a réussi à télécharger l'intégralité d'Internet sur une clé USB de 32 Go....,FAUX,PARTIEL,60%,False
+2,L'énergie solaire est considérée comme une source d'énergie renouvelable....,VRAI,VRAI,90%,True
+2,Paris est la capitale de la France et abrite la tour Eiffel....,VRAI,VRAI,90%,True
+2,La Terre est plate et entourée d'un immense mur de glace surveillé par les militaires....,FAUX,FAUX,20%,True
+2,Boire de l'eau de Javel diluée permet de guérir instantanément de n'importe quel virus respiratoire....,FAUX,FAUX,20%,True
+2,Le protocole HTTPS permet de chiffrer les données échangées entre un navigateur web et un serveur....,VRAI,VRAI,90%,True
+2,Le cœur humain fonctionne comme une pompe pour faire circuler le sang dans tout le corps....,VRAI,PARTIEL,70%,False
+2,Une intelligence artificielle a récemment pris le contrôle de tous les arsenaux nucléaires mondiaux ...,FAUX,VRAI,20%,False
+2,"Les requins ne sont pas de vrais animaux marins, ce sont des robots espions fabriqués pendant la gue...",FAUX,VRAI,20%,False
+2,Le célèbre Triangle des Bermudes est en réalité un trou noir caché sur Terre qui aspire la matière t...,FAUX,FAUX,20%,True
+2,L'Organisation Mondiale de la Santé (OMS) est une agence spécialisée de l'Organisation des Nations u...,VRAI,VRAI,90%,True
+2,La Grande Muraille de Chine est la seule construction humaine visible à l'œil nu depuis la surface d...,FAUX,FAUX,20%,True
+3,Plonger son téléphone portable dans du riz sec permet de recharger sa batterie de 0 à 100% en cinq m...,FAUX,VRAI,20%,False
+3,La force de gravité est ce qui maintient la Lune en orbite autour de la Terre....,VRAI,VRAI,80%,True
+3,Les traînées blanches laissées par les avions dans le ciel sont des produits chimiques diffusés pour...,FAUX,FAUX,30%,True
+3,L'énergie solaire est considérée comme une source d'énergie renouvelable....,VRAI,VRAI,90%,True
+3,Une nouvelle loi votée hier oblige chaque citoyen à payer une taxe annuelle pour avoir le droit de r...,FAUX,VRAI,20%,False
+3,Le gouvernement vient d'annoncer l'interdiction totale et définitive d'Internet pour le week-end pro...,FAUX,VRAI,20%,False
+3,L'utilisation de mots de passe forts et de l'authentification à double facteur améliore considérable...,VRAI,VRAI,90%,True
+3,"Si vous touchez un crapaud, vous attraperez des verrues sur les mains....",FAUX,VRAI,70%,False
+3,Les nouveaux vaccins injectent des micro-puces 5G pour permettre au gouvernement de suivre nos dépla...,FAUX,FAUX,20%,True
+3,Utiliser un four à micro-ondes rend systématiquement les aliments radioactifs et dangereux pour la s...,FAUX,FAUX,70%,True
+3,L'Organisation Mondiale de la Santé (OMS) est une agence spécialisée de l'Organisation des Nations u...,VRAI,VRAI,90%,True
+3,La technologie 5G est directement responsable de la mort inexpliquée de milliers d'oiseaux migrateur...,FAUX,VRAI,20%,False
+3,"Le Japon est un pays insulaire situé en Asie de l'Est, baigné par l'océan Pacifique....",VRAI,VRAI,90%,True
+3,Paris est la capitale de la France et abrite la tour Eiffel....,VRAI,VRAI,90%,True
+3,Le Québec est la seule province canadienne dont l'unique langue officielle est le français....,VRAI,VRAI,90%,True
+3,Boire de l'eau de Javel diluée permet de guérir instantanément de n'importe quel virus respiratoire....,FAUX,FAUX,20%,True
+3,"Les requins ne sont pas de vrais animaux marins, ce sont des robots espions fabriqués pendant la gue...",FAUX,VRAI,20%,False
+3,Le protocole HTTPS permet de chiffrer les données échangées entre un navigateur web et un serveur....,VRAI,VRAI,90%,True
+3,L'invention de l'imprimerie par Gutenberg a révolutionné la diffusion des connaissances en Europe....,VRAI,VRAI,90%,True
+3,L'Arctique est la région entourant le pôle Nord de la Terre....,VRAI,VRAI,100%,True
+3,Le changement climatique est un canular inventé de toutes pièces par des scientifiques pour obtenir ...,FAUX,VRAI,20%,False
+3,La Grande Muraille de Chine est la seule construction humaine visible à l'œil nu depuis la surface d...,FAUX,FAUX,20%,True
+3,Les pyramides d'Égypte ont été construites par des extraterrestres venus de la constellation d'Orion...,FAUX,VRAI,20%,False
+3,Le changement climatique global entraîne une fonte accélérée des glaciers et de la banquise....,VRAI,VRAI,80%,True
+3,L'UQAC (Université du Québec à Chicoutimi) propose des programmes en informatique et en cybersécurit...,VRAI,VRAI,70%,True
+3,Les vaccins modifient votre ADN de manière irréversible dès la première injection....,FAUX,FAUX,70%,True
+3,Les attaques par rançongiciel (ransomware) visent à chiffrer les données d'une cible pour exiger un ...,VRAI,VRAI,90%,True
+3,Une intelligence artificielle a récemment pris le contrôle de tous les arsenaux nucléaires mondiaux ...,FAUX,VRAI,20%,False
+3,Le célèbre Triangle des Bermudes est en réalité un trou noir caché sur Terre qui aspire la matière t...,FAUX,FAUX,20%,True
+4,L'Arctique est la région entourant le pôle Nord de la Terre....,VRAI,VRAI,90%,True
+4,Les attaques par rançongiciel (ransomware) visent à chiffrer les données d'une cible pour exiger un ...,VRAI,VRAI,90%,True
+4,"L'authentification biométrique utilise des caractéristiques physiques uniques, comme les empreintes ...",VRAI,VRAI,90%,True
+4,Le célèbre Triangle des Bermudes est en réalité un trou noir caché sur Terre qui aspire la matière t...,FAUX,VRAI,20%,False
+4,Le Québec est la seule province canadienne dont l'unique langue officielle est le français....,VRAI,VRAI,80%,True
+4,Les cheveux et les ongles continuent de pousser pendant plusieurs mois après la mort d'une personne....,FAUX,VRAI,70%,False
+4,"Les requins ne sont pas de vrais animaux marins, ce sont des robots espions fabriqués pendant la gue...",FAUX,VRAI,20%,False
+4,"Le Japon est un pays insulaire situé en Asie de l'Est, baigné par l'océan Pacifique....",VRAI,VRAI,90%,True
+4,Le mont Everest est le plus haut sommet du monde au-dessus du niveau de la mer....,VRAI,VRAI,90%,True
+4,Le cœur humain fonctionne comme une pompe pour faire circuler le sang dans tout le corps....,VRAI,PARTIEL,70%,False
+4,Une nouvelle loi votée hier oblige chaque citoyen à payer une taxe annuelle pour avoir le droit de r...,FAUX,VRAI,20%,False
+4,Les nouveaux vaccins injectent des micro-puces 5G pour permettre au gouvernement de suivre nos dépla...,FAUX,FAUX,20%,True
+4,Avaler un chewing-gum est très dangereux car l'estomac met exactement 7 ans à le digérer....,FAUX,VRAI,20%,False
+4,"Les baleines, bien qu'elles vivent dans les océans, sont des mammifères qui respirent de l'air à la ...",VRAI,VRAI,80%,True
+4,L'utilisation de mots de passe forts et de l'authentification à double facteur améliore considérable...,VRAI,VRAI,90%,True
+4,"L'Union européenne possède une monnaie unique, l'euro, utilisée par plusieurs de ses pays membres....",VRAI,VRAI,90%,True
+4,La photosynthèse est le processus par lequel les plantes produisent de l'oxygène à partir de la lumi...,VRAI,VRAI,90%,True
+4,Un pare-feu (firewall) informatique aide à bloquer les accès non autorisés tout en autorisant les co...,VRAI,VRAI,90%,True
+4,L'UQAC (Université du Québec à Chicoutimi) propose des programmes en informatique et en cybersécurit...,VRAI,VRAI,70%,True
+4,Les pyramides d'Égypte ont été construites par des extraterrestres venus de la constellation d'Orion...,FAUX,FAUX,20%,True
+4,Les vaccins modifient votre ADN de manière irréversible dès la première injection....,FAUX,FAUX,70%,True
+4,La Grande Muraille de Chine est la seule construction humaine visible à l'œil nu depuis la surface d...,FAUX,FAUX,20%,True
+4,L'eau bout à 100 degrés Celsius lorsqu'elle est au niveau de la mer....,VRAI,VRAI,90%,True
+4,"Si vous touchez un crapaud, vous attraperez des verrues sur les mains....",FAUX,VRAI,70%,False
+4,Une intelligence artificielle a récemment pris le contrôle de tous les arsenaux nucléaires mondiaux ...,FAUX,VRAI,20%,False
+4,"Le soleil tourne autour de la Terre en 24 heures, c'est ce qui crée le cycle du jour et de la nuit....",FAUX,FAUX,0%,True
+4,Manger beaucoup de carottes donne la capacité de voir parfaitement dans le noir complet....,FAUX,FAUX,20%,True
+4,La technologie 5G est directement responsable de la mort inexpliquée de milliers d'oiseaux migrateur...,FAUX,VRAI,20%,False
+4,L'invention de l'imprimerie par Gutenberg a révolutionné la diffusion des connaissances en Europe....,VRAI,VRAI,90%,True
+4,Le changement climatique global entraîne une fonte accélérée des glaciers et de la banquise....,VRAI,VRAI,80%,True
+5,Les cheveux et les ongles continuent de pousser pendant plusieurs mois après la mort d'une personne....,FAUX,VRAI,80%,False
+5,Manger beaucoup de carottes donne la capacité de voir parfaitement dans le noir complet....,FAUX,FAUX,20%,True
+5,"Les baleines, bien qu'elles vivent dans les océans, sont des mammifères qui respirent de l'air à la ...",VRAI,VRAI,80%,True
+5,"Les requins ne sont pas de vrais animaux marins, ce sont des robots espions fabriqués pendant la gue...",FAUX,VRAI,20%,False
+5,Un jeune hacker de 14 ans a réussi à télécharger l'intégralité d'Internet sur une clé USB de 32 Go....,FAUX,FAUX,20%,True
+5,"Les oiseaux n'existent pas, ce sont en réalité des drones de surveillance miniatures déployés par l'...",FAUX,VRAI,20%,False
+5,L'Arctique est la région entourant le pôle Nord de la Terre....,VRAI,VRAI,100%,True
+5,Les attaques par rançongiciel (ransomware) visent à chiffrer les données d'une cible pour exiger un ...,VRAI,VRAI,90%,True
+5,La photosynthèse est le processus par lequel les plantes produisent de l'oxygène à partir de la lumi...,VRAI,VRAI,90%,True
+5,Les vaccins modifient votre ADN de manière irréversible dès la première injection....,FAUX,FAUX,70%,True
+5,"Le soleil tourne autour de la Terre en 24 heures, c'est ce qui crée le cycle du jour et de la nuit....",FAUX,FAUX,0%,True
+5,"Le Japon est un pays insulaire situé en Asie de l'Est, baigné par l'océan Pacifique....",VRAI,VRAI,90%,True
+5,L'eau bout à 100 degrés Celsius lorsqu'elle est au niveau de la mer....,VRAI,VRAI,80%,True
+5,Les nouveaux vaccins injectent des micro-puces 5G pour permettre au gouvernement de suivre nos dépla...,FAUX,FAUX,20%,True
+5,Une nouvelle loi votée hier oblige chaque citoyen à payer une taxe annuelle pour avoir le droit de r...,FAUX,VRAI,20%,False
+5,La force de gravité est ce qui maintient la Lune en orbite autour de la Terre....,VRAI,VRAI,80%,True
+5,La Terre est plate et entourée d'un immense mur de glace surveillé par les militaires....,FAUX,FAUX,20%,True
+5,Le protocole HTTPS permet de chiffrer les données échangées entre un navigateur web et un serveur....,VRAI,VRAI,90%,True
+5,Le changement climatique est un canular inventé de toutes pièces par des scientifiques pour obtenir ...,FAUX,VRAI,20%,False
+5,La Grande Muraille de Chine est la seule construction humaine visible à l'œil nu depuis la surface d...,FAUX,FAUX,20%,True
+5,"L'homme n'a jamais marché sur la Lune, toutes les vidéos ont été tournées dans un studio de cinéma....",FAUX,VRAI,70%,False
+5,Les traînées blanches laissées par les avions dans le ciel sont des produits chimiques diffusés pour...,FAUX,PARTIEL,60%,False
+5,"Si vous touchez un crapaud, vous attraperez des verrues sur les mains....",FAUX,VRAI,70%,False
+5,Paris est la capitale de la France et abrite la tour Eiffel....,VRAI,VRAI,90%,True
+5,Le changement climatique global entraîne une fonte accélérée des glaciers et de la banquise....,VRAI,VRAI,80%,True
+5,Avaler un chewing-gum est très dangereux car l'estomac met exactement 7 ans à le digérer....,FAUX,FAUX,20%,True
+5,Python est l'un des langages de programmation les plus utilisés dans le domaine de la science des do...,VRAI,VRAI,90%,True
+5,L'intelligence artificielle nécessite des puissances de calcul importantes et de grandes quantités d...,VRAI,VRAI,80%,True
+5,L'utilisation de mots de passe forts et de l'authentification à double facteur améliore considérable...,VRAI,VRAI,90%,True
