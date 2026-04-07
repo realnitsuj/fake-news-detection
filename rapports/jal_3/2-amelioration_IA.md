@@ -33,7 +33,7 @@ Par conséquent, le passage au *Prompt Engineering* et au RAG a été privilégi
 L'innovation majeure réside dans l'ajout d'une "mémoire factuelle" qui permet à l'IA de consulter des sources de confiance avant de répondre.
 
 - **Scraping RSS :**
-  Le système n'est plus statique. Un module de collecte automatisé (`scripts/fetch_news.py`) s'execute tout les jours pour parcourir les flux **RSS** de sources de presse reconnues (Le Monde et France 24). Grâce aux bibliothèques **Feedparser** et **Newspaper3k**, le contenu textuel est extrait, nettoyé de ses balises HTML, et centralisé dans un dataset de référence.
+  Le système n'est plus statique. Un module de collecte automatisé (`scripts/fetch_news.py`) s'exécute tout les jours pour parcourir les flux **RSS** de sources de presse reconnues (Le Monde et France 24). Grâce aux bibliothèques **Feedparser** et **Newspaper3k**, le contenu textuel est extrait, nettoyé de ses balises HTML, et centralisé dans un dataset de référence.
 
 - **Vectorisation et Stockage (ChromaDB) :**
   Pour que l'IA puisse "chercher" dans ces milliers d'articles, nous utilisons :
@@ -41,15 +41,15 @@ L'innovation majeure réside dans l'ajout d'une "mémoire factuelle" qui permet 
   - **ChromaDB** : Une base de données vectorielle haute performance qui stocke ces vecteurs. Elle permet de trouver rapidement les articles les plus proches sémantiquement de la requête de l'utilisateur.
 
 - **Prompt Enrichi :**
-  Maintenant, avant chaque requête, on récupère l'article de notre base le plus proche sémentiquement du texte à analyser, ainsi qu'un score de similitude. Si ce score dépasse le seuil mis en place, l'article est envoyé comme source dans la requête à notre LLM, pour qu'il rende son verdict avec les informations actuelles. Dans le cas contraire, seulement l'information dont on demande une vérification est envoyé dans le prompt, pour éviter que le LLM se base sur un article qui n'a pas de rapport, et donc répondre que comme les articles sont sur des sujets différents, l'informations est fausse.
+  Maintenant, avant chaque requête, on récupère l'article de notre base le plus proche sémantiquement du texte à analyser, ainsi qu'un score de similitude. Si ce score dépasse le seuil mis en place, l'article est envoyé comme source dans la requête à notre LLM, pour qu'il rende son verdict avec les informations actuelles. Dans le cas contraire, seulement l'information dont on demande une vérification est envoyée dans le prompt, pour éviter que le LLM se base sur un article qui n'a pas de rapport, et donc répondre que comme les articles sont sur des sujets différents, l'informations est fausse.
 
 ## Explication du choix des données
 
 Le succès d'un système RAG repose sur la fiabilité des sources. En choisissant France 24 et Le Monde, on ne prendra pas seulement des flux de données d'informations, mais on s'assure de la qualité des vérifications. Ces deux rédactions sont reconnues pour avoir des informations sourcées et recoupées, ce qui est indispensable pour servir de base pour notre projet.
 
-L'intérêt majeur réside dans leur complémentarité. D'un côté, France 24 produit des articles en continu sur les sujets d'actualités, donc cela nous assure une réactivité immédiate sur les événements mondiaux. De l'autre, Le Monde apporte, avec des articles moins nombreux mais plus développés, nous donne une profondeur d'analyse et une rigueur plus grande. Ce binôme permet au modèle de disposer d'une base de connaissances équilibrée, capable de traiter aussi bien une une informations extrêmement récente, comme aller chercher les détails précis d'une autre information.
+L'intérêt majeur réside dans leur complémentarité. D'un côté, France 24 produit des articles en continu sur les sujets d'actualités, donc cela nous assure une réactivité immédiate sur les événements mondiaux. De l'autre, Le Monde apporte, avec des articles moins nombreux mais plus développés, nous donne une profondeur d'analyse et une rigueur plus grande. Ce binôme permet au modèle de disposer d'une base de connaissances équilibrée, capable de traiter aussi bien une information extrêmement récente, comme aller chercher les détails précis d'une autre information.
 
-Enfin, il y a un enjeu linguistique et technique. Ces sources produisent des textes très bien écrit, cela nous semble pouvoir aider à réduire des biais sensationnalistes. Pour notre modèle Llama 3, travailler sur une base d'une telle qualité facilite la vectorisation sémantique : les faits sont exposés clairement, sans ambiguïté. En basant notre détection sur ces deux rédactions, nous garantissons à l'utilisateur que le verdict rendu, lorsque le RAG est utilisé, n'est pas une simple intuition, mais le reflet d'une réalité documentée et sourcée.
+Enfin, il y a un enjeu linguistique et technique. Ces sources produisent des textes très bien écrits, cela nous semble pouvoir aider à réduire des biais sensationnalistes. Pour notre modèle Llama 3, travailler sur une base d'une telle qualité facilite la vectorisation sémantique : les faits sont exposés clairement, sans ambiguïté. En basant notre détection sur ces deux rédactions, nous garantissons à l'utilisateur que le verdict rendu, lorsque le RAG est utilisé, n'est pas une simple intuition, mais le reflet d'une réalité documentée et sourcée.
 
 ## Nouveau Format de Sortie (Standard JSON v2)
 
@@ -67,8 +67,8 @@ La réponse API est désormais beaucoup plus riche, offrant une transparence tot
 ## Flux final
 
 1. **Entrée :** URL ou texte soumis par l'utilisateur.
-2. **Récupération :** Le système extrat les preuves de la base de données factuelles (ChromaDB).
-3. **Travail du LLM :** Llama 3 analyse le texte utilisateur au regard de l'article de notre base avec lequel il a été fournis.
+2. **Récupération :** Le système extrait les preuves de la base de données factuelles (ChromaDB).
+3. **Travail du LLM :** Llama 3 analyse le texte utilisateur au regard de l'article de notre base avec lequel il a été fourni.
 4. **Sortie :** Production du JSON structuré.
 
 ## Sécurité et Robustesse Technique
