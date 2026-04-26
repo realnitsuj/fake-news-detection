@@ -34,7 +34,7 @@ Sinon :
 1. **Cloner le dépôt** :
 
    ```bash
-   git clone <url-du-depot>
+   git clone https://github.com/realnitsuj/fake-news-detection
    cd fake-news-detection
    ```
 
