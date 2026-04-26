@@ -3,7 +3,7 @@ import json
 import requests
 import chromadb
 import re
-from bs4 import BeautifulSoup  # <-- Nouvel import pour le parsing HTML
+from bs4 import BeautifulSoup
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 
@@ -68,35 +68,46 @@ def get_ai_prediction(text: str):
         results = collection.query(query_texts=[clean_input], n_results=1)
         if results['documents'] and len(results['documents'][0]) > 0:
             distance = results['distances'][0][0]
-            
-            # SEUIL CRITIQUE : 0.85 
-            # (Si > 0.85, le sujet est trop différent, on ignore la source)
             if distance <= 0.85:
                 source_to_send = safe_json_text(results['documents'][0][0])
-                print(f"✅ SOURCE PERTINENTE TROUVÉE (Distance: {distance:.4f})")
-            else:
-                print(f"⚠️ SOURCE ÉCARTÉE (Trop éloignée: {distance:.4f})")
     except Exception as e:
         print(f"Erreur ChromaDB: {e}")
 
-    # --- ÉTAPE 2 : PROMPT POUR CLIENT FINAL (SANS JARGON) ---
+    # --- ÉTAPE 2 : PROMPT SYSTEME (AVEC FEW-SHOT) ---
     system_message = (
         "Tu es un expert en vérification d'information. Ton analyse est destinée à des utilisateurs finaux.\n\n"
         "RÈGLES D'OR :\n"
         "1. PAS DE JARGON : Interdiction d'utiliser 'RAG', 'Base de données', 'IA', ou 'Vecteur'.\n"
         "2. ANALYSE : Si une SOURCE est fournie, compare les faits. Si elle est absente, juge la cohérence globale.\n"
-        "3. HORS-SUJET : Si la source parle d'un sujet totalement différent (ex: Militaire vs Politique), IGNORE-LA.\n"
-        "4. CONFIANCE : 90-100% (Preuve directe), 70-89% (Article détaillé/crédible), <40% (Douteux/Fake News)."
+        "3. HORS-SUJET : Si la source parle d'un sujet totalement différent, IGNORE-LA.\n"
+        "4. CONFIANCE : 90-100% (Preuve directe), 70-89% (Article crédible), <40% (Douteux/Fake News).\n\n"
+        "EXEMPLES D'ANALYSE :\n"
+        "---\n"
+        "Exemple 1 (Source confirmant l'information) :\n"
+        "RÉFÉRENCE OFFICIELLE : Le gouvernement a voté une aide énergétique de 100 euros pour les foyers modestes.\n"
+        "ARTICLE : L'État distribue un chèque énergie de 100€.\n"
+        "RÉPONSE : {\"verdict\": \"Vrai\", \"confiance\": 95, \"categorie\": \"Économie\", \"justification\": \"L'information correspond aux annonces officielles concernant l'aide énergétique gouvernementale.\"}\n"
+        "---\n"
+        "Exemple 2 (Source contredisant l'information) :\n"
+        "RÉFÉRENCE OFFICIELLE : L'OMS confirme que le virus se transmet uniquement par voie aérienne. Aucun remède alimentaire n'est prouvé.\n"
+        "ARTICLE : Boire du thé au citron brûlant tue le virus en 2 heures !\n"
+        "RÉPONSE : {\"verdict\": \"Faux\", \"confiance\": 98, \"categorie\": \"Santé\", \"justification\": \"Les autorités sanitaires démentent l'efficacité de ce remède alimentaire et rappellent le mode de transmission exact de la maladie.\"}\n"
+        "---\n"
+        "Exemple 3 (Aucune source pertinente trouvée) :\n"
+        "RÉFÉRENCE OFFICIELLE : Aucune source directe trouvée pour ce sujet.\n"
+        "ARTICLE : Un vaisseau extraterrestre a été photographié au-dessus de la Tour Eiffel hier soir.\n"
+        "RÉPONSE : {\"verdict\": \"Partiel\", \"confiance\": 20, \"categorie\": \"Insolite\", \"justification\": \"Aucune source factuelle ne confirme cet événement. Sans preuve officielle, cette affirmation reste au stade de rumeur non vérifiée.\"}\n"
     )
 
+    # --- ÉTAPE 3 : PROMPT UTILISATEUR ---
     user_message = (
         f"--- RÉFÉRENCE OFFICIELLE ---\n{source_to_send if source_to_send else 'Aucune source directe trouvée pour ce sujet.'}\n\n"
         f"--- ARTICLE À ANALYSER ---\n{clean_input}\n\n"
         "Tâche : Produis une analyse sobre. Ne dis jamais qu'un article est faux juste parce qu'il manque une source.\n"
-        "Réponds UNIQUEMENT en JSON : {\"verdict\": \"Vrai|Faux|Partiel\", \"confiance\": 0-100, \"categorie\": \"...\", \"justification\": \"...\"}"
+        "Réponds UNIQUEMENT avec un objet JSON strict : {\"verdict\": \"Vrai|Faux|Partiel\", \"confiance\": nombre entier, \"categorie\": \"texte\", \"justification\": \"texte\"}"
     )
 
-    # --- ÉTAPE 3 : APPEL API ---
+    # --- ÉTAPE 4 : APPEL API ---
     payload = {
         "model": "meta-llama/Llama-3.1-8B-Instruct",
         "messages": [
@@ -139,5 +150,5 @@ def get_ai_prediction(text: str):
         return data
 
     except Exception as e:
-        print(f"⚠️ Erreur Analyse : {e}")
+        print(f"Erreur Analyse : {e}")
         return {"verdict": "Erreur", "confiance": 0, "justification": "Une erreur technique est survenue."}
