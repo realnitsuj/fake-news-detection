@@ -3,7 +3,7 @@ import json
 import requests
 import chromadb
 import re
-from bs4 import BeautifulSoup  # <-- Nouvel import pour le parsing HTML
+from bs4 import BeautifulSoup
 from sentence_transformers import SentenceTransformer
 from dotenv import load_dotenv
 
@@ -73,9 +73,9 @@ def get_ai_prediction(text: str):
             # (Si > 0.85, le sujet est trop différent, on ignore la source)
             if distance <= 0.85:
                 source_to_send = safe_json_text(results['documents'][0][0])
-                print(f"✅ SOURCE PERTINENTE TROUVÉE (Distance: {distance:.4f})")
+                print(f"SOURCE PERTINENTE TROUVÉE (Distance: {distance:.4f})")
             else:
-                print(f"⚠️ SOURCE ÉCARTÉE (Trop éloignée: {distance:.4f})")
+                print(f"SOURCE ÉCARTÉE (Trop éloignée: {distance:.4f})")
     except Exception as e:
         print(f"Erreur ChromaDB: {e}")
 
@@ -139,5 +139,5 @@ def get_ai_prediction(text: str):
         return data
 
     except Exception as e:
-        print(f"⚠️ Erreur Analyse : {e}")
+        print(f"Erreur Analyse : {e}")
         return {"verdict": "Erreur", "confiance": 0, "justification": "Une erreur technique est survenue."}
