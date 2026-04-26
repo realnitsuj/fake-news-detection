@@ -2,7 +2,7 @@
 title: |
   ![](/data/logo-uqac.pdf){height=1in}
 
-  Rapport Finalk
+  Rapport Final
 ---
 
 # Introduction
