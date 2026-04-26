@@ -481,18 +481,6 @@ function ResultPage({ result, onClear, leaving, error, onOpenTerms }: { result: 
               ) : (
                 <>
                   <p className="text-sm text-foreground/80 leading-relaxed flex-1">{result!.explanation}</p>
-                  {result!.sources.length > 0 && (
-                    <div className="pt-4 border-t border-border space-y-2">
-                      <p className="text-xs font-medium text-muted-foreground/70 uppercase tracking-wider">Sources consultées</p>
-                      <ul className="space-y-1.5">
-                        {result!.sources.map((s, i) => (
-                          <li key={i} className="flex items-center gap-2 text-xs text-muted-foreground">
-                            <span className={`size-1.5 rounded-full shrink-0 ${cfg.dot}`} />{s}
-                          </li>
-                        ))}
-                      </ul>
-                    </div>
-                  )}
                 </>
               )}
             </div>
