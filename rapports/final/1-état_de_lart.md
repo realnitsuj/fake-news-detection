@@ -184,3 +184,22 @@ Pour garantir la détection, le système utilise un encodage BCH (Bose-Chaudhuri
 ***
 
 Cette recherche justifie l'adoption d'une **architecture hybride** pour notre solution. Elle suggère d'intégrer, en plus de nos algorithmes de détection visuelle (probabilistes), un module capable de lire ces signatures numériques (déterministes). Cela nous positionne comme une solution "future-proof", prête pour un écosystème où la régulation imposera le marquage des contenus générés par IA. Notre outil ne se contentera pas de "deviner" le faux via l'analyse d'artefacts, mais pourra "certifier" l'origine synthétique d'une image grâce à l'extraction de watermarks.
+
+## Building an Explainable and Scalable AI System for Fake News Detection Across Digital Platforms [@rathodExplainableScalableFakeNews2025]
+
+L’article de Rathod et al. (2025) propose un système d’IA dédié à la détection des fake news, conçu pour analyser en temps réel les contenus numériques et en évaluer la crédibilité. Face à la rapidité de diffusion de l’information et à la complexité des contenus modernes, l’article souligne les limites des méthodes traditionnelles (fact-checking manuel, signalement communautaire), jugées lentes et peu scalables.
+
+### Solution proposée
+
+Le cœur de la solution repose sur un modèle hybride combinant des techniques avancées de deep learning, notamment BERT, avec des analyses de propagation, de sentiment et de crédibilité des sources. Ce modèle vise à identifier les motifs linguistiques, les tons émotionnels et les schémas de diffusion caractéristiques des fake news, tout en restant explicable et accessible aux utilisateurs. Une application web interactive a été développée pour permettre aux utilisateurs de saisir un article ou un titre et d’obtenir une classification instantanée ("Fake" ou "Real"), accompagnée de métriques de confiance et d’explications sur la décision du modèle.
+
+
+### Résultats
+
+Les résultats expérimentaux, menés sur des jeux de données publics (FakeNewsNet, LIAR, ISOT), montrent que le modèle BERT-Based surpasse les approches traditionnelles (Logistic Regression, SVM, LSTM) avec une exactitude dépassant 92%. Le système a également été testé sur des contenus satiriques, des breaking news et des titres sensationnalistes, démontrant une bonne robustesse, bien que des défis persistent pour les contenus ambigus ou sarcastiques.
+
+Malgré ses performances prometteuses, l’article reconnaît certaines limites, comme la difficulté à détecter les fake news très contextuelles ou ambiguës, ainsi que la nécessité de données équilibrées pour éviter les biais. Les auteurs esquissent des pistes d’amélioration futures : extension à d’autres langues, intégration de l’analyse multimodale (images, vidéos), meilleure compréhension du contexte, et déploiement sur des plateformes comme WhatsApp ou Telegram.
+
+### Conclusion
+
+En résumé, l’article présente une solution concrète et déployable pour lutter contre la désinformation, combinant performance technique, transparence et accessibilité, afin d’outiller les utilisateurs et les plateformes dans la détection rapide et fiable des fake news.
