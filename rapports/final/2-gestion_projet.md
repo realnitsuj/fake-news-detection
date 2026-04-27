@@ -1,7 +1,9 @@
 # Gestion de Projet et Planification
+
 Pour assurer le bon déroulement du développement de **VerifAI** et respecter les échéances du plan de cours, nous avons opté pour une approche de gestion hybride. Nous utilisons l'outil **GitHub Projects**, qui nous permet de maintenir un backlog détaillé (méthodologie Agile) tout en générant automatiquement un diagramme de Gantt pour la planification macroscopique.
 
 ## Backlog et Division du travail
+
 Le projet a été découpé en tâches techniques précises. Pour répondre aux exigences de réalisation en équipe, chaque tâche de notre backlog est assignée à un responsable clair, garantissant une division équitable du travail. 
 
 Le tableau de bord utilise un système d'étiquettes (`Labels`) pour catégoriser les pôles d'expertise :
@@ -16,6 +18,7 @@ Chaque tâche est associée à un Jalon cible (`Milestone`) et possède un statu
 
 
 ## Diagramme de Gantt et Calendrier de réalisation
+
 La vue chronologique de GitHub Projects nous permet de visualiser les dépendances et de paralléliser nos efforts. Le calendrier est structuré autour des quatre grandes phases du projet :
 
 **Phase 1 : Idéation et État de l'art (Jalon 1 - 20 Jan. au 27 Jan.) - *[Terminé]***
