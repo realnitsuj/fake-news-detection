@@ -18,7 +18,7 @@ Le positionnement marketing de VerifAI repose sur une promesse simple et actionn
 
 Afin d’orienter la communication, le développement des fonctionnalités prioritaires et le choix des canaux d’acquisition, nous avons structuré notre ciblage autour de deux segments complémentaires : **B2C** (grand public) et **B2B** (organisations et professionnels de l'information).
 
-### Persona B2C — Étudiant universitaire connecté {.unnumbered .unlisted}
+### Persona B2C — Étudiant universitaire connecté
 
 **Profil démographique et comportemental**
 
@@ -43,7 +43,7 @@ Afin d’orienter la communication, le développement des fonctionnalités prior
 - **Valeur :** Analyse instantanée d'un texte ou d'un lien avec un verdict clair, accompagné d'un score de confiance. L'interface sera intuitive et adaptée à un usage quotidien compulsif.
 - **Parcours type attendu (Phase 2 - Déploiement):** L'étudiant voit un post suspect sur TikTok $\rightarrow$ Il copie le texte $\rightarrow$ Il ouvre l'application web VerifAI sur son téléphone (après déploiement public) $\rightarrow$ Il obtient un diagnostic clair $\rightarrow$ Il décide de ne pas relayer la fausse nouvelle, réduisant ainsi la chaîne de désinformation.
 
-### Persona B2B — Responsable communication / Journaliste junior {.unnumbered .unlisted}
+### Persona B2B — Responsable communication / Journaliste junior
 
 **Profil démographique et comportemental**
 
@@ -70,7 +70,7 @@ Afin d’orienter la communication, le développement des fonctionnalités prior
 - **Valeur :** Outil d'aide à la décision ultra-rapide. Les résultats explicites (générés par le LLM) justifient une vigilance éditoriale accrue. C'est un complément moderne aux processus de fact-checking traditionnels.
 - **Parcours type attendu (Phase 3 - Intégrations B2B):** Le journaliste reçoit une alerte suspecte sur X $\rightarrow$ Il soumet le texte à l'API VerifAI via son interface ou son flux de travail existant (après intégration CMS) $\rightarrow$ Le backend basé sur FastAPI analyse le contenu et le LLM retourne une explication détaillée de la classification $\rightarrow$ Le journaliste utilise cette explication pour écarter la dépêche.
 
-### Synthèse des personas et alignement stratégique {.unnumbered .unlisted}
+### Synthèse des personas et alignement stratégique
 
 L’analyse Persona démontre que VerifAI cible deux marchés distincts mais fondamentalement alignés sur un même besoin de confiance :
 
@@ -85,25 +85,25 @@ Le marché des outils de vérification d'information est déjà occupé par plus
 
 Notre avantage concurrentiel absolu repose sur trois axes complémentaires visant à obtenir une meilleure performance de détection tout en expliquant le résultat au public.
 
-### Explicabilité du résultat (La lutte contre l'effet "Boîte Noire") {.unnumbered .unlisted}
+### Explicabilité du résultat (La lutte contre l'effet "Boîte Noire")
 
 Contrairement à une réponse binaire opaque proposée par de nombreux détecteurs, VerifAI présente un verdict accompagné d'un score de confiance, d'indicateurs lisibles et surtout d'une explication synthétique. Notre projet inclut une méthode automatisée pour expliquer les décisions de classification de l'information.
 
 Cette approche facilite grandement l'appropriation du résultat par des utilisateurs non spécialistes et répond directement aux besoins du Persona B2B, où les décisions de publication doivent pouvoir être justifiées. La valeur marketing est forte : l'utilisateur ne reçoit pas seulement un résultat froid, il comprend **pourquoi** le système algorithmique propose ce résultat, remplissant ainsi notre mission d'éducation de la population.
 
-### Simplicité d'usage et architecture optimisée {.unnumbered .unlisted}
+### Simplicité d'usage et architecture optimisée
 
 La proposition produit est pensée pour réduire au maximum la friction cognitive et technique : coller un texte ou un lien, lancer l'analyse, obtenir une synthèse claire. Notre interface, développée avec Vite, privilégie une lisibilité extrême, un parcours court et des actions immédiates.
 
 Par rapport à des outils d'investigation numérique complets mais très complexes à maîtriser, VerifAI se distingue par une courbe d'apprentissage quasi nulle. Cette simplicité logicielle et visuelle améliore l'adoption, notamment auprès du public étudiant hyper-connecté et des équipes de communication qui travaillent sous contrainte de temps permanente.
 
-### Rapidité d'usage (Le premier filtre) {.unnumbered .unlisted}
+### Rapidité d'usage (Le premier filtre)
 
 La rapidité est un avantage concurrentiel décisif dans un contexte de flux informationnel continu et instantané. Grâce à une architecture backend asynchrone performante (FastAPI), VerifAI est conçu pour fournir un premier niveau d'analyse en quelques secondes. 
 
 Cela correspond au moment critique (le "Zero Moment of Truth") où l'utilisateur hésite à partager ou publier un contenu. Cette logique "vite et utile" complète les démarches de vérification approfondie : VerifAI agit comme un premier filtre de sécurité sanitaire de l'information, alors que les solutions expertes (humaines) interviennent ensuite pour l'analyse détaillée.
 
-### Positionnement concurrentiel synthétique {.unnumbered .unlisted}
+### Positionnement concurrentiel synthétique
 
 En synthèse, VerifAI se positionne comme une solution de rupture intermédiaire entre les outils grand public souvent trop simplifiés et les approches journalistiques institutionnelles, souvent trop lourdes et lentes.
 
@@ -119,7 +119,7 @@ La page web de VerifAI constitue actuellement un prototype fonctionnel local, fo
 
 L'interface prototype est strictement orientée produit. Elle est pensée pour un usage immédiat, caractérisé par un parcours utilisateur ultra-court, une lisibilité élevée et une restitution visuellement compréhensible du verdict de l'intelligence artificielle. Cette fondation sera déployée publiquement lors de la Phase 2.
 
-### Identité visuelle et Psychologie du design {.unnumbered .unlisted}
+### Identité visuelle et Psychologie du design
 
 La page introduit une identité visuelle claire et professionnelle (le branding VerifAI), utilisant des codes couleurs (comme le bleu ardoise) qui inspirent naturellement la fiabilité technologique, le sérieux et la cybersécurité.
 
@@ -129,7 +129,7 @@ L'architecture de l'information est hiérarchisée pour éliminer les distractio
 2. Les métriques techniques simplifiées.
 3. L'explication textuelle synthétique générée par le modèle.
 
-### Alignement avec les objectifs d'acquisition {.unnumbered .unlisted}
+### Alignement avec les objectifs d'acquisition
 
 Cette page web soutient de manière directe et mesurable nos deux cibles marketing, dès le déploiement public (Phase 2).
 
@@ -152,13 +152,13 @@ La présence sociale de VerifAI a pour objectif stratégique de transformer un b
 
 Puisque les réseaux sociaux sont paradoxalement les principaux conduits du désordre de l'information, VerifAI doit y être présent pour combattre le feu à sa source. La ligne éditoriale retenue repose sur deux leviers complémentaires : des formats de **démonstration produit** pour prouver la valeur immédiate, et des formats de **vulgarisation** pour remplir notre mission d'éducation à l'information sans complexifier le propos.
 
-### Positionnement éditorial et Tonalité {.unnumbered .unlisted}
+### Positionnement éditorial et Tonalité
 
 La communication adopte un ton clair, profondément pédagogique et systématiquement orienté sur l'usage. Le message central qui guide chaque publication reste constant : **"Vérifier avant de partager"**. 
 
 Chaque publication, quel que soit le réseau, doit répondre à une question simple et pragmatique de l'utilisateur : *"Qu'est-ce que VerifAI m'apporte maintenant, en pratique ?"* Cette cohérence cognitive permet de renforcer la mémorisation de la marque à long terme et de créer une continuité parfaite entre le contenu social consommé en scrollant, la page web, et l'expérience produit finale.
 
-### Les Formats de Démonstration (Acquisition B2C) {.unnumbered .unlisted}
+### Les Formats de Démonstration (Acquisition B2C)
 
 Les contenus de démonstration ont pour but de montrer l'application en situation réelle, en prouvant que le parcours est extrêmement court, de bout en bout : copie d'un texte suspect, lancement de l'analyse, et lecture du verdict en quelques secondes.
 
@@ -169,7 +169,7 @@ Les contenus de démonstration ont pour but de montrer l'application en situatio
 
 Ces formats dynamiques servent principalement l'acquisition directe de notre cible B2C. Ils rendent la proposition de valeur immédiatement visible et hautement virale.
 
-### Les Formats de Vulgarisation (Crédibilité B2B et Éducation) {.unnumbered .unlisted}
+### Les Formats de Vulgarisation (Crédibilité B2B et Éducation)
 
 La stratégie de vulgarisation complète la démonstration pure en expliquant les bons réflexes informationnels et la mécanique de lecture des résultats algorithmiques. L'objectif n'est pas de transformer les utilisateurs en ingénieurs IA, mais de les rendre critiques et autonomes dans leurs décisions quotidiennes de partage.
 
@@ -180,7 +180,7 @@ La stratégie de vulgarisation complète la démonstration pure en expliquant le
 
 Ces formats de fond favorisent la crédibilité globale de la marque VerifAI. Ils soutiennent particulièrement l'acquisition de la cible B2B, intrinsèquement sensible à la qualité, à la neutralité et à la robustesse du cadre explicatif de l'outil.
 
-### Déploiement et Plateformes prioritaires {.unnumbered .unlisted}
+### Déploiement et Plateformes prioritaires
 
 Le déploiement social est tactiquement adapté aux lieux de consommation de nos deux segments. 
 
@@ -195,18 +195,18 @@ L'enjeu marketing n'est pas de diluer notre budget en étant présent partout, m
 
 Pour accélérer l'adoption de VerifAI sur le marché, la stratégie de croissance commerciale combine habilement des collaborations organiques très ciblées et des actions publicitaires digitales légères. L'objectif de la startup n'est pas de brûler du capital pour maximiser le volume de trafic à court terme, mais d'obtenir une acquisition d'utilisateurs hautement qualifiée, cohérente avec la promesse technologique du produit : vérifier rapidement, et comprendre clairement un résultat grâce à l'IA.
 
-### Collaborations prioritaires (Levier Organique) {.unnumbered .unlisted}
+### Collaborations prioritaires (Levier Organique)
 
 Les collaborations sont pensées et structurées comme des relais de confiance indispensables. Dans sa phase initiale de lancement (Go-To-Market), VerifAI s'appuiera prioritairement sur des partenaires physiquement et socialement proches des personas identifiés : les associations étudiantes, les médias liés aux campus universitaires, les clubs de journalisme, les enseignants impliqués dans l'éducation aux médias, ainsi que les structures locales de communication.
 
 Le principe d'exécution est direct : proposer des démonstrations technologiques concrètes de notre architecture FastAPI/Vite, animer des ateliers courts de sensibilisation à la cyberinfluence et créer des formats de contenu co-brandés. Ce type de partenariat communautaire favorise un bouche-à-oreille extrêmement crédible et permet de tester le produit en boucle de rétroaction rapide (feedback loop) dans des contextes réels d'usage intensif.
 
-### Logiques d'activation B2C vs B2B {.unnumbered .unlisted}
+### Logiques d'activation B2C vs B2B
 
 - **Logique d'activation B2C (Phase 2 — Déploiement public) :** Les collaborations doivent créer de la proximité émotionnelle et une preuve d'utilité immédiate face à la surcharge des réseaux. Les actions tactiques les plus pertinentes incluent les démonstrations interactives en milieu étudiant (utilisant le prototype ou la version publique), les contenus co-créés avec des créateurs de contenu (influenceurs) orientés sur la vulgarisation scientifique, et le lancement de challenges communautaires autour du mot-dièse "VérifierAvantDePartager".
 - **Logique d'activation B2B (Phase 3 — Intégrations et API) :** La priorité absolue est la démonstration de la fiabilité opérationnelle et de la sécurité des données. Les partenariats visent des médias web indépendants, des organismes de sensibilisation à la cybersécurité et des équipes de communication d'entreprise. L'offre de valeur consiste à leur permettre d'intégrer techniquement l'API VerifAI (documentée et sécurisée en Phase 3) comme outil de pré-vérification standardisé, directement connecté dans leur flux de publication ou leur CMS.
 
-### Publicité digitale à budget maîtrisé (Levier Payant) {.unnumbered .unlisted}
+### Publicité digitale à budget maîtrisé (Levier Payant)
 
 La publicité payante (Ads) intervient strictement en soutien et en complément des collaborations organiques. Elle se caractérise par un ciblage d'intention extrêmement précis et des budgets maîtrisés, essentiels pour une startup en phase d'amorçage. Les campagnes publicitaires sont principalement orientées vers la diffusion de nos contenus de démonstration (vidéos courtes, captures d'interface commentées, cas d'usage concrets) afin de prouver la valeur de l'outil en moins de cinq secondes.
 
@@ -218,7 +218,7 @@ La publicité payante (Ads) intervient strictement en soutien et en complément 
 
 Le message publicitaire reste invariable d'une plateforme à l'autre : "Vérifier avant de partager", avec une emphase visuelle constante sur l'explicabilité du résultat (l'argument clé face aux modèles concurrents).
 
-### Indicateurs de performance marketing (KPIs) {.unnumbered .unlisted}
+### Indicateurs de performance marketing (KPIs)
 
 La rigueur de l'évaluation de nos actions de collaborations et de publicités reposera sur le suivi hebdomadaire d'indicateurs de performance (KPIs) stricts et quantifiables, ajustés par phase :
 
@@ -238,7 +238,7 @@ La rigueur de l'évaluation de nos actions de collaborations et de publicités r
 
 Cette mesure analytique et continue permettra d'identifier rapidement les canaux les plus rentables et efficaces, et d'ajuster l'allocation budgétaire des actions marketing de manière agile, sans jamais perdre de vue la cohérence globale de notre stratégie produit.
 
-### Synthèse Globale & Phases de déploiement {.unnumbered .unlisted}
+### Synthèse Globale & Phases de déploiement
 
 La stratégie combinée de collaborations et de publicités de VerifAI privilégie la confiance institutionnelle, la preuve d'usage pragmatique et la régularité d'exposition. Les collaborations organiques apportent la crédibilité nécessaire et un fort ancrage sur le terrain académique et journalistique ; la publicité digitale ciblée apporte, quant à elle, l'amplification nécessaire pour atteindre une masse critique d'utilisateurs.
 

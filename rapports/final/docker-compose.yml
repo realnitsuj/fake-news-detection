@@ -11,5 +11,6 @@ services:
         --metadata-file=/data/metadata.yaml \
         --resource-path=/data/final/ressources \
         --citeproc --bibliography=sources.bib \
+        --toc-depth=2 \
         /data/final/*.md \
         -o /data/output/Final.pdf
