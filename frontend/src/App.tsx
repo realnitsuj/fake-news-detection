@@ -59,12 +59,13 @@ async function runAnalysis(input: string | File): Promise<AnalysisResult> {
   const rawScore = typeof rawScoreValue === "number" ? rawScoreValue : String(rawScoreValue)
   const confidence = Math.round(parseFloat(rawScore.toString().replace("%", "")))
 
-  const rawVerdict = (result.prediction ?? result.verdict ?? "UNCERTAIN").toUpperCase()
+  // --- CORRECTION : Détection intelligente du verdict ---
+  const rawVerdict = String(result.prediction ?? result.verdict ?? "UNCERTAIN").toUpperCase()
   
   let verdict: Verdict = "UNCERTAIN"
-  if (rawVerdict === "FAKE" || rawVerdict === "FAUX") {
+  if (["FAUX", "FAKE", "PARTIEL", "ERRONE", "FALSE"].some(v => rawVerdict.includes(v))) {
     verdict = "FAKE"
-  } else if (rawVerdict === "REAL" || rawVerdict === "VRAI") {
+  } else if (["VRAI", "REAL", "TRUE", "FIABLE", "FACT"].some(v => rawVerdict.includes(v))) {
     verdict = "REAL"
   }
 
@@ -326,7 +327,7 @@ function ResultPage({ result, onClear, leaving, error, onOpenTerms }: { result: 
     if (!result) return
     const lines = [
       "VerifAI — Rapport d'analyse", "═".repeat(36),
-      `Verdict   : ${cfg.label}`, `Confiance : ${result.confidence}%`, "",
+      `Verdict   : ${cfg.label}`, `Confiance : ${result.confidence}`, "",
       `Entrée    : ${result.inputPreview}`, "",
       "EXPLICATION", result.explanation, "",
       "SOURCES", ...result.sources.map(s => `  · ${s}`),
@@ -456,6 +457,7 @@ function ResultPage({ result, onClear, leaving, error, onOpenTerms }: { result: 
                       />
                     </svg>
                     <div className="text-center">
+                      {/* L'affichage sans le pourcentage est garanti ici */}
                       <p className={`text-3xl font-black tabular-nums leading-none ${cfg.color}`}>{result!.confidence}</p>
                     </div>
                   </div>
